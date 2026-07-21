@@ -3,18 +3,24 @@ import { headers } from "next/headers";
 import { site } from "@/content/site";
 
 /**
- * Only the canonical domain is crawlable.
+ * Only the real site is crawlable.
  *
- * Vercel gives every deployment a *.vercel.app hostname. Left open, those can be
- * indexed and end up competing with the real site for Matt's own name. Anything
- * that isn't the canonical host is disallowed outright.
+ * Vercel gives every deployment a *.vercel.app hostname. Left open, those get indexed
+ * and compete with the real site for Matt's own name. Anything that is not the
+ * canonical host is disallowed outright.
+ *
+ * www and the bare domain count as the same site, so a redirect between them does not
+ * silently turn crawling off.
  */
-export default async function robots(): Promise<MetadataRoute.Robots> {
-  const canonicalHost = new URL(site.url).host;
-  const host = (await headers()).get("host") ?? "";
-  const isCanonical = host === canonicalHost;
+function normalise(host: string) {
+  return host.toLowerCase().replace(/^www\./, "").split(":")[0];
+}
 
-  if (!isCanonical) {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const canonical = normalise(new URL(site.url).host);
+  const host = normalise((await headers()).get("host") ?? "");
+
+  if (host !== canonical) {
     return { rules: [{ userAgent: "*", disallow: "/" }] };
   }
 

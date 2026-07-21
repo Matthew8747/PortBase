@@ -7,8 +7,8 @@ import { featured, supporting } from "@/content/projects";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Three case studies — a set-piece simulator, a client website built to outlive its committee, and a " +
-    "51-participant cycling study — plus the smaller projects behind them.",
+    "Three case studies: a set-piece simulator, a client website built to outlive its committee, and a " +
+    "51-participant cycling study. Plus the smaller projects behind them.",
 };
 
 export default function WorkPage() {
@@ -34,7 +34,7 @@ export default function WorkPage() {
             >
               <div className="w-txt">
                 <span className="w-kind">
-                  <em>{project.kind}</em> — {project.kindDetail}
+                  <em>{project.kind}</em> · {project.kindDetail}
                 </span>
                 <span className="w-title">
                   {project.title}{" "}

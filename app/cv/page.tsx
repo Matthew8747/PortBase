@@ -21,8 +21,8 @@ export default function CvPage() {
           <span className="t-section">CV &amp; contact</span>
           <h1>The paperwork, on request.</h1>
           <p className="lede">
-            The short version is below. For the full document — grades module by module, referees and contact
-            details — send a request and I&rsquo;ll reply personally. A CV carrying my phone number
+            The short version is below. For the full document, with grades module by module, referees and contact
+            details, send a request and I&rsquo;ll reply personally. A CV carrying my phone number
             doesn&rsquo;t belong on the open internet, which is the only reason it isn&rsquo;t a download.
           </p>
         </div>

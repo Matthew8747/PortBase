@@ -6,7 +6,7 @@ Matt Pearson's portfolio. Next.js App Router, TypeScript strict, Tailwind v4, de
 
 ```bash
 npm install
-cp .env.example .env.local   # optional — the site runs without it
+cp .env.example .env.local   # optional; the site runs without it
 npm run dev                  # http://localhost:3000
 ```
 
@@ -22,7 +22,7 @@ npm run lint        # eslint
 |---|---|
 | `app/` | Routes. One folder per page, plus `api/cv-request` for the request form. |
 | `components/` | `volumetric-ink` and `helix` are the two signature pieces; the rest is chrome. |
-| `content/site.ts` | Every site-wide fact — name, status, experience, education, skills. |
+| `content/site.ts` | Every site-wide fact: name, status, experience, education, skills. |
 | `content/projects.ts` | Case studies and the supporting project list. |
 | `docs/` | Planning: the plan, the design system, the audience journeys, the log. |
 | `docs/concepts.html` | The approved design prototype. Open it in a browser. |
@@ -33,7 +33,7 @@ npm run lint        # eslint
 
 Every personal fact on this site traces to `docs/PROFILE.md`. If something isn't in there, it doesn't go on the site. See `CLAUDE.md`.
 
-Nothing published here includes a phone number, address, referees, or a raw email address. The CV is sent by hand in response to a request — that's the whole reason `/cv` is a form and not a download.
+Nothing published here includes a phone number, address, referees, or a raw email address. The CV is sent by hand in response to a request. That is the whole reason `/cv` is a form and not a download.
 
 ## Environment
 

@@ -5,7 +5,7 @@
  *  - Restart Lab is early-stage. The case study sells the trustworthy-analytics machinery, not the results.
  *  - The bike-fit rig was built by Bath's Lovelace and IMPACT labs, not by Matt. His work was the
  *    experiment design, running every session, the data pipeline and the analysis.
- *  - Kontron code and screenshots are off limits; the work is described, never shown.
+ *  - Kontron code and screenshots are off limits. The work is described, never shown.
  */
 
 export type CaseSection = {
@@ -21,7 +21,7 @@ export type Project = {
   summary: string;
   tech: string[];
   links?: { label: string; href: string }[];
-  /** Placeholder label until real screenshots land — see docs/TODO.md */
+  /** Placeholder label until real screenshots land. See docs/TODO.md */
   figure: string;
   sections: CaseSection[];
 };
@@ -31,7 +31,7 @@ export const featured: Project[] = [
     slug: "restart-lab",
     title: "Restart Lab",
     kind: "Featured",
-    kindDetail: "simulation & optimisation",
+    kindDetail: "simulation and optimisation",
     summary:
       "A set-piece simulator that refuses to lie. It plays a corner out thousands of times, scores every " +
       "chance with a real expected-goals model, and won't call a routine a winner unless it beats random " +
@@ -47,7 +47,7 @@ export const featured: Project[] = [
         heading: "What it had to do",
         body: [
           "Football clubs spend a great deal of time on set pieces and have very little evidence about which " +
-            "routines actually work. The obvious approach — count what happened in past matches — runs out of " +
+            "routines actually work. The obvious approach, counting what happened in past matches, runs out of " +
             "data almost immediately, because any specific routine against any specific defence has been tried " +
             "a handful of times at most.",
           "So the problem was not really about football. It was about building a tool that could answer a " +
@@ -63,7 +63,7 @@ export const featured: Project[] = [
             "scramble. That turns a handful of real attempts into thousands of synthetic ones.",
           "Every simulated chance is then graded by an expected-goals model trained on StatsBomb's open World " +
             "Cup and Euros data, so the scoring is anchored to real football rather than to my own judgement.",
-          "The decision I care most about is the last one: an optimiser searches for better routines, but " +
+          "The decision I care most about is the last one. An optimiser searches for better routines, but " +
             "nothing it proposes counts unless it beats a random search baseline. Optimisers are very good at " +
             "finding noise and presenting it as insight. Making the baseline mandatory was the only way to " +
             "stop the tool flattering itself.",
@@ -72,8 +72,8 @@ export const featured: Project[] = [
       {
         heading: "How it works",
         body: [
-          "Three steps, one loop. Simulate the set piece; measure each chance with the xG model and report it " +
-            "with confidence intervals; then search the space of deliveries, runs and timings across thousands " +
+          "Three steps, one loop. Simulate the set piece, measure each chance with the xG model and report it " +
+            "with confidence intervals, then search the space of deliveries, runs and timings across thousands " +
             "of trials.",
           "Two consoles sit on top. The Scenario Workbench builds a set piece from real squads and compares two " +
             "routines under common random numbers, so the comparison isn't polluted by luck. Optimization " +
@@ -84,9 +84,9 @@ export const featured: Project[] = [
       {
         heading: "What it cost",
         body: [
-          "Speed. The simulator is slower than I would like, and the throughput work — a Numba kernel for the " +
-            "inner loop — is still in progress. The live demo is usable but not brisk.",
-          "And honestly: the results so far are thin. The platform runs end to end and the machinery is sound, " +
+          "Speed. The simulator is slower than I would like, and the throughput work, a Numba kernel for the " +
+            "inner loop, is still in progress. The live demo is usable but not brisk.",
+          "And honestly, the results so far are thin. The platform runs end to end and the machinery is sound, " +
             "but I have not yet found routines that are decisively better in a way I would defend to a coach. " +
             "The honesty banner that refuses to declare a winner without statistical backing spends most of its " +
             "time refusing.",
@@ -95,10 +95,10 @@ export const featured: Project[] = [
       {
         heading: "What I'd change",
         body: [
-          "I would build the throughput kernel first. Almost every limitation downstream — how many trials a " +
-            "study can afford, how tight the confidence intervals get, how much of the space the optimiser can " +
-            "actually explore — traces back to how fast a single simulation runs. I optimised the interesting " +
-            "part before the boring part, and the boring part turned out to set the ceiling.",
+          "I would build the throughput kernel first. Almost every limitation downstream traces back to how " +
+            "fast a single simulation runs: how many trials a study can afford, how tight the confidence " +
+            "intervals get, how much of the space the optimiser can explore. I optimised the interesting part " +
+            "before the boring part, and the boring part turned out to set the ceiling.",
         ],
       },
     ],
@@ -113,7 +113,7 @@ export const featured: Project[] = [
       "five minutes, it targets 95+ on Lighthouse, and it runs for about ten pounds a year.",
     tech: ["Astro", "Sanity", "Vercel", "Tailwind", "WCAG 2.2 AA"],
     links: [
-      { label: "Live site", href: "https://bubc-web.vercel.app/" },
+      { label: "Live site", href: "https://bubc.co.uk" },
       { label: "Source", href: "https://github.com/Matthew8747/BUBC" },
     ],
     figure: "Homepage",
@@ -122,8 +122,8 @@ export const featured: Project[] = [
         heading: "What it had to do",
         body: [
           "Recruit rowers, keep alumni interested, and give sponsors something credible to look at. But the real " +
-            "constraint was organisational, not technical: a university club's committee turns over every year. " +
-            "Any site that needs a developer to update it dies quietly about fourteen months after launch.",
+            "constraint was organisational rather than technical. A university club's committee turns over every " +
+            "year, and any site that needs a developer to update it dies quietly about fourteen months after launch.",
           "So the brief I set was that a non-developer should be able to publish a race report in under five " +
             "minutes, and the running cost should be small enough that nobody is ever tempted to cancel it.",
         ],
@@ -135,8 +135,8 @@ export const featured: Project[] = [
             "server to maintain.",
           "The alternative I rejected was a conventional CMS like WordPress. It would have been faster to stand " +
             "up and would have handed the next committee a database, a hosting bill, and a security surface. " +
-            "Static output means the worst thing that can happen to the site is that it stops being updated — " +
-            "it cannot go down or get compromised in the usual ways.",
+            "Static output means the worst thing that can happen to the site is that it stops being updated. It " +
+            "cannot go down or get compromised in the usual ways.",
           "Editors work in Sanity Studio. Publishing fires a webhook at a Vercel deploy hook, and the whole site " +
             "rebuilds in around a minute.",
         ],
@@ -145,8 +145,8 @@ export const featured: Project[] = [
         heading: "How it works",
         body: [
           "Astro pulls every page from Sanity's GROQ API at build time and writes static HTML and CSS. Vercel " +
-            "serves it from the edge and rebuilds on push or on publish. Forms go to Formspree, the newsletter " +
-            "to Buttondown — both env-gated, so neither is a hard dependency.",
+            "serves it from the edge and rebuilds on push or on publish. Forms go to Formspree and the newsletter " +
+            "to Buttondown, both env-gated, so neither is a hard dependency.",
         ],
       },
       {
@@ -154,8 +154,8 @@ export const featured: Project[] = [
         body: [
           "Roughly ten pounds a year, which is the domain. Everything else sits inside free tiers, deliberately.",
           "The trade-off is that content changes require a rebuild rather than appearing instantly, and that " +
-            "genuinely dynamic features — a members' area, live race scoring, a shop — are off the table. For " +
-            "this club that was the right exchange; we link out for those instead.",
+            "genuinely dynamic features like a members' area, live race scoring or a shop are off the table. For " +
+            "this club that was the right exchange, and we link out for those instead.",
         ],
       },
       {
@@ -175,7 +175,7 @@ export const featured: Project[] = [
     kindDetail: "final-year dissertation",
     summary:
       "Fifty-one riders, three sessions each, asking whether a professional bike fit actually changes what the " +
-      "body does — and whether it differs between men and women. I designed the protocol, ran every session, " +
+      "body does, and whether it differs between men and women. I designed the protocol, ran every session, " +
       "and built the pipeline from raw sensor stream to finding.",
     tech: ["Experiment design", "Python", "COSMED", "Qualisys & Theia3D", "EMG"],
     links: [{ label: "Pipeline source", href: "https://github.com/Matthew8747/Bikefit-Data-Pipeline" }],
@@ -186,8 +186,8 @@ export const featured: Project[] = [
         body: [
           "Professional bike fitting is a large industry built on a fairly small evidence base, and almost none " +
             "of that evidence addresses whether the effects differ by sex. The study asked a narrow version of " +
-            "the question: after a professional fit, does anything measurable change in physiology, " +
-            "biomechanics, muscle activation or comfort — and does it change differently for women than for men?",
+            "the question. After a professional fit, does anything measurable change in physiology, " +
+            "biomechanics, muscle activation or comfort, and does it change differently for women than for men?",
           "It earned 82%.",
         ],
       },
@@ -195,11 +195,11 @@ export const featured: Project[] = [
         heading: "What I chose",
         body: [
           "A crossover design. Every participant rides both their own self-selected fit and a professionally " +
-            "adjusted one, so each rider is their own control — which matters enormously when you have around " +
+            "adjusted one, so each rider is their own control, which matters enormously when you have around " +
             "fifty people and enormous variation between them.",
-          "Three sessions each. Screening, anthropometrics, self-selected fit and a ramp test to establish FTP; " +
-            "then a twenty-minute trial at 95% of FTP on the self-selected fit; then the same trial on the " +
-            "professional fit. Perceived exertion recorded at four, nine, fourteen and nineteen minutes.",
+          "Three sessions each. Screening, anthropometrics, self-selected fit and a ramp test to establish FTP. " +
+            "Then a twenty-minute trial at 95% of FTP on the self-selected fit. Then the same trial on the " +
+            "professional fit, with perceived exertion recorded at four, nine, fourteen and nineteen minutes.",
           "To be clear about credit: the measurement platform was custom built by Bath's Lovelace and IMPACT " +
             "labs. I did not build the rig. My work was the experiment design, running every session, and " +
             "everything that happened to the data afterwards.",
@@ -222,10 +222,10 @@ export const featured: Project[] = [
         body: [
           "Time, mostly in the lab. Fifty-one participants across three sessions each is over 150 sessions, " +
             "every one of which had to be run in person and to the same protocol.",
-          "The recurring cost was data integrity. Instruments drop frames, sensors come loose, participants " +
-            "cannot always hold the target power — the protocol steps power down by 5% when that happens, " +
-            "which then has to be modelled rather than ignored. A meaningful share of the pipeline exists to " +
-            "detect and handle these cases rather than to compute anything.",
+          "The recurring cost was data integrity. Instruments drop frames, sensors come loose, and participants " +
+            "cannot always hold the target power. The protocol steps power down by 5% when that happens, which " +
+            "then has to be modelled rather than ignored. A meaningful share of the pipeline exists to detect " +
+            "and handle these cases rather than to compute anything.",
         ],
       },
       {
@@ -276,7 +276,7 @@ export const supporting: SupportingProject[] = [
     title: "Society Matchmaker",
     note:
       "An eight-person team project tackling student society engagement. I led the user research and built the " +
-      "random forest recommender behind it; engagement rose 150% against the system it replaced.",
+      "random forest recommender behind it, and engagement rose 150% against the system it replaced.",
     tech: "Python · random forest · user research",
   },
   {
@@ -292,6 +292,7 @@ export const supporting: SupportingProject[] = [
     note:
       "A gallery site for an artist's work, built to take enquiries about individual pieces and ready to sell " +
       "directly when that is wanted.",
+    href: "https://barnett-art.vercel.app",
     tech: "Client work",
   },
   {

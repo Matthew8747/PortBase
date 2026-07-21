@@ -13,7 +13,6 @@ export const site = {
   location: "Bath, UK",
   relocation: "happy to move for the right team",
 
-  // Update to https://mattpearson.dev once the domain is bought (see docs/TODO.md)
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mattpearson.dev",
 
   links: {
@@ -33,10 +32,10 @@ export type ExperienceEntry = {
   note: string;
 };
 
-/** From PROFILE.md — Experience table. */
+/** From PROFILE.md, Experience table. */
 export const experience: ExperienceEntry[] = [
   {
-    when: "2024 — 2025",
+    when: "2024 to 2025",
     role: "Software Engineer",
     org: "Kontron",
     note:
@@ -49,11 +48,11 @@ export const experience: ExperienceEntry[] = [
     role: "Sponsorship analytics extern",
     org: "NY Racing",
     note:
-      "Building the visibility model behind NASCAR sponsorship ROI: a full Cup Series season of race results " +
+      "Building the visibility model behind NASCAR sponsorship ROI. A full Cup Series season of race results " +
       "joined to Reddit, YouTube and news exposure, then tested for what actually moves together.",
   },
   {
-    when: "2023 — 2025",
+    when: "2023 to 2025",
     role: "Student Ambassador and peer mentor",
     org: "University of Bath",
     note:
@@ -65,12 +64,12 @@ export const experience: ExperienceEntry[] = [
     role: "Work experience, embedded systems",
     org: "Secure Thingz",
     note:
-      "Microcontrollers and IoT security in Cambridge — where the interest in systems that have to be " +
+      "Microcontrollers and IoT security in Cambridge, where the interest in systems that have to be " +
       "trustworthy started.",
   },
 ];
 
-/** From PROFILE.md — Identity and Skills. */
+/** From PROFILE.md, Identity and Skills. */
 export const education = {
   degree: "MComp Computer Science and Artificial Intelligence",
   institution: "University of Bath",
@@ -80,7 +79,7 @@ export const education = {
     "82% dissertation",
     "A*A*A* at A-level in Maths, Computer Science and Physics, plus an A* EPQ",
     "Henry Pearson-Gates award for outstanding A-level studies",
-    "UKMT gold at every level; British Physics Olympiad silver",
+    "UKMT gold at every level, and British Physics Olympiad silver",
   ],
 };
 
@@ -101,7 +100,7 @@ export const skills = {
   methods: ["Agile and Scrum", "Test-driven development", "CI/CD"],
 };
 
-/** Coursework paragraphs — from PROFILE.md. More to be added once Matt uploads the rest. */
+/** Coursework, from PROFILE.md. More to be added once Matt uploads the rest. */
 export const coursework = [
   {
     module: "Reinforcement Learning",

@@ -49,7 +49,8 @@ export default function HomePage() {
               <span className="t-section">Selected work</span>
               <h2>Three projects, told properly.</h2>
               <p>
-                Each one has a case study — what it had to do, what I chose, what it cost, what I&rsquo;d change.
+                Each one has a case study covering what it had to do, what I chose, what it cost, and what
+                I&rsquo;d change.
               </p>
             </Reveal>
 
@@ -61,7 +62,7 @@ export default function HomePage() {
               >
                 <div className="w-txt">
                   <span className="w-kind">
-                    <em>{project.kind}</em> — {project.kindDetail}
+                    <em>{project.kind}</em> · {project.kindDetail}
                   </span>
                   <span className="w-title">
                     {project.title}{" "}
@@ -113,7 +114,7 @@ export default function HomePage() {
               <blockquote>
                 Three first-class years at Bath, a placement year shipping enterprise software, and a seat in the
                 university&rsquo;s <i>first boat</i>. I like hard problems and honest results, and I&rsquo;ll go a
-                long way for both — including a month alone in Peru.
+                long way for both, including a month alone in Peru.
               </blockquote>
               <Link className="ulink" href="/about">
                 The longer story →
@@ -127,8 +128,8 @@ export default function HomePage() {
               <span className="t-section">CV &amp; contact</span>
               <h2>The paperwork, on request.</h2>
               <p>
-                Education, grades and the full project record — sent personally, because a CV carrying my phone
-                number doesn&rsquo;t belong on the open internet.
+                Education, grades and the full project record, sent personally. A CV carrying my phone number
+                doesn&rsquo;t belong on the open internet.
               </p>
               <span className="status">
                 <i aria-hidden="true" />

@@ -36,7 +36,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <main id="main">
         <div className="page-head">
           <span className="t-section">
-            {project.kind} — {project.kindDetail}
+            {project.kind} · {project.kindDetail}
           </span>
           <h1>{project.title}</h1>
           <p className="lede">{project.summary}</p>
