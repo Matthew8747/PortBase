@@ -1,5 +1,5 @@
 # PROGRESS.md — log, open items, reminders
-docs-version: 8
+docs-version: 9
 
 > Append-only log + living checklist. Any chat session working on this project: read PLAN.md → PROFILE.md → DESIGN.md → this file, then continue from "Next actions".
 
@@ -34,6 +34,13 @@ docs-version: 8
 | 2026-07-20 | IA draft: 7 page types; rejected Blog/Uses/Now/Speaking/Lab pages |
 
 ## Session log
+- **2026-07-21 (DEPLOY FIX + SU role):** Matt reported images not loading on the live site.
+  - **Not a code bug.** Production was still serving the pre-imagery build: the figure slots rendered the old `<span>OPTIMISATION STUDY</span>` placeholder plates, which is exactly what a broken image looks like. Every new asset 404'd on prod (`/profile.jpeg`, `/work/*.webp`, `/icon.svg`) because that build did not contain them. `x-vercel-cache: HIT` with `age: 37798` (10.5 hours) confirmed nothing had rebuilt.
+  - **Root cause: Vercel had no GitHub integration.** `GET repos/Matthew8747/PortBase/deployments` returned **0**. The project was originally linked with the Vercel CLI, which does not connect the Git repo. So merging PR #2 deployed nothing, and would have kept deploying nothing.
+  - **Ruled out the alternatives before blaming the deploy:** ran `next build` + `next start` locally and confirmed every asset serves 200 and `/_next/image` returns a real optimised image. The pipeline was never broken.
+  - **Matt connected the Git repo mid-session.** Verified it works rather than assuming: the branch push produced a **Preview** deployment (success), the preview served all assets, and all three work-row images reported `complete && naturalWidth > 0`. Merging PR #3 then produced a **Production** deployment automatically. So pushes to `main` now deploy to production, and branches get previews.
+  - **Live and verified:** www.mattpearson.dev now serves the new build (new copy, Barnett Art, the SU role), all assets 200, `/_next/image` returns `image/webp` through Cloudflare, zero console errors.
+  - **Added the SU Performance Sport Officer role** (PR #3), elected seat on the Students' Union Sports Executive. Sits third in the experience list, ahead of the ambassador entry. Description is the official remit from thesubath.com only. An early draft invented a line about what Matt did and did not enjoy about the role; it was cut before commit. Nothing is claimed about his personal record in the post because nothing is on record.
 - **2026-07-21 (RESPONSIVE + FACT-CHECK):** Matt: the site does not look right at 16:9, check mobile too; plus pointers to the coursework archives and answers to the open questions.
   - **Found a production-only bug first.** `content/site.ts` pointed the portrait at `/PROFILE.jpeg` while the file on disk is `public/profile.jpeg`. Windows does not care about case; Vercel's filesystem does, so it worked locally and would have 404'd in production. Corrected, with a comment so the next person does not repeat it.
   - **The 16:9 problem was structural.** Sections carried a 150px left gutter and no maximum width, so on a 1920 monitor everything hugged the left rail and roughly a third of the screen sat empty. Added a centred shell (`--shell: 1280px`, `--bleed`) applied to `.sec`, `.page-head` and `.fig-lead`. Backgrounds still run edge to edge; only the content centres. Verified at 2560, 1920, 1366, 1024, 768, 390 and 360: no horizontal overflow at any width.

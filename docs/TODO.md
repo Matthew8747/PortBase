@@ -1,7 +1,7 @@
 # TODO.md: things only Matt can do
 
 > Ordered by what unblocks the most. Everything not on this list is either done or is Claude's job.
-> Last updated: 2026-07-21 (docs v7)
+> Last updated: 2026-07-21 (docs v9)
 
 ---
 
@@ -10,6 +10,8 @@
 Live at **https://www.mattpearson.dev**, deployed from `github.com/Matthew8747/PortBase`.
 
 Done already: domain bought and attached, DNS through Cloudflare, Resend key and both addresses set in Vercel.
+
+**Deploys are now automatic** (connected 2026-07-21). A push to `main` builds Production; any other branch builds a Preview. Verified end to end, not assumed. Before this, the project was CLI-linked with no Git integration, so merged PRs silently deployed nothing, which is why the live site sat on the pre-imagery build showing empty placeholder plates.
 
 Two things worth tidying:
 
