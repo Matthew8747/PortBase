@@ -57,7 +57,9 @@ Python, TypeScript, Java and C. React, Next.js, Angular and Astro on the front. 
 scikit-learn for the modelling. Postgres, Docker, Jenkins and AWS around the edges.
 
 Rowing takes the rest of the week: British Rowing Performance Development Academy, medals at
-the Senior British Championships and at BUCS.
+the Senior British Championships and at BUCS. This year I was elected Performance Sport Officer
+on the Students' Union Sports Executive, representing every performance athlete at the
+university.
 
 ### Contact
 
@@ -95,7 +97,9 @@ first. My dissertation, graded 82%, spent most of its engineering effort on reco
 instrument streams onto one clock, because nothing downstream means anything until that
 is right.
 
-I also build and run websites for real clients, and I row, currently in Bath's first boat.
+I also build and run websites for real clients. Outside that I row in Bath's first boat, and
+this year I was elected Performance Sport Officer on the Students' Union Sports Executive,
+representing performance athletes across every sport at the university.
 
 Work and case studies: mattpearson.dev
 ```
