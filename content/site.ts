@@ -20,6 +20,17 @@ export const site = {
     linkedin: "https://www.linkedin.com/in/matthewpearson274",
   },
 
+  /**
+   * Flip `enabled` to false to run the About page without a portrait.
+   * `src` must match the file in `public/` exactly, including case: Vercel serves from a
+   * case-sensitive filesystem, so `/PROFILE.jpeg` 404s in production while working locally.
+   */
+  portrait: {
+    src: "/profile.jpeg",
+    enabled: true,
+    alt: "Matt Pearson.",
+  },
+
   description:
     "Final-year Computer Science and AI student at the University of Bath. Three first-class years, " +
     "a placement year shipping enterprise software, and projects built to tell the truth about their own results.",
@@ -48,8 +59,9 @@ export const experience: ExperienceEntry[] = [
     role: "Sponsorship analytics extern",
     org: "NY Racing",
     note:
-      "Building the visibility model behind NASCAR sponsorship ROI. A full Cup Series season of race results " +
-      "joined to Reddit, YouTube and news exposure, then tested for what actually moves together.",
+      "Building the visibility model behind NASCAR sponsorship ROI. A full Cup Series season of race " +
+      "results joined to Reddit, YouTube and news coverage, so exposure can be tested against finishing " +
+      "position instead of assumed. Collection and cleaning are done; the modelling is still in progress.",
   },
   {
     when: "2023 to 2025",
@@ -78,10 +90,60 @@ export const education = {
     "First class in all three years of study",
     "82% dissertation",
     "A*A*A* at A-level in Maths, Computer Science and Physics, plus an A* EPQ",
-    "Henry Pearson-Gates award for outstanding A-level studies",
-    "UKMT gold at every level, and British Physics Olympiad silver",
   ],
 };
+
+/** From PROFILE.md. Academic results live above; these are the competitive ones. */
+export const awards = [
+  "Henry Pearson-Gates award for outstanding A-level studies",
+  "UKMT gold at every level",
+  "British Physics Olympiad silver",
+  "Medals at the Senior British Rowing Championships and at BUCS",
+  "Rowed in the British Rowing Performance Development Academy",
+];
+
+/**
+ * The CV's evidence column: one line per piece of work, led by the outcome rather than the
+ * stack. Numbers trace to docs/PROFILE.md or to the repository named in the link.
+ */
+export const cvHighlights: { title: string; note: string; href?: string }[] = [
+  {
+    title: "Restart Lab",
+    note:
+      "Set-piece simulator with a mandatory random-search baseline. On the study shipped with the " +
+      "repository, the optimised routine reached 6.66% mean xG per corner against a 1.04% baseline, " +
+      "with non-overlapping 95% intervals.",
+    href: "/work/restart-lab",
+  },
+  {
+    title: "Barnett Art",
+    note:
+      "Production storefront and portfolio for a working painter. Stripe hosted checkout, Postgres, " +
+      "atomic stock so an original cannot sell twice, 101 unit tests and a security audit gating CI.",
+    href: "/work/barnett-art",
+  },
+  {
+    title: "BUBC",
+    note:
+      "Website for the University of Bath Boat Club, built for a committee that changes every year. " +
+      "Editors publish a race report in under five minutes and it runs for about ten pounds a year.",
+    href: "/work/bubc",
+  },
+  {
+    title: "Bike fit study",
+    note:
+      "Fifty-one participants across three sessions each. Designed the protocol, ran every session, " +
+      "and built the pipeline that reconciled six instrument streams onto one timeline. Graded 82%.",
+    href: "/work/bike-fit",
+  },
+  {
+    title: "Society Matchmaker",
+    note:
+      "Led the user research and built the random forest recommender for an eight-person team project. " +
+      "A controlled study of 18 participants put our engagement ratio at 36% against the existing " +
+      "students' union site at 15%, with paired t-tests significant at p < .001.",
+  },
+];
 
 export const skills = {
   languages: ["Python", "TypeScript", "JavaScript", "Java", "C", "SQL"],
@@ -114,14 +176,21 @@ export const coursework = [
   },
   {
     module: "Cyber Security",
-    note: "Analysed the security of a live transaction by working through its HAR files.",
+    note:
+      "Made one real card purchase, captured it, and took the whole thing apart. That single checkout " +
+      "reached 49 separate domains over 766 requests, which I grouped into six categories and traced from " +
+      "the basket call through to the payment endpoint and the bot-detection telemetry riding alongside it.",
   },
   {
     module: "Digital Business Innovation",
-    note: "Studied which of Spotify's innovations actually drove its growth.",
+    note:
+      "Traced Red Bull's route from a Thai tonic to a media company that happens to sell drinks, and " +
+      "which of its digital moves actually carried the growth.",
   },
   {
     module: "Entrepreneurship",
-    note: "Developed a brand concept for AI security training aimed at financial services staff.",
+    note:
+      "A venture for training people to tell human writing from machine writing, taken from problem " +
+      "through prototypes and user feedback to a pitch.",
   },
 ];

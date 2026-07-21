@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <title>Matt Pearson</title>
+  <!--
+    The mark is the helix (docs/SYSTEM.md §8) cropped to its single most legible
+    instant: the point where the cobalt strand and the rubric strand cross.
+    Curve geometry matches components/helix.tsx, x = cx + A·sin(θ), sampled over
+    θ = -π/2 to +π/2 so the two strands (offset by π) meet exactly once.
+    Amplitude is exaggerated from the page's 13px/540px so it survives 16px.
+    Colours are the dark-ground variants, because the ground is --void.
+  -->
+  <rect width="32" height="32" rx="2" fill="#0A0907"/>
+  <g fill="none" stroke-linecap="round" stroke-width="3.4">
+    <path d="M22 4C22 12.6 10 19.4 10 28" stroke="#E8683F"/>
+    <path d="M10 4C10 12.6 22 19.4 22 28" stroke="#0A0907" stroke-width="5.8"/>
+    <path d="M10 4C10 12.6 22 19.4 22 28" stroke="#8B9CF4"/>
+  </g>
+</svg>

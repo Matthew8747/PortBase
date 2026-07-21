@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/reveal";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
-import { coursework, education, experience, skills } from "@/content/site";
+import { coursework, education, experience, site, skills } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -17,14 +18,28 @@ export default function AboutPage() {
     <>
       <SiteHeader />
       <main id="main">
-        <div className="page-head">
-          <span className="t-section">About</span>
-          <h1>The longer story.</h1>
-          <p className="lede">
-            I&rsquo;m a final-year Computer Science and AI student at the University of Bath, on the integrated
-            masters with a placement year. I like problems where the answer isn&rsquo;t already known, and I care a
-            great deal about not overstating what the answer turned out to be.
-          </p>
+        <div className="page-head about-head">
+          <div className="about-intro">
+            <span className="t-section">About</span>
+            <h1>The longer story.</h1>
+            <p className="lede">
+              I&rsquo;m a final-year Computer Science and AI student at the University of Bath, on the integrated
+              masters with a placement year. I like problems where the answer isn&rsquo;t already known, and I care a
+              great deal about not overstating what the answer turned out to be.
+            </p>
+          </div>
+          {site.portrait.enabled ? (
+            <div className="portrait">
+              <Image
+                alt={site.portrait.alt}
+                height={900}
+                priority
+                sizes="(max-width: 900px) 60vw, 260px"
+                src={site.portrait.src}
+                width={720}
+              />
+            </div>
+          ) : null}
         </div>
 
         <section className="sec" style={{ paddingTop: 0 }}>
