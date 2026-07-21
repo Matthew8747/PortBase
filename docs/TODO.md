@@ -5,6 +5,17 @@
 
 ---
 
+## 0. Where it is right now
+
+Deployed to Vercel, project `portbase` under `matt-pearson-projects`. **It is not public** — Deployment Protection is on, so the URL bounces to Vercel SSO and only you (logged into Vercel) can see it.
+
+- Live (needs your Vercel login): https://portbase-h1p1ttzor-matt-pearson-projects.vercel.app
+- Code: https://github.com/Matthew8747/PortBase
+
+To make it public later: Vercel → Project → Settings → Deployment Protection → turn off. **Do the domain and the old-CV takedown below first.**
+
+---
+
 ## 1. Before sharing the link with anyone
 
 ### Buy the domain — ~£8/yr
