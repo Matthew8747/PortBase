@@ -4,9 +4,9 @@ import { z } from "zod";
 /**
  * CV request handler.
  *
- * Deliberately minimal: validate, rate-limit lightly, email Matt. Nothing is stored,
- * there is no database, and the requester's details are not used for anything else.
- * Matt sends the CV himself — see docs/IA.md.
+ * Deliberately minimal: validate, throttle, email Matt. Nothing is stored, there is no
+ * database, and the requester's details are not used for anything else. Matt sends the
+ * CV himself. See docs/IA.md.
  */
 
 const schema = z.object({
@@ -17,7 +17,11 @@ const schema = z.object({
   website: z.string().optional(), // honeypot
 });
 
-/** In-memory throttle. Resets on cold start, which is fine for this volume. */
+/** Resend's shared sender. Works without a verified domain, but only delivers to the
+ *  address that owns the Resend account, which is exactly where CV requests go anyway. */
+const FALLBACK_FROM = "CV requests <onboarding@resend.dev>";
+
+/** In-memory throttle. Resets on cold start, which is fine at this volume. */
 const seen = new Map<string, number[]>();
 const WINDOW_MS = 60 * 60 * 1000;
 const MAX_PER_WINDOW = 5;
@@ -38,6 +42,19 @@ function escapeHtml(value: string) {
     .replace(/"/g, "&quot;");
 }
 
+/**
+ * True only when the *sending domain* is the problem, which the shared sender can work
+ * around. Deliberately narrow: an invalid API key is also a `validation_error`, and
+ * retrying that would just fail twice and muddy the logs.
+ */
+function isUnverifiedSenderDomain(error: unknown) {
+  if (!error || typeof error !== "object") return false;
+  const e = error as { statusCode?: number; message?: string };
+  const message = e.message ?? "";
+  if (/api key/i.test(message)) return false;
+  return e.statusCode === 403 || /not verified|verify your domain/i.test(message);
+}
+
 export async function POST(request: Request) {
   let payload: unknown;
   try {
@@ -56,7 +73,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ errors }, { status: 422 });
   }
 
-  // Bot filled the hidden field. Accept silently so it doesn't learn anything.
+  // A bot filled the hidden field. Accept silently so it learns nothing.
   if (parsed.data.website) return NextResponse.json({ ok: true });
 
   const ip =
@@ -65,7 +82,7 @@ export async function POST(request: Request) {
     "unknown";
   if (rateLimited(ip)) {
     return NextResponse.json(
-      { error: "That's a few requests in a short time. Try again later." },
+      { error: "That's a few requests in a short time. Please try again later." },
       { status: 429 },
     );
   }
@@ -73,44 +90,66 @@ export async function POST(request: Request) {
   const { name, organisation, email, reason } = parsed.data;
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CV_REQUEST_TO;
-  const from = process.env.CV_REQUEST_FROM ?? "CV requests <onboarding@resend.dev>";
+  const from = process.env.CV_REQUEST_FROM ?? FALLBACK_FROM;
 
-  // Always log, so a request is never lost even if email isn't wired up yet.
+  // Always log, so a request survives even when email is misconfigured.
   console.info("[cv-request]", JSON.stringify({ name, organisation, email, reason }));
 
   if (!apiKey || !to) {
     return NextResponse.json(
       {
         error:
-          "The request form isn't connected to email yet. Please reach out on LinkedIn and it'll get sorted.",
+          "The form isn't connected to email yet. Please reach out on LinkedIn and it'll get sorted.",
       },
       { status: 503 },
     );
   }
 
+  const message = {
+    to,
+    replyTo: email,
+    subject: `CV request: ${name}, ${organisation}`,
+    html: `
+      <h2>CV request</h2>
+      <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+      <p><strong>Organisation:</strong> ${escapeHtml(organisation)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+      <p><strong>Reason:</strong><br>${escapeHtml(reason).replace(/\n/g, "<br>")}</p>
+    `,
+  };
+
   try {
     const { Resend } = await import("resend");
     const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from,
-      to,
-      replyTo: email,
-      subject: `CV request — ${name}, ${organisation}`,
-      html: `
-        <h2>CV request</h2>
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Organisation:</strong> ${escapeHtml(organisation)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Reason:</strong><br>${escapeHtml(reason).replace(/\n/g, "<br>")}</p>
-      `,
-    });
+
+    let { error } = await resend.emails.send({ from, ...message });
+
+    // The configured sender needs a verified domain in Resend. Until that is done,
+    // fall back to the shared sender so real requests still arrive.
+    if (error && from !== FALLBACK_FROM && isUnverifiedSenderDomain(error)) {
+      console.warn("[cv-request] sending domain not verified, retrying via shared sender", error);
+      ({ error } = await resend.emails.send({ from: FALLBACK_FROM, ...message }));
+    }
+
     if (error) {
       console.error("[cv-request] resend error", error);
-      return NextResponse.json({ error: "That didn't send. Try again shortly." }, { status: 502 });
+      return NextResponse.json(
+        {
+          error:
+            "That didn't send. The request has been logged, so please also drop Matt a line on LinkedIn.",
+        },
+        { status: 502 },
+      );
     }
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[cv-request] unexpected", err);
-    return NextResponse.json({ error: "That didn't send. Try again shortly." }, { status: 500 });
+    return NextResponse.json(
+      {
+        error:
+          "That didn't send. The request has been logged, so please also drop Matt a line on LinkedIn.",
+      },
+      { status: 500 },
+    );
   }
 }

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   TOKENS — see docs/SYSTEM.md. Every colour here has a named job.
+   TOKENS. See docs/SYSTEM.md. Every colour here has a named job.
    ============================================================ */
 :root {
   --void: #0a0907;
@@ -110,7 +110,7 @@ p {
 }
 
 /* ============================================================
-   BUTTONS AND LINKS — all states, docs/SYSTEM.md §7
+   BUTTONS AND LINKS. All states, docs/SYSTEM.md §7
    ============================================================ */
 .btn {
   display: inline-flex;
@@ -1174,7 +1174,7 @@ p {
 }
 
 /* ============================================================
-   MOTION PREFERENCES — nothing is hidden from a reader who turns motion off
+   MOTION PREFERENCES. Nothing is hidden from a reader who turns motion off
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   html {

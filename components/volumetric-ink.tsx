@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Volumetric ink — the hero's signature element. See docs/SYSTEM.md §8.
+ * Volumetric ink, the hero's signature element. See docs/SYSTEM.md §8.
  *
  * Depth comes from four things a flat canvas doesn't have: layers at different
  * distances, a two-stage bloom, an unblurred core pass, and grain in the medium.
@@ -138,17 +138,17 @@ export default function VolumetricInk({ density = "bloom" }: { density?: Density
       ctx.globalCompositeOperation = "lighter";
 
       if (canFilter) {
-        // wide halo — the medium scattering light far from the source
+        // wide halo: the medium scattering light far from the source
         ctx.filter = `blur(${(m * P.soft).toFixed(1)}px)`;
         ctx.globalAlpha = 0.5;
         ctx.drawImage(off, 0, 0, W, H);
-        // tight glow — keeps the shape readable close in
+        // tight glow: keeps the shape readable close in
         ctx.filter = `blur(${(m * P.soft * 0.32).toFixed(1)}px)`;
         ctx.globalAlpha = 0.65;
         ctx.drawImage(off, 0, 0, W, H);
         ctx.filter = "none";
       }
-      // core — without this the frame is uniform haze
+      // core: without this the frame is uniform haze
       ctx.globalAlpha = 1;
       ctx.drawImage(off, 0, 0, W, H);
       ctx.globalAlpha = P.core;

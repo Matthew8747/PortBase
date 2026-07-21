@@ -8,8 +8,8 @@ import { coursework, education, experience, skills } from "@/content/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Final-year Computer Science and AI at Bath, a placement year at Kontron, and rowing at national level — " +
-    "the longer version.",
+    "Final-year Computer Science and AI at Bath, a placement year at Kontron, and rowing at national level. " +
+    "The longer version.",
 };
 
 export default function AboutPage() {
@@ -33,8 +33,8 @@ export default function AboutPage() {
               <h2>How I got here</h2>
               <p>
                 I took Maths, Computer Science and Physics at A-level and an EPQ asking whether computer-aided
-                diagnosis was ready for large-scale use. That question — a technology that works in a paper but has
-                to survive contact with real clinical practice — is roughly the question I&rsquo;ve kept asking
+                diagnosis was ready for large-scale use. That question, a technology that works in a paper but has
+                to survive contact with real clinical practice, is roughly the question I&rsquo;ve kept asking
                 since, in different clothes.
               </p>
               <p>
@@ -51,7 +51,7 @@ export default function AboutPage() {
                 I rowed in the British Rowing Performance Development Academy and won medals at the Senior British
                 Championships and at BUCS. This year I switched to sweep for the university squad for the first time
                 and made the first boat. We didn&rsquo;t qualify for Henley, and we were fractions of a second off
-                the A final at BUCS — so by the numbers it wasn&rsquo;t a successful season.
+                the A final at BUCS, so by the numbers it wasn&rsquo;t a successful season.
               </p>
               <p>
                 I mention it because twelve-plus sessions a week alongside a degree and a full-time placement is the
@@ -65,7 +65,7 @@ export default function AboutPage() {
               <h2>A month in Peru</h2>
               <p>
                 I spent a month travelling Peru alone. It is the single most useful thing I have done for my own
-                judgement — every day is a series of decisions made on incomplete information in a language you
+                judgement. Every day is a series of decisions made on incomplete information in a language you
                 only partly speak, and you find out quite quickly whether you actually solve problems or just
                 prefer the idea of solving them.
               </p>

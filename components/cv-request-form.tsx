@@ -23,16 +23,31 @@ export default function CvRequestForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      const body = (await res.json()) as { ok?: boolean; errors?: Errors; error?: string };
 
-      if (!res.ok) {
-        setErrors(body.errors ?? { form: body.error ?? "That didn't send. Try again in a moment." });
-        setSending(false);
+      // A proxy or edge network in front of the app can answer with plain text or an
+      // HTML error page, so the body is only trustworthy when it says it is JSON.
+      const isJson = res.headers.get("content-type")?.includes("application/json");
+      const body = isJson ? ((await res.json()) as { errors?: Errors; error?: string }) : null;
+
+      if (res.ok) {
+        router.push("/thanks");
         return;
       }
-      router.push("/thanks");
+
+      setErrors(
+        body?.errors ??
+          (body?.error
+            ? { form: body.error }
+            : {
+                form:
+                  "That didn't send. Please try again, or message Matt on LinkedIn and he'll pick it up.",
+              }),
+      );
+      setSending(false);
     } catch {
-      setErrors({ form: "That didn't send — check your connection and try again." });
+      setErrors({
+        form: "That didn't send. Check your connection, or message Matt on LinkedIn instead.",
+      });
       setSending(false);
     }
   }
@@ -41,7 +56,13 @@ export default function CvRequestForm() {
     <form className="form" onSubmit={onSubmit} noValidate>
       <div className="field">
         <label htmlFor="name">Your name</label>
-        <input id="name" name="name" autoComplete="name" required aria-describedby={errors.name ? "name-err" : undefined} />
+        <input
+          id="name"
+          name="name"
+          autoComplete="name"
+          required
+          aria-describedby={errors.name ? "name-err" : undefined}
+        />
         {errors.name ? (
           <span className="err" id="name-err">
             {errors.name}
@@ -64,7 +85,7 @@ export default function CvRequestForm() {
       <div className="field">
         <label htmlFor="reason">What&rsquo;s it for?</label>
         <textarea id="reason" name="reason" required />
-        <span className="hint">A line is plenty — the role, or what you&rsquo;re hiring for.</span>
+        <span className="hint">A line is plenty. The role, or what you&rsquo;re hiring for.</span>
         {errors.reason ? <span className="err">{errors.reason}</span> : null}
       </div>
 
@@ -74,16 +95,24 @@ export default function CvRequestForm() {
         <input id="website" name="website" tabIndex={-1} autoComplete="off" />
       </div>
 
-      {errors.form ? <span className="err">{errors.form}</span> : null}
+      {errors.form ? (
+        <span className="err" role="alert">
+          {errors.form}
+        </span>
+      ) : null}
 
       <div>
         <button className="btn btn-ink" type="submit" disabled={sending}>
-          {sending ? "Sending…" : "Request the CV"} <span className="arr">→</span>
+          {sending ? "Sending" : "Request the CV"}{" "}
+          <span className="arr" aria-hidden="true">
+            →
+          </span>
         </button>
       </div>
 
       <p className="form-note">
-        Your details are used to reply to you and nothing else. No list, no forwarding, no analytics on this form.
+        Your details are used to reply to you and nothing else. No list, no forwarding, no
+        analytics on this form.
       </p>
     </form>
   );

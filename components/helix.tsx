@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * The helix — the page-long motif. See docs/SYSTEM.md §8.
+ * The helix, the page-long motif. See docs/SYSTEM.md §8.
  *
  * Two strands in the left gutter, offset by π. A ghost track is always visible so the
  * motif reads at the top of the page; the lit strand draws over it with scroll progress,

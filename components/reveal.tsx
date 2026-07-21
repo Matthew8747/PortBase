@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 
 /**
- * Scroll reveal. Fires once and stops observing — nothing re-animates on the way back up.
+ * Scroll reveal. Fires once and stops observing. Nothing re-animates on the way back up.
  * Under prefers-reduced-motion the CSS shows content immediately, so this becomes inert.
  *
  * Pass `href` to reveal a link. The element type is a string rather than a component

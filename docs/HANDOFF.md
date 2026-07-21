@@ -1,25 +1,25 @@
-# HANDOFF.md — start a new chat from here
+# HANDOFF.md: start a new chat from here
 
 > When a chat gets long, open a fresh one in this folder and paste the prompt below.
 > Everything needed to continue lives in the docs. Nothing important lives only in a chat.
 
 ---
 
-## The prompt — copy everything between the lines
+## The prompt: copy everything between the lines
 
 ---
 
-You are resuming work on PortBase — Matt Pearson's portfolio site at `mattpearson.dev`. The site is **built and running**; we are now fine-tuning it and rewriting Matt's CV.
+You are resuming work on PortBase, Matt Pearson's portfolio site at `mattpearson.dev`. The site is **built and running**; we are now fine-tuning it and rewriting Matt's CV.
 
 Before doing anything else, read these and tell me the docs version number you find:
 
-1. `CLAUDE.md` — working rules, craft standard, canary protocol
-2. `docs/PROGRESS.md` — decision log, session log, next actions **(read this first if short on time)**
-3. `docs/PROFILE.md` — every fact about Matt. **Facts come only from here. If something isn't in it, say "not in docs — need Matt to confirm" and ask. Never invent biography, projects, metrics or dates.**
-4. `docs/TODO.md` — what's waiting on Matt
-5. `docs/SYSTEM.md` — design tokens, type, colour jobs, motion, components
-6. `docs/IA.md` and `docs/UX.md` — sitemap and audience journeys
-7. `docs/DESIGN.md` — locked direction and the anti-pattern list
+1. `CLAUDE.md` for working rules, craft standard and the canary protocol
+2. `docs/PROGRESS.md` for the decision log, session log and next actions **(read this first if short on time)**
+3. `docs/PROFILE.md` for every fact about Matt. **Facts come only from here. If something isn't in it, say "not in docs, I need Matt to confirm" and ask. Never invent biography, projects, metrics or dates.**
+4. `docs/TODO.md` for what's waiting on Matt
+5. `docs/SYSTEM.md` for design tokens, type, colour jobs, motion and components
+6. `docs/IA.md` and `docs/UX.md` for the sitemap and audience journeys
+7. `docs/DESIGN.md` for the locked direction and the anti-pattern list
 
 Then get the site running and look at it:
 
@@ -32,10 +32,10 @@ Then tell me briefly: the current phase, the next action, and anything in TODO.m
 
 **Where things live**
 
-- `content/site.ts` and `content/projects.ts` — all copy and facts. Edit here, not in pages.
-- `app/` — routes. `components/` — `volumetric-ink` and `helix` are the signature pieces.
-- `app/globals.css` — the whole design system, organised by section.
-- `docs/concepts.html` — the approved design prototype; open it in a browser.
+- `content/site.ts` and `content/projects.ts` hold all copy and facts. Edit here, not in pages.
+- `app/` holds the routes. In `components/`, `volumetric-ink` and `helix` are the signature pieces.
+- `app/globals.css` is the whole design system, organised by section.
+- `docs/concepts.html` is the approved design prototype. Open it in a browser.
 
 **Rules for the session**
 
@@ -67,15 +67,15 @@ This proves the docs were loaded. It does **not** prove the answer is true. The 
 
 ## Before you close a long chat
 
-Ask it to update `docs/PROGRESS.md` — session log, decision log, next actions — and bump `docs-version`. That file is the memory. If it isn't written down there, it did not happen.
+Ask it to update `docs/PROGRESS.md` (session log, decision log, next actions) and bump `docs-version`. That file is the memory. If it isn't written down there, it did not happen.
 
 ## File map
 
 | File | Holds |
 |---|---|
 | `CLAUDE.md` | Rules that apply to every session |
-| `docs/PLAN.md` | Phases 0–9 and their status |
-| `docs/PROFILE.md` | Facts about Matt — the only source |
+| `docs/PLAN.md` | Phases 0 to 9 and their status |
+| `docs/PROFILE.md` | Facts about Matt. The only source |
 | `docs/PROGRESS.md` | Log, decisions, open items, next actions |
 | `docs/TODO.md` | Manual tasks only Matt can do |
 | `docs/SYSTEM.md` | The design system |
