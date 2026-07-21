@@ -64,6 +64,15 @@ export const experience: ExperienceEntry[] = [
       "position instead of assumed. Collection and cleaning are done; the modelling is still in progress.",
   },
   {
+    when: "2026 to 2027",
+    role: "Performance Sport Officer",
+    org: "SU Sport, University of Bath",
+    note:
+      "Elected to the Students' Union Sports Executive to represent performance athletes. The seat carries " +
+      "their case into exec meetings, sits on the Blues Committee, works with the sports department on how " +
+      "performance sport is run, and drives student turnout at BUCS fixtures and showcase events.",
+  },
+  {
     when: "2023 to 2025",
     role: "Student Ambassador and peer mentor",
     org: "University of Bath",

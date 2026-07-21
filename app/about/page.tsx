@@ -74,6 +74,12 @@ export default function AboutPage() {
                 And because learning a new discipline well enough to make a first boat inside a season is a fair
                 proxy for how quickly I pick things up.
               </p>
+              <p>
+                This year I was elected Performance Sport Officer on the Students&rsquo; Union Sports Executive,
+                which means representing every performance athlete at the university and not only the rowers. The
+                seat sits on the Blues Committee and works with the sports department on how performance sport is
+                run, so it is a say in the decisions rather than a title.
+              </p>
             </Reveal>
 
             <Reveal as="section">
