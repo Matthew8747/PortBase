@@ -2,15 +2,31 @@
  * Project content. Facts trace to docs/PROFILE.md and the repositories themselves.
  *
  * Honesty rules carried over from PROFILE.md:
- *  - Restart Lab is early-stage. The case study sells the trustworthy-analytics machinery, not the results.
+ *  - Restart Lab's numbers come from the study committed at
+ *    optimization_studies/england-vs-argentina/study.json. Report them with the limits
+ *    that bound them: one fixture, 24 trials, absolutes only as good as the simulator.
  *  - The bike-fit rig was built by Bath's Lovelace and IMPACT labs, not by Matt. His work was the
  *    experiment design, running every session, the data pipeline and the analysis.
  *  - Kontron code and screenshots are off limits. The work is described, never shown.
+ *  - Barnett Art's repository is private client work. The case study says so rather than
+ *    quietly omitting a source link.
  */
+
+export type Figure =
+  | {
+      kind: "image";
+      src: string;
+      width: number;
+      height: number;
+      alt: string;
+      caption?: string;
+    }
+  | { kind: "diagram"; name: "bike-fit-pipeline"; caption?: string };
 
 export type CaseSection = {
   heading: string;
   body: string[];
+  figure?: Figure;
 };
 
 export type Project = {
@@ -21,8 +37,10 @@ export type Project = {
   summary: string;
   tech: string[];
   links?: { label: string; href: string }[];
-  /** Placeholder label until real screenshots land. See docs/TODO.md */
-  figure: string;
+  /** Shown in the meta grid when the source cannot be linked. */
+  sourceNote?: string;
+  /** Lead image, used both for the home row and at the top of the case study. */
+  figure: Figure;
   sections: CaseSection[];
 };
 
@@ -41,7 +59,14 @@ export const featured: Project[] = [
       { label: "Live demo", href: "https://set-piece-sim-frontend.vercel.app/" },
       { label: "Source", href: "https://github.com/Matthew8747/Set-Piece-Sim" },
     ],
-    figure: "Optimisation study",
+    figure: {
+      kind: "image",
+      src: "/work/restart-lab.webp",
+      width: 1200,
+      height: 750,
+      alt: "The Restart Lab optimisation study screen, showing a convergence curve against the random baseline, plain-language SHAP findings, and the parallel-coordinates cloud of every trial.",
+      caption: "An optimisation study: convergence against the baseline, SHAP findings, every trial plotted.",
+    },
     sections: [
       {
         heading: "What it had to do",
@@ -62,7 +87,7 @@ export const featured: Project[] = [
             "bounce, moves every attacker and defender, and resolves the delivery into a shot, a clearance or a " +
             "scramble. That turns a handful of real attempts into thousands of synthetic ones.",
           "Every simulated chance is then graded by an expected-goals model trained on StatsBomb's open World " +
-            "Cup and Euros data, so the scoring is anchored to real football rather than to my own judgement.",
+            "Cup and Euros data, so the scoring is anchored to real football and not to my own judgement.",
           "The decision I care most about is the last one. An optimiser searches for better routines, but " +
             "nothing it proposes counts unless it beats a random search baseline. Optimisers are very good at " +
             "finding noise and presenting it as insight. Making the baseline mandatory was the only way to " +
@@ -79,17 +104,26 @@ export const featured: Project[] = [
             "routines under common random numbers, so the comparison isn't polluted by luck. Optimization " +
             "Studies reads a completed search: convergence against the baseline, a parallel-coordinates view of " +
             "every trial, and a SHAP explanation of what separated the winners.",
+          "Results are reproducible on purpose. Every stored result carries the engine build id, and the same " +
+            "scenario and seed produce a byte-identical outcome whatever the batch size, so a stale result is " +
+            "detectable instead of silently wrong.",
         ],
       },
       {
         heading: "What it cost",
         body: [
-          "Speed. The simulator is slower than I would like, and the throughput work, a Numba kernel for the " +
-            "inner loop, is still in progress. The live demo is usable but not brisk.",
-          "And honestly, the results so far are thin. The platform runs end to end and the machinery is sound, " +
-            "but I have not yet found routines that are decisively better in a way I would defend to a coach. " +
-            "The honesty banner that refuses to declare a winner without statistical backing spends most of its " +
-            "time refusing.",
+          "Speed, first. The engine is slower than I want it to be, and the throughput kernel, a Numba port of " +
+            "the inner loop checked to 1e-9 against the readable NumPy reference, arrived after the platform " +
+            "instead of before it. The live demo works. It is not brisk.",
+          "On results, the machinery does the job it was built for. The study committed to the repository, " +
+            "England attacking an Argentine zonal six-two, puts its best confirmed routine at 6.66% mean xG " +
+            "per corner against a library baseline of 1.04%, over 400 confirmation simulations. The 95% " +
+            "intervals do not overlap, and the winning routine stays the winner under every ±10% perturbation " +
+            "of player attributes. It also had to out-run an equal-budget random search before any of that " +
+            "counted, which is the gate that matters more and the one most tools skip.",
+          "That is one fixture and twenty-four trials. The absolute numbers are worth precisely as much as the " +
+            "simulator that produced them, which is why the interface reports an interval and never a single " +
+            "figure, and why the banner still refuses to crown anything outside the conditions it was tested in.",
         ],
       },
       {
@@ -104,10 +138,114 @@ export const featured: Project[] = [
     ],
   },
   {
+    slug: "barnett-art",
+    title: "Barnett Art",
+    kind: "Client work",
+    kindDetail: "storefront and portfolio for a painter",
+    summary:
+      "Anna Barnett needed to sell original work online and add new pieces without me. It takes card " +
+      "payments through Stripe, cannot sell the same original twice, and switches between a shop and an " +
+      "enquiry site on one environment variable.",
+    tech: ["Next.js 16", "Postgres", "Drizzle", "Stripe", "Terraform"],
+    links: [{ label: "Live site", href: "https://barnett-art.vercel.app" }],
+    sourceNote: "Private repository, client work.",
+    figure: {
+      kind: "image",
+      src: "/work/barnett-art.webp",
+      width: 1518,
+      height: 949,
+      alt: "The Barnett Art home page: the artist's name set large in a serif on warm paper, with a landscape painting framed alongside it.",
+      caption: "The home page. Paintings are the only image on the site, so they carry all of the colour.",
+    },
+    sections: [
+      {
+        heading: "What it had to do",
+        body: [
+          "Two jobs that usually fight each other. A portfolio has to treat the paintings as work worth " +
+            "looking at, with room around them and nothing competing for attention. A shop has to take money " +
+            "reliably, know what is still in stock, and never sell the same original twice.",
+          "The harder constraint was not on the page. Anna had to be able to photograph a new piece and get " +
+            "it online without me, and she was not certain she wanted to run a card checkout at all. She " +
+            "might prefer enquiries. Whatever I built had to work both ways without a rewrite when she decided.",
+        ],
+      },
+      {
+        heading: "What I chose",
+        body: [
+          "Stripe's hosted checkout. I did not write a card form of my own, so card details never touch the " +
+            "which keeps the whole thing inside the lightest PCI bracket there is. Writing my own payment form " +
+            "would have bought a slightly smoother handoff in exchange for handling other people's card numbers, " +
+            "which is not a trade I would make for a one-person gallery.",
+          "I turned down the obvious alternative too. Squarespace or Shopify would have been running in a " +
+            "weekend, and she would have paid monthly for a template thousands of other artists also use, " +
+            "on a platform she rents. She owns this one.",
+          "Prices live in Postgres as integer pence and the total is computed on the server. The browser is " +
+            "never asked what something costs, because anything the browser sends can be edited.",
+          "The undecided question became a setting. COMMERCE_MODE flips the entire site between card checkout " +
+            "and enquire-to-buy, one variable, no code change and no data migration. It cost about a day to " +
+            "build and it meant her decision stopped being a deadline.",
+        ],
+      },
+      {
+        heading: "How it works",
+        body: [
+          "A signed, HttpOnly cart cookie holds the basket and the checkout runs through server actions, so " +
+            "the shop still works with JavaScript switched off. Stripe's webhook is verified against the raw " +
+            "request bytes before anything in the database moves. Fulfilment then runs in one transaction that " +
+            "marks the order paid and decrements stock at the same moment, so an original flips to sold the " +
+            "instant payment succeeds and a second buyer cannot slip through behind it. Stripe retries " +
+            "deliveries, so a ledger of processed event ids makes a repeat delivery do nothing.",
+          "Adding a painting is a photograph and one command. The import script converts HEIC to WebP, rotates " +
+            "it the right way up, strips every EXIF field including the GPS coordinates of the artist's house, " +
+            "pulls an accent colour out of the image, and writes the gallery manifest. A single idempotent " +
+            "seed pushes the result into Postgres.",
+          "Every pull request runs Prettier, ESLint, a full TypeScript check, 101 unit tests, an npm audit gate " +
+            "and a gitleaks secret scan. The same lint and secret scan run before a commit is allowed, and the " +
+            "type check runs before a push, so CI confirms what my machine already knew " +
+            "and rarely finds anything new.",
+        ],
+        figure: {
+          kind: "image",
+          src: "/work/barnett-art-architecture.webp",
+          width: 1800,
+          height: 1125,
+          alt: "Architecture diagram of the Barnett Art platform: a visitor reaching a Next.js app on Vercel, which branches into a checkout path through Stripe and an enquiry path through Resend, over Neon Postgres, Upstash Redis and S3, with CI and the content pipeline underneath.",
+          caption: "One codebase, two commerce modes. The green and rust paths are the same site under a different setting.",
+        },
+      },
+      {
+        heading: "What it cost",
+        body: [
+          "The storefront renders on every request instead of once at build time, because stock has to be " +
+            "true at the moment somebody looks at it. That is the right call for a shop selling one-of-one items and it " +
+            "gives up the caching a static gallery would have had.",
+          "Pulling an accent colour from each painting turned out to need a guard. Extracted colours are often " +
+            "far too pale to sit on paper as text, so anything used as text is pushed darker until it clears " +
+            "4.5:1. The accent gets to be the painting's colour right up until the point where it would stop " +
+            "being readable.",
+          "And the gaps, which are written down in the repository and not left for somebody to find. Images " +
+            "still run through the local disk adapter, with the S3 path built but not switched on. Shipping is " +
+            "a flat placeholder waiting on her real rules. The privacy and terms pages are sound drafts that " +
+            "have not been through a solicitor. The script policy still allows inline scripts, which wants a " +
+            "per-request nonce.",
+        ],
+      },
+      {
+        heading: "What I'd change",
+        body: [
+          "The admin interface should have come before the payment plumbing. Editing a few data files and " +
+            "running two commands is self-service if you are a developer. She is a painter. I built the part " +
+            "that carried the interesting risk, and the result is a shop with careful money handling that she " +
+            "still has to ask me to restock.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "bubc",
     title: "BUBC",
     kind: "Client work",
-    kindDetail: "Bath University Boat Club",
+    kindDetail: "University of Bath Boat Club",
     summary:
       "A club website rebuilt to outlive the committee that commissioned it. Editors publish a race report in " +
       "five minutes, it targets 95+ on Lighthouse, and it runs for about ten pounds a year.",
@@ -116,7 +254,14 @@ export const featured: Project[] = [
       { label: "Live site", href: "https://bubc.co.uk" },
       { label: "Source", href: "https://github.com/Matthew8747/BUBC" },
     ],
-    figure: "Homepage",
+    figure: {
+      kind: "image",
+      src: "/work/bubc.webp",
+      width: 1440,
+      height: 900,
+      alt: "The BUBC home page: a wide photograph of an eight passing under Pulteney Bridge, the club name set over it in a serif, and a band of club statistics below.",
+      caption: "The home page. Photography does the recruiting; the type stays out of its way.",
+    },
     sections: [
       {
         heading: "What it had to do",
@@ -148,12 +293,20 @@ export const featured: Project[] = [
             "serves it from the edge and rebuilds on push or on publish. Forms go to Formspree and the newsletter " +
             "to Buttondown, both env-gated, so neither is a hard dependency.",
         ],
+        figure: {
+          kind: "image",
+          src: "/work/bubc-architecture.webp",
+          width: 1280,
+          height: 720,
+          alt: "Architecture diagram: GitHub pushes to Vercel which builds a static bundle served from a CDN, with Sanity firing a deploy hook when an editor publishes.",
+          caption: "Two things can trigger a build: a developer pushing, or an editor pressing publish.",
+        },
       },
       {
         heading: "What it cost",
         body: [
-          "Roughly ten pounds a year, which is the domain. Everything else sits inside free tiers, deliberately.",
-          "The trade-off is that content changes require a rebuild rather than appearing instantly, and that " +
+          "Roughly ten pounds a year, which is the domain. Everything else sits inside free tiers, by design.",
+          "The trade-off is that content changes require a rebuild, so nothing appears instantly, and that " +
             "genuinely dynamic features like a members' area, live race scoring or a shop are off the table. For " +
             "this club that was the right exchange, and we link out for those instead.",
         ],
@@ -179,7 +332,11 @@ export const featured: Project[] = [
       "and built the pipeline from raw sensor stream to finding.",
     tech: ["Experiment design", "Python", "COSMED", "Qualisys & Theia3D", "EMG"],
     links: [{ label: "Pipeline source", href: "https://github.com/Matthew8747/Bikefit-Data-Pipeline" }],
-    figure: "Pipeline figure",
+    figure: {
+      kind: "diagram",
+      name: "bike-fit-pipeline",
+      caption: "Six instruments, six clocks, six sampling rates. Everything has to land on one timeline first.",
+    },
     sections: [
       {
         heading: "What it had to do",
@@ -188,7 +345,8 @@ export const featured: Project[] = [
             "of that evidence addresses whether the effects differ by sex. The study asked a narrow version of " +
             "the question. After a professional fit, does anything measurable change in physiology, " +
             "biomechanics, muscle activation or comfort, and does it change differently for women than for men?",
-          "It earned 82%.",
+          "It earned 82%, and I am working the study up into a paper over the coming months. The findings " +
+            "stay off this page until that is done, so what follows is the method and what it cost to run.",
         ],
       },
       {
@@ -224,8 +382,8 @@ export const featured: Project[] = [
             "every one of which had to be run in person and to the same protocol.",
           "The recurring cost was data integrity. Instruments drop frames, sensors come loose, and participants " +
             "cannot always hold the target power. The protocol steps power down by 5% when that happens, which " +
-            "then has to be modelled rather than ignored. A meaningful share of the pipeline exists to detect " +
-            "and handle these cases rather than to compute anything.",
+            "then has to be modelled rather than ignored. A meaningful share of the pipeline exists to catch " +
+            "and handle those cases, not to compute anything.",
         ],
       },
       {
@@ -251,55 +409,52 @@ export const supporting: SupportingProject[] = [
   {
     title: "IMDb sentiment pipeline",
     note:
-      "A full sentiment classification pipeline: custom naive Bayes against TF-IDF, with lemmatisation, custom " +
-      "stop words, n-grams and minimum document frequency all tunable from the command line.",
+      "Naive Bayes written from scratch, not imported, sitting behind three vectorisers I also wrote: " +
+      "bag of words, TF-IDF and PPMI. Lemmatisation, stop-word strategy, n-gram size and minimum document " +
+      "frequency are all command-line flags, so the comparison between configurations is one command rather " +
+      "than one edit. The best of them reaches 85.1% on a held-out test set.",
     href: "https://github.com/Matthew8747/NLP-pipeline",
     tech: "Python · scikit-learn · NLTK",
   },
   {
     title: "Space Invaders reinforcement learning",
     note:
-      "Coursework building and comparing reinforcement learning methods on Atari Space Invaders, with a second " +
-      "piece researching intrinsic motivation.",
+      "Coursework building and comparing reinforcement learning methods on Atari Space Invaders, run against " +
+      "the Arcade Learning Environment. A second piece followed it into intrinsic motivation, where the agent " +
+      "generates its own reward signal because the game's own is too sparse to learn from.",
     href: "https://github.com/Matthew8747/Space-Invaders-project-",
     tech: "Python · RL",
   },
   {
     title: "Brain tumour detection",
     note:
-      "A YOLOv10 model fine-tuned on annotated MRI scans, wrapped in a Gradio interface so predictions can be " +
-      "inspected image by image. A direct descendant of my EPQ on computer-aided diagnosis.",
+      "YOLOv10 fine-tuned on annotated MRI scans and wrapped in a Gradio interface, so a prediction can be " +
+      "inspected scan by scan instead of collapsing into a single accuracy number. It is the direct descendant " +
+      "of the EPQ I wrote on computer-aided diagnosis, five years earlier and with considerably worse tools.",
     href: "https://github.com/Matthew8747/TumorDetection",
     tech: "PyTorch · YOLOv10 · Gradio",
   },
   {
     title: "Society Matchmaker",
     note:
-      "An eight-person team project tackling student society engagement. I led the user research and built the " +
-      "random forest recommender behind it, and engagement rose 150% against the system it replaced.",
+      "An eight-person team project on student society engagement. I ran the user research and built the " +
+      "random forest recommender it produced. Engagement rose 150% against the system it replaced.",
     tech: "Python · random forest · user research",
   },
   {
     title: "Agent experiments",
     note:
-      "A NEAT agent that teaches itself the Chrome dinosaur game, Conway's Game of Life extended into a forest " +
-      "fire simulator, and a boid flocking model adapted to study migration under environmental stress.",
+      "A NEAT agent that teaches itself the Chrome dinosaur game by evolving its own network topology, and a " +
+      "pair of cellular automata in Processing: Conway's Game of Life, then a forest fire model built on the " +
+      "same grid mechanics with drought, wind and regrowth added.",
     href: "https://github.com/Matthew8747/DinoNEAT",
-    tech: "Python · NEAT · cellular automata",
-  },
-  {
-    title: "Barnett Art",
-    note:
-      "A gallery site for an artist's work, built to take enquiries about individual pieces and ready to sell " +
-      "directly when that is wanted.",
-    href: "https://barnett-art.vercel.app",
-    tech: "Client work",
+    tech: "Python · NEAT · Processing",
   },
   {
     title: "Argonauts",
     note:
-      "A 2D platformer with dashing, wall-jumping and enemy AI, built in Unity. The follow-up was a grappling " +
-      "traversal game made in Unreal during a hackathon.",
+      "A 2D platformer in Unity with dashing, wall-jumping and enemy AI. The follow-up was a grappling " +
+      "traversal game built in Unreal over a hackathon weekend.",
     href: "https://github.com/Matthew8747/ArgonautsGame",
     tech: "Unity · C#",
   },

@@ -36,6 +36,11 @@
 
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --gutter: 150px;
+
+  /* Widest the content is allowed to get, gutters included. Past this the shell
+     centres and the extra width becomes margin on both sides. */
+  --shell: 1280px;
+  --bleed: max(0px, calc((100% - var(--shell)) / 2));
 }
 
 * {
@@ -325,7 +330,9 @@ p {
 #helix {
   position: absolute;
   top: 0;
-  left: 36px;
+  /* Rides the shell. Without the bleed the strands strand themselves in the left
+     margin on a wide monitor, detached from the column they are supposed to edge. */
+  left: calc(36px + var(--bleed));
   width: 54px;
   pointer-events: none;
   z-index: 5;
@@ -564,8 +571,13 @@ p {
 /* ============================================================
    SECTIONS
    ============================================================ */
+/* The shell. Sections stay full-bleed so the dark bands still run edge to edge, but
+   their content is centred inside a fixed measure once the viewport outgrows it.
+   Without this the whole page hugs the left rail on a 16:9 monitor and leaves a third
+   of the screen empty. The left gutter survives inside the shell because the helix
+   lives in it. */
 .sec {
-  padding: var(--s10) var(--s7) var(--s10) var(--gutter);
+  padding: var(--s10) calc(var(--s7) + var(--bleed)) var(--s10) calc(var(--gutter) + var(--bleed));
 }
 .sec-work {
   background: var(--white);
@@ -601,6 +613,11 @@ p {
 @media (max-width: 700px) {
   .sec {
     padding: var(--s9) var(--s5);
+  }
+  /* 96px of air under a section heading reads as generous on a desktop and as a
+     mistake on a 390px screen. */
+  .sec-head {
+    margin-bottom: var(--s6);
   }
 }
 
@@ -692,7 +709,7 @@ p {
   max-width: 46ch;
 }
 .w-vis {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   border: 1px solid var(--hair);
   background: var(--ground);
   display: flex;
@@ -705,6 +722,8 @@ p {
     box-shadow 0.45s var(--ease),
     border-color 0.45s var(--ease);
 }
+/* The hatch is the ground a plate sits on: it shows while an image loads, and it is the
+   whole treatment for a project that has no artwork yet. */
 .w-vis::before {
   content: "";
   position: absolute;
@@ -714,6 +733,20 @@ p {
     transparent 0 9px,
     rgba(27, 25, 19, 0.028) 9px 10px
   );
+}
+.w-vis img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.w-vis .diagram {
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: var(--s5);
 }
 .work-row:hover .w-vis {
   transform: translateY(-6px);
@@ -938,10 +971,12 @@ p {
    PROSE AND CARDS
    ============================================================ */
 .page-head {
-  padding: 150px var(--s7) var(--s8) var(--gutter);
+  padding: 150px calc(var(--s7) + var(--bleed)) var(--s8) calc(var(--gutter) + var(--bleed));
   display: flex;
   flex-direction: column;
   gap: var(--s4);
+}
+.page-head > * {
   max-width: 980px;
 }
 .page-head h1 {
@@ -966,6 +1001,46 @@ p {
   }
 }
 
+/* About head: the intro and the portrait share the first screen. The portrait is
+   the only photograph of a person on the site, so it gets a frame and nothing else. */
+.about-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(230px, 26%, 320px);
+  gap: var(--s8);
+  align-items: end;
+}
+.about-head > * {
+  max-width: none;
+}
+.about-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+.portrait {
+  border: 1px solid var(--hair);
+  background: var(--white);
+  padding: 7px;
+  line-height: 0;
+}
+.portrait img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: saturate(0.92);
+}
+@media (max-width: 900px) {
+  .about-head {
+    grid-template-columns: 1fr;
+    gap: var(--s6);
+  }
+  .portrait {
+    max-width: 220px;
+  }
+}
+
 .prose {
   max-width: 680px;
   display: flex;
@@ -986,6 +1061,144 @@ p {
   font-size: 17px;
   line-height: 1.72;
   color: var(--quiet);
+}
+
+/* ============================================================
+   FIGURES. Artwork earns its frame: hairline border, no shadow at rest,
+   caption marked with the same rubric square as a section eyebrow.
+   ============================================================ */
+.fig {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  margin: 0;
+}
+.fig .frame {
+  border: 1px solid var(--hair);
+  background: var(--ground);
+  overflow: hidden;
+  position: relative;
+  line-height: 0;
+}
+.fig img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.fig figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s3);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 56ch;
+}
+.fig figcaption::before {
+  content: "";
+  flex: none;
+  width: 4px;
+  height: 4px;
+  background: var(--rubric);
+  transform: translateY(-3px);
+}
+.fig-lead {
+  padding: 0 calc(var(--s7) + var(--bleed)) var(--s9) calc(var(--gutter) + var(--bleed));
+}
+.prose .fig {
+  margin: var(--s3) 0;
+}
+@media (min-width: 1180px) {
+  .prose .fig-wide {
+    width: 880px;
+  }
+}
+@media (max-width: 1080px) {
+  .fig-lead {
+    padding-left: var(--s7);
+  }
+}
+@media (max-width: 700px) {
+  .fig-lead {
+    padding: 0 var(--s5) var(--s8);
+  }
+}
+
+/* The authored diagram. Colours resolve from tokens, so it flips with the theme
+   instead of being a picture of one. */
+.diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--ground);
+}
+
+/* Below ~700px the lane labels shrink past reading size. Per docs/SYSTEM.md §4 a wide
+   figure keeps its own horizontal scroll instead of being squeezed into decoration.
+   The frame drops its fixed ratio so nothing is clipped vertically. */
+@media (max-width: 760px) {
+  .fig .frame:has(.diagram),
+  .w-vis:has(.diagram) {
+    overflow-x: auto;
+    overflow-y: hidden;
+    aspect-ratio: auto;
+  }
+  .diagram {
+    min-width: 620px;
+  }
+  .w-vis .diagram {
+    padding: var(--s4);
+  }
+}
+.diagram text {
+  font-family: var(--body);
+  fill: var(--quiet);
+}
+.diagram .d-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  fill: var(--muted);
+}
+.diagram .d-label {
+  font-size: 14px;
+  fill: var(--ink);
+}
+.diagram .d-sub,
+.diagram .d-gate-label {
+  font-size: 11.5px;
+  fill: var(--muted);
+}
+.diagram .d-hair,
+.diagram .d-join {
+  stroke: var(--hair);
+  stroke-width: 1;
+  fill: none;
+}
+.diagram .d-tick {
+  stroke: var(--muted);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+.diagram .d-gate {
+  stroke: var(--hair);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+.diagram .d-out {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+.diagram .d-out-cap {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+.diagram .d-minute {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--muted);
+}
+.diagram .d-node {
+  fill: var(--rubric);
 }
 
 .meta-grid {
@@ -1201,5 +1414,110 @@ p {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* ============================================================
+   PRINT. The sanitised CV has to survive Cmd+P as a document,
+   not as a screenshot of a website. Nothing private is added here.
+   ============================================================ */
+.print-only {
+  display: none;
+}
+@media print {
+  .no-print,
+  #helix,
+  .site-head,
+  .site-foot,
+  .skip-link,
+  .scroll-cue {
+    display: none !important;
+  }
+  .print-only {
+    display: block;
+  }
+
+  /* Reveals are driven by IntersectionObserver, which never fires for sections
+     below the fold. Without this the printed page comes out blank. */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  html,
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .sec,
+  .sec-work,
+  .sec-about {
+    background: #fff !important;
+    color: #000 !important;
+    border: 0 !important;
+    padding: 0 0 14pt !important;
+  }
+  .page-head {
+    padding: 0 0 10pt !important;
+  }
+  .page-head h1,
+  .page-head .lede {
+    display: none;
+  }
+  .print-head {
+    margin-bottom: 14pt;
+    border-bottom: 1px solid #000;
+    padding-bottom: 8pt;
+  }
+  .print-head h2 {
+    font-family: var(--display);
+    font-size: 22pt;
+    letter-spacing: -0.02em;
+  }
+  .print-head p {
+    font-size: 9pt;
+    color: #333;
+  }
+  .cv-section {
+    break-inside: avoid;
+  }
+  .sec-head {
+    margin-bottom: 8pt !important;
+  }
+  .sec-head h2 {
+    font-size: 13pt !important;
+  }
+  .sec-head p,
+  .exp-note,
+  .fact-list li {
+    font-size: 9.5pt !important;
+    line-height: 1.45 !important;
+    color: #222 !important;
+  }
+  .exp-row {
+    break-inside: avoid;
+    padding: 5pt 0 !important;
+    gap: 12pt !important;
+    grid-template-columns: 110pt 1fr !important;
+  }
+  .exp-role {
+    font-size: 10.5pt !important;
+  }
+  .exp-when {
+    font-size: 9pt !important;
+  }
+  .chip {
+    border: 0 !important;
+    background: none !important;
+    padding: 0 6pt 0 0 !important;
+    font-size: 9pt !important;
+  }
+  .chip-row {
+    gap: 0 !important;
+  }
+  a {
+    color: #000 !important;
+    text-decoration: none !important;
   }
 }

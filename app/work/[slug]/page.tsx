@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ProjectFigure from "@/components/project-figure";
 import Reveal from "@/components/reveal";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
@@ -42,17 +43,24 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <p className="lede">{project.summary}</p>
         </div>
 
+        <figure className="fig fig-lead">
+          <div className="frame">
+            <ProjectFigure figure={project.figure} priority sizes="(max-width: 900px) 100vw, 1000px" />
+          </div>
+          {project.figure.caption ? <figcaption>{project.figure.caption}</figcaption> : null}
+        </figure>
+
         <section className="sec" style={{ paddingTop: 0 }}>
           <div className="meta-grid">
             <div>
               <h3>Built with</h3>
               <p>{project.tech.join(", ")}</p>
             </div>
-            {project.links?.length ? (
+            {project.links?.length || project.sourceNote ? (
               <div>
                 <h3>Links</h3>
                 <p>
-                  {project.links.map((link, i) => (
+                  {project.links?.map((link, i) => (
                     <span key={link.href}>
                       {i > 0 ? <br /> : null}
                       <a className="ulink" href={link.href} rel="noreferrer" target="_blank">
@@ -60,6 +68,12 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                       </a>
                     </span>
                   ))}
+                  {project.sourceNote ? (
+                    <>
+                      <br />
+                      {project.sourceNote}
+                    </>
+                  ) : null}
                 </p>
               </div>
             ) : null}
@@ -76,6 +90,14 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 {section.body.map((paragraph, i) => (
                   <p key={i}>{paragraph}</p>
                 ))}
+                {section.figure ? (
+                  <figure className="fig fig-wide">
+                    <div className="frame">
+                      <ProjectFigure figure={section.figure} sizes="(max-width: 1180px) 100vw, 880px" />
+                    </div>
+                    {section.figure.caption ? <figcaption>{section.figure.caption}</figcaption> : null}
+                  </figure>
+                ) : null}
               </Reveal>
             ))}
           </div>

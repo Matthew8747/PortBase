@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ProjectFigure from "@/components/project-figure";
 import Reveal from "@/components/reveal";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
@@ -7,8 +8,8 @@ import { featured, supporting } from "@/content/projects";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Three case studies: a set-piece simulator, a client website built to outlive its committee, and a " +
-    "51-participant cycling study. Plus the smaller projects behind them.",
+    "Four case studies: a set-piece simulator, a painter's storefront that takes real payments, a club " +
+    "website built to outlive its committee, and a 51-participant cycling study.",
 };
 
 export default function WorkPage() {
@@ -20,8 +21,8 @@ export default function WorkPage() {
           <span className="t-section">Work</span>
           <h1>Things I&rsquo;ve built.</h1>
           <p className="lede">
-            Three of these have proper case studies, because they had real constraints and taught me something. The
-            rest are here because they&rsquo;re honest evidence of what I can do, not because they need explaining.
+            The first four have proper case studies, because they had real constraints and taught me something.
+            Everything under them is here as evidence, without the story.
           </p>
         </div>
 
@@ -46,7 +47,11 @@ export default function WorkPage() {
                 <span className="t-tech">{project.tech.join(" · ")}</span>
               </div>
               <div className="w-vis">
-                <span>{project.figure.toUpperCase()}</span>
+                <ProjectFigure
+                  figure={project.figure}
+                  priority={i === 0}
+                  sizes="(max-width: 900px) 100vw, 400px"
+                />
               </div>
             </Reveal>
           ))}

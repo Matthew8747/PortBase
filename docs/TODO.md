@@ -1,7 +1,7 @@
 # TODO.md: things only Matt can do
 
 > Ordered by what unblocks the most. Everything not on this list is either done or is Claude's job.
-> Last updated: 2026-07-21 (docs v6)
+> Last updated: 2026-07-21 (docs v7)
 
 ---
 
@@ -50,39 +50,59 @@ Until then the form now falls back to Resend's shared sender (`onboarding@resend
 
 ## 2. Content I need from you
 
-### Real project imagery
-Every case study currently shows a hatched placeholder plate. Three screenshots would change the weight of the site more than any other single thing:
+### ~~Real project imagery~~ Done
+Your screenshots are in and cropped for the slots they sit in. Restart Lab, BUBC and Barnett Art all show real work now, and the bike fit study has a drawn pipeline figure instead of a placeholder.
 
-- **Restart Lab**, the optimisation study screen (there are already some in `docs/assets/screens/` in that repo)
-- **BUBC**, the homepage
-- **Bike Fit**, a pipeline diagram or an anonymised figure
-
-Drop them in `public/work/` as `restart-lab.png`, `bubc.png`, `bike-fit.png` and say the word, wiring them in is ten minutes.
+### The photo
+`public/matt.jpg` currently holds the holiday shot, cropped to 4:5 and desaturated slightly. **To swap in the new one: save it over `public/matt.jpg`.** Same filename, nothing else to change. Portrait orientation crops best; anything roughly 4:5 or taller works.
 
 ### The remaining coursework
 Still outstanding from the interview. Cyber security (the HAR analysis), Digital Business Innovation (Spotify), Entrepreneurship (the AI security training brand), plus anything from years one and two worth mining. Upload to GitHub or drop the files in the repo.
 
-### Barnett Art
-A live link and a screenshot or two. It's currently the only client project without either, which makes it the weakest card on `/work`.
-
-### Bike fit, ethics check
-Confirm what you're allowed to publish from the study. Any figures, any numbers, any participant data at all? The case study currently describes the method and says nothing about results, which is safe but not as strong as it could be.
-
-### The photo
-`1725137655982.jfif` is sitting in the repo root, unused and untracked. If you want a photo on `/about`, convert it to `.jpg` or `.webp` and put it in `public/`. If not, delete it. The design doesn't depend on one either way.
+### NY Racing
+`nascar-visibility-analysis` is currently a scaffold: a README and three empty folders. It stays an experience entry until there are deliverables. Send them when they exist and it becomes a card.
 
 ---
 
-## 3. Decisions still open
+## 3. Where I need a decision from you
+
+Answered 2026-07-21. Only two remain.
+
+### ~~a. Bike fit ethics~~ Answered
+Key points are publishable, but the study is going to a paper over the coming months. The case study now says exactly that and reports method only. **Still needed, when you're ready:** the two or three findings you're happy to put in public ahead of publication. Send them and I'll add a results section.
+
+### ~~b. Naming the Barnett Art client~~ Answered
+Anna Barnett is named on the home row, in the case study and in the summary.
+
+### ~~c. Barnett Art's canonical URL~~ Answered
+Staying on the Vercel link. Tell me when a domain lands.
+
+### ~~d. Which Restart Lab baseline to headline~~ My call, made
+I lead with the library baseline, because it is the number the shipped study actually records (6.66% vs 1.04%, non-overlapping intervals). The sentence then says the routine also had to clear an equal-budget random search before any of it counted. That way the concrete figure is one I can point at in `study.json`, and the harder gate is still the last thing a reader is left with. Change it if you'd rather lead with the random-search framing.
+
+### ~~e. The Society Matchmaker number~~ Resolved from your files
+The 150% was unsourced, so I read the group's Deliverable 4 report in `YR2/Systems project`. The real result is better and defensible: **engagement ratio 36% against the SU site's 15%**, n=18 after two compromised samples were removed, paired single-tailed t-tests, Cohen's d 0.77 to 1.48, p from .008 down to <.001. That is what the site now says (the GitHub README doesn't list this project). "150%" was a remembered version of the 36/15 ratio.
+
+### f. Barnett Art figures — flagging before I finish, as you asked
+The case study states **101 Vitest tests** and the security posture as **0 critical, 0 high, 2 medium open**. Both come from that repo's own `docs/FEATURES.md` and `docs/SECURITY-AUDIT.md` as they stood today. You believe they're still current. If you ship anything there, re-check those two numbers, because they're the kind of specific claim an interviewer will test.
+
+### ~~g. The GitHub email badge~~ Answered
+Dropping it. `docs/PROFILES.md` has the replacement README with no `mailto:`.
+
+---
+
+## 4. Decisions still open
 
 - **Hero ink density**, currently **Bloom**. The alternatives, Veil and Filament, are in `docs/concepts.html`. One-line change in `app/page.tsx` if you prefer another.
-- **The display typeface.** Everything currently uses a system serif stack (Iowan Old Style → Palatino → Georgia). It looks good, loads instantly, and costs nothing. Switching to Fraunces or Newsreader would be more distinctive but adds a webfont. Worth seeing specimens side by side before deciding.
+- **The display typeface.** Everything currently uses a system serif stack (Iowan Old Style → Palatino → Georgia). It looks good, loads instantly, and costs nothing. Switching to Fraunces or Newsreader would be more distinctive but adds a webfont. **Newsreader is already in the repo** at `assets/newsreader-regular.ttf`, shipped for the Open Graph cards — open any OG image (e.g. `mattpearson.dev/opengraph-image`) to see it set large before deciding.
 - **Restart Lab's demo speed.** It's slow. Worth an afternoon on the Numba kernel before a recruiter clicks through, or worth leaving and letting the case study's honesty do the work.
 
 ---
 
-## 4. After launch
+## 5. After launch
 
+- Replace the GitHub profile README with the version in `docs/PROFILES.md`.
+- Update your LinkedIn headline and About section, both drafted in `docs/PROFILES.md`.
 - Update your LinkedIn to point at the new domain.
 - Point `matthew8747.github.io` at the new site with a redirect, so the old URL isn't a dead end.
 - Watch the first few CV requests to make sure delivery is reliable.

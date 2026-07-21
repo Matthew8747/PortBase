@@ -1,7 +1,7 @@
 # PLAN.md — Portfolio master plan
 
 > The phase map. Update status as phases complete. Details live in: PROFILE.md (facts), DESIGN.md (visual), PROGRESS.md (log + open items).
-> Last updated: 2026-07-20
+> Last updated: 2026-07-21 (docs v7)
 
 ## Phase status
 
@@ -15,8 +15,8 @@
 | 5 | UX journeys | ✅ Written — `docs/UX.md` |
 | 6 | Design system | ✅ Written — `docs/SYSTEM.md`. Open: final display face (specimens pending) |
 | 7 | Technical architecture | ✅ Built. Next 16 + React 19 + TS strict + Tailwind v4 + Resend + Zod. No CMS, no component library, no state library |
-| 8 | Content strategy | ✅ Written into `content/`. Remaining coursework still outstanding from Matt |
-| 9 | Build | ✅ Site built, all routes live, build/typecheck/lint clean. Not deployed — awaiting Matt's go-ahead |
+| 8 | Content strategy | ✅ Written into `content/`. Populated 2026-07-21: real imagery, Barnett Art promoted to a fourth flagship, Restart Lab results corrected, `/cv` rebuilt around evidence. Remaining coursework still outstanding from Matt |
+| 9 | Build | ✅ Live at mattpearson.dev. 25 routes incl. per-route OG images. Identity mark shipped. Build/typecheck/lint clean |
 
 ## Phase 0 — Tooling installed (global skills)
 ui-ux-pro-max, web-design-guidelines (Vercel), wcag-accessibility-audit, framer-motion-animator, vercel-react-view-transitions, vercel-composition-patterns, writing-guidelines. Pre-existing: frontend-design (Anthropic), Vercel plugin (shadcn/nextjs/deploy), superpowers suite, dataviz, code-review/verify.

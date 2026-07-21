@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Helix from "@/components/helix";
+import ProjectFigure from "@/components/project-figure";
 import Reveal from "@/components/reveal";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
@@ -47,7 +48,7 @@ export default function HomePage() {
           <section className="sec sec-work" id="work">
             <Reveal className="sec-head">
               <span className="t-section">Selected work</span>
-              <h2>Three projects, told properly.</h2>
+              <h2>The work, told properly.</h2>
               <p>
                 Each one has a case study covering what it had to do, what I chose, what it cost, and what
                 I&rsquo;d change.
@@ -74,7 +75,11 @@ export default function HomePage() {
                   <span className="t-tech">{project.tech.join(" · ")}</span>
                 </div>
                 <div className="w-vis">
-                  <span>{project.figure.toUpperCase()}</span>
+                  <ProjectFigure
+                    figure={project.figure}
+                    priority={i === 0}
+                    sizes="(max-width: 900px) 100vw, 400px"
+                  />
                 </div>
               </Reveal>
             ))}
