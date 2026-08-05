@@ -1,5 +1,5 @@
 # PROGRESS.md — log, open items, reminders
-docs-version: 9
+docs-version: 10
 
 > Append-only log + living checklist. Any chat session working on this project: read PLAN.md → PROFILE.md → DESIGN.md → this file, then continue from "Next actions".
 
@@ -34,6 +34,12 @@ docs-version: 9
 | 2026-07-20 | IA draft: 7 page types; rejected Blog/Uses/Now/Speaking/Lab pages |
 
 ## Session log
+- **2026-08-05 (PORTRAIT NOT UPDATING):** Matt replaced `profile.jpeg` but the About portrait was unchanged.
+  - **Cause: the new file was put in the wrong tree.** Commit `170a415` ("new pfp") touched `content/photos/profile/` only. That directory is a source archive — nothing in it is served. `content/site.ts` points the portrait at `/profile.jpeg`, which Next serves from `public/`, and `public/profile.jpeg` was still the July file (82,426 bytes, 1232×1640) while the new one (139,710 bytes, 904×1215) sat in `content/photos/profile/`.
+  - **Fix:** copied `content/photos/profile/profile.jpeg` → `public/profile.jpeg`. No code change needed; `site.ts` and the About page were already correct.
+  - **Verified, not assumed:** `next dev` + `GET /_next/image?url=%2Fprofile.jpeg&w=1080` returns 200 `image/jpeg` at **904×1215**, i.e. the new source, not the old one.
+  - **Aspect note:** the new photo is 0.744 where `.portrait img` fixes `aspect-ratio: 4 / 5` (0.8) with `object-fit: cover`, so it crops slightly top/bottom. No layout shift; flagged in case Matt wants the framing checked.
+  - **Standing trap:** anything meant to be visible on the site must land in `public/`. `content/photos/` is originals only.
 - **2026-07-21 (DEPLOY FIX + SU role):** Matt reported images not loading on the live site.
   - **Not a code bug.** Production was still serving the pre-imagery build: the figure slots rendered the old `<span>OPTIMISATION STUDY</span>` placeholder plates, which is exactly what a broken image looks like. Every new asset 404'd on prod (`/profile.jpeg`, `/work/*.webp`, `/icon.svg`) because that build did not contain them. `x-vercel-cache: HIT` with `age: 37798` (10.5 hours) confirmed nothing had rebuilt.
   - **Root cause: Vercel had no GitHub integration.** `GET repos/Matthew8747/PortBase/deployments` returned **0**. The project was originally linked with the Vercel CLI, which does not connect the Git repo. So merging PR #2 deployed nothing, and would have kept deploying nothing.
