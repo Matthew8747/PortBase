@@ -85,7 +85,9 @@ export default function CvRequestForm() {
       <div className="field">
         <label htmlFor="reason">What&rsquo;s it for?</label>
         <textarea id="reason" name="reason" required />
-        <span className="hint">A line is plenty. The role, or what you&rsquo;re hiring for.</span>
+        <span className="hint">
+          A line is plenty. The role you&rsquo;re hiring for, or whatever you&rsquo;d like to ask.
+        </span>
         {errors.reason ? <span className="err">{errors.reason}</span> : null}
       </div>
 

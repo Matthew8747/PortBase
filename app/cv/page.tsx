@@ -29,10 +29,11 @@ export default function CvPage() {
           <span className="t-section">CV &amp; contact</span>
           <h1>The paperwork, on request.</h1>
           <p className="lede">
-            The short version is below, and it is the whole record apart from the private parts. For the full
-            document, with grades module by module, referees and contact details, send a request and I&rsquo;ll
-            reply personally. A CV carrying my phone number doesn&rsquo;t belong on the open internet, which is the
-            only reason it isn&rsquo;t a download.
+            The short version is below and it covers everything except the contact details. For the full document,
+            with grades module by module, referees and a way to reach me, send a request and I&rsquo;ll reply
+            personally. The only reason it is not a download is that it carries a phone number and an address.
+            If you would rather just ask a question first, the same form reaches me and I&rsquo;m happy to
+            answer it.
           </p>
         </div>
 
@@ -101,7 +102,7 @@ export default function CvPage() {
           <Reveal className="sec-head">
             <span className="t-section">Selected work</span>
             <h2>What it produced.</h2>
-            <p>Each line leads with the result. The case studies behind them carry the reasoning.</p>
+            <p>The case studies behind these carry the reasoning.</p>
           </Reveal>
           <div className="exp-list">
             {cvHighlights.map((item) => (

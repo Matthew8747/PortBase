@@ -48,7 +48,7 @@ export default function HomePage() {
           <section className="sec sec-work" id="work">
             <Reveal className="sec-head">
               <span className="t-section">Selected work</span>
-              <h2>The work, told properly.</h2>
+              <h2>The work, in detail.</h2>
               <p>
                 Each one has a case study covering what it had to do, what I chose, what it cost, and what
                 I&rsquo;d change.
@@ -117,9 +117,9 @@ export default function HomePage() {
             <Reveal className="about-in">
               <span className="t-section">About</span>
               <blockquote>
-                Three first-class years at Bath, a placement year shipping enterprise software, and a seat in the
-                university&rsquo;s <i>first boat</i>. I like hard problems and honest results, and I&rsquo;ll go a
-                long way for both, including a month alone in Peru.
+                Three first-class years at Bath, a placement year building enterprise software at Kontron, and a
+                seat in the university&rsquo;s <i>first boat</i>. The work I enjoy most is the part where the
+                answer is not settled yet, and the part afterwards where you have to say plainly what you found.
               </blockquote>
               <Link className="ulink" href="/about">
                 The longer story →
@@ -133,8 +133,8 @@ export default function HomePage() {
               <span className="t-section">CV &amp; contact</span>
               <h2>The paperwork, on request.</h2>
               <p>
-                Education, grades and the full project record, sent personally. A CV carrying my phone number
-                doesn&rsquo;t belong on the open internet.
+                Education, grades and the full project record, sent personally. The full document carries my
+                phone number and referees, so I send it directly rather than publishing it here.
               </p>
               <span className="status">
                 <i aria-hidden="true" />

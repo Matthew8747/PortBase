@@ -5,10 +5,15 @@ import ProjectFigure from "@/components/project-figure";
 import Reveal from "@/components/reveal";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
-import { featured, projectBySlug } from "@/content/projects";
+import { allStudies, projectBySlug, type Figure } from "@/content/projects";
+
+/** Taller than it is wide, so it needs the narrow figure treatment rather than the wide one. */
+function isPortrait(figure: Figure) {
+  return figure.kind === "image" && figure.height > figure.width;
+}
 
 export function generateStaticParams() {
-  return featured.map((p) => ({ slug: p.slug }));
+  return allStudies.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -58,7 +63,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             </div>
             {project.links?.length || project.sourceNote ? (
               <div>
-                <h3>Links</h3>
+                <h3>{project.links?.length ? "Links" : "Source"}</h3>
                 <p>
                   {project.links?.map((link, i) => (
                     <span key={link.href}>
@@ -79,7 +84,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             ) : null}
             <div>
               <h3>Role</h3>
-              <p>Sole developer unless noted in the case study.</p>
+              <p>{project.role ?? "Sole developer unless noted in the case study."}</p>
             </div>
           </div>
 
@@ -91,9 +96,16 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   <p key={i}>{paragraph}</p>
                 ))}
                 {section.figure ? (
-                  <figure className="fig fig-wide">
+                  <figure className={`fig ${isPortrait(section.figure) ? "fig-portrait" : "fig-wide"}`}>
                     <div className="frame">
-                      <ProjectFigure figure={section.figure} sizes="(max-width: 1180px) 100vw, 880px" />
+                      <ProjectFigure
+                        figure={section.figure}
+                        sizes={
+                          isPortrait(section.figure)
+                            ? "(max-width: 700px) 100vw, 520px"
+                            : "(max-width: 1180px) 100vw, 880px"
+                        }
+                      />
                     </div>
                     {section.figure.caption ? <figcaption>{section.figure.caption}</figcaption> : null}
                   </figure>

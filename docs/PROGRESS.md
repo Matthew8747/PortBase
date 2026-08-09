@@ -1,5 +1,5 @@
 # PROGRESS.md — log, open items, reminders
-docs-version: 10
+docs-version: 11
 
 > Append-only log + living checklist. Any chat session working on this project: read PLAN.md → PROFILE.md → DESIGN.md → this file, then continue from "Next actions".
 
@@ -34,6 +34,62 @@ docs-version: 10
 | 2026-07-20 | IA draft: 7 page types; rejected Blog/Uses/Now/Speaking/Lab pages |
 
 ## Session log
+- **2026-08-09 (ONEGUARD + SITE-WIDE TONE PASS):** Matt asked for the entrepreneurship coursework as a new
+  project, then, mid-session, for a review of the copy on every page: it read arrogant, Peru should not have
+  its own section, and the whole thing should make a hiring manager want to interview him.
+  - **New second tier of project.** OneGuard is a five-person venture, not a flagship, so it does not go in
+    `featured` (which the home page renders in full). Added `secondary: Project[]` in `content/projects.ts`
+    plus an `allStudies` helper, and a new **study row** component on `/work`: hairline rows on the
+    experience list's 150px/1fr rhythm, kind label in rubric, no image. Rank is legible from density rather
+    than from size. Routes, OG images and the sitemap all read `allStudies`, so the build generates 5 study
+    pages instead of 4.
+  - **Sources read in full:** the 28-page CW1 report, the CW2 brief, and the final poster. Every figure on
+    the page traces to the report. The Google Slides deck could **not** be read (login-gated, so WebFetch
+    gets the app shell, not the notes) and the gstack headless browser failed to start, so the speaker notes
+    are still unread. Nothing on the page depends on them.
+  - **Role honesty.** The report has no per-author attribution, so the first draft of the page was written
+    entirely in the plural and claimed nothing for Matt alone. He then confirmed his share: market research,
+    idea validation, interviews with people working in finance, and a light regulatory check on the finance
+    angle. The page now names those three and stays in the plural everywhere else. The interview line is
+    backed by the report's own "Corporate MD Employee (Nov. 2025), Personal Communication" citations, and
+    quotes seven words of one of them.
+  - **Three images** cut from source: the hi-fi lesson screen (lead), the hand-drawn ten-screen flow, and the
+    poster. The poster is portrait in a column built for landscape, so a `.fig-portrait` rule caps it at
+    520px. All three verified serving 200 and decoding through `/_next/image` as webp.
+  - **Tone pass, and what was actually wrong.** The copy kept claiming quality rather than showing it, and
+    took swipes at absent third parties. Fixed: "a simulator that refuses to lie" (moral framing), "the work,
+    told properly" (implies others do it badly), "the gate most tools skip" and "CI confirms what my machine
+    already knew" (both smug), the Squarespace paragraph (dismissive of a reasonable choice), "listed because
+    people ask, not because a list proves anything" (arch at the reader's expense), and the rowing section's
+    "a fair proxy for how quickly I pick things up" (telling a hiring manager what to conclude).
+  - **Found a broken sentence live on the site:** Barnett Art's "card details never touch the which keeps the
+    whole thing inside the lightest PCI bracket" had words missing. Fixed.
+  - **Peru** dropped from an H2 section with a paragraph about judgement to one clause under "Outside that".
+    **The placement year got its own section instead**, which is the strongest hiring evidence on the page and
+    was previously one paragraph inside "How I got here".
+  - **Society Matchmaker's stale claim finally cleared.** `content/projects.ts` still carried "engagement rose
+    150%" even though `content/site.ts` was corrected in July. It now carries the measured 36% against 15%.
+    Matt's link to the group repo (`olpaynter/society-matchmaker`) is **private**, so it is deliberately not
+    linked from the card.
+  - **First-year archive reviewed** (`Desktop/coursework/YR1`) after Matt corrected the hardware pick. Whac-A-Mole
+    was dropped, it is ungraded and thin. Two cards added instead: the **morse code transceiver** (Systems
+    Architecture CW2, two Arduinos over I2C, dot and dash on separate interrupts, a one-second gap as the
+    character delimiter, lookup decode to an LCD, potentiometer channel select with channel zero as a
+    broadcast), and **sudoku plus the dice game** grouped as one card (constraint satisfaction with
+    minimum-remaining-values and backtracking; a Markov decision process solved by value iteration).
+  - **No repos created, deliberately.** The morse source that survives is `last code.txt`, a working dump with
+    a missing brace in `send()` and debug prints still in it, and it is group work. The AI courseworks are
+    solo and clean but are solutions to units Bath still runs, so publishing them is an academic-integrity
+    risk with no upside. SRPN (emulating a legacy calculator's exact behaviour, saturating integer
+    arithmetic and all) is a good interview anecdote but did not earn a card. Email spam classification was
+    skipped as a duplicate of the NLP pipeline card. SPaM, Dungeon of Doom and the networks assignment add
+    nothing a recruiter would use.
+  - Tagline changed from "Software with judgement" (a claim about himself) to "Software engineering and
+    applied AI" (a statement of field), which also fixes the page title.
+  - Verified: `tsc --noEmit` clean, `next build` clean, 27 static pages, no horizontal overflow, study-row
+    computed styles resolve to the documented tokens (rubric `#C23A18`, display face, 1px hairline).
+    Screenshots were not possible: the preview pane does not composite in this session, so lazy-loaded
+    figures never decode there, and that is true of the existing Barnett Art page too, not just the new one.
 - **2026-08-05 (PORTRAIT NOT UPDATING):** Matt replaced `profile.jpeg` but the About portrait was unchanged.
   - **Cause: the new file was put in the wrong tree.** Commit `170a415` ("new pfp") touched `content/photos/profile/` only. That directory is a source archive — nothing in it is served. `content/site.ts` points the portrait at `/profile.jpeg`, which Next serves from `public/`, and `public/profile.jpeg` was still the July file (82,426 bytes, 1232×1640) while the new one (139,710 bytes, 904×1215) sat in `content/photos/profile/`.
   - **Fix:** copied `content/photos/profile/profile.jpeg` → `public/profile.jpeg`. No code change needed; `site.ts` and the About page were already correct.
