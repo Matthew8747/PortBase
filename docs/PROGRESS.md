@@ -37,6 +37,19 @@ docs-version: 11
 - **2026-08-09 (ONEGUARD + SITE-WIDE TONE PASS):** Matt asked for the entrepreneurship coursework as a new
   project, then, mid-session, for a review of the copy on every page: it read arrogant, Peru should not have
   its own section, and the whole thing should make a hiring manager want to interview him.
+  - **NY Racing promoted from an experience line to the second tier**, after Matt confirmed the work shipped
+    and pointed at the now-public `Matthew8747/nascar-sponsorship-visibility`. Read the repo rather than the
+    LinkedIn post: README, data quality report and both output charts. It earns a case study because it is
+    the only piece on the site that ends in a recommendation to a client, and because its honesty machinery
+    is real (weights published rather than fitted, sparse coverage recorded as zero with the consequence
+    stated, sensitivity work that carries more weight than the headline table). Second tier rather than
+    flagship because it is one season, five sponsors, and costs that are industry estimates.
+    Two charts pulled from the repo, alpha-flattened onto white and converted to webp.
+    **Left deliberately unstated:** the repo README calls "NY Racing" the externship's scenario framing, so
+    the site says "presented to the team at the end" and claims no commissioned engagement. If that framing
+    is wrong, it is Matt's to correct, and both should say the same thing.
+    `PROFILE.md` moved it out of Hidden and now records the numbers and the bounds. The LinkedIn post itself
+    is not going on the site: there is no blog, and its voice is not this site's.
   - **New second tier of project.** OneGuard is a five-person venture, not a flagship, so it does not go in
     `featured` (which the home page renders in full). Added `secondary: Project[]` in `content/projects.ts`
     plus an `allStudies` helper, and a new **study row** component on `/work`: hairline rows on the

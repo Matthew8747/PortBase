@@ -60,9 +60,10 @@ export const experience: ExperienceEntry[] = [
     role: "Sponsorship analytics extern",
     org: "NY Racing",
     note:
-      "Building the visibility model behind NASCAR sponsorship ROI. A full Cup Series season of race " +
-      "results joined to Reddit, YouTube and news coverage, so exposure can be tested against finishing " +
-      "position instead of assumed. Collection and cleaning are done; the modelling is still in progress.",
+      "Built the visibility model behind NASCAR sponsorship value. A full Cup Series season of race results " +
+      "joined to Reddit, YouTube and news coverage, scored on published weights, then costed to find which " +
+      "sponsor buys the most exposure per dollar. Finished with a written report and a deck presented to " +
+      "the team.",
   },
   {
     when: "2026 to 2027",
@@ -145,6 +146,14 @@ export const cvHighlights: { title: string; note: string; href?: string }[] = [
       "Fifty-one participants across three sessions each. Designed the protocol, ran every session, " +
       "and built the pipeline that reconciled six instrument streams onto one timeline. Graded 82%.",
     href: "/work/bike-fit",
+  },
+  {
+    title: "NASCAR sponsorship visibility",
+    note:
+      "End-to-end analytics externship: four data sources across a 36-race season, a composite scoring " +
+      "model on published weights, and a ranking that held its order under four weightings and the full " +
+      "range of cost estimates. Delivered as a report and a presentation.",
+    href: "/work/nascar-visibility",
   },
   {
     title: "Society Matchmaker",

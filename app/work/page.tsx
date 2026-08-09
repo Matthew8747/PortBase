@@ -23,8 +23,8 @@ export default function WorkPage() {
           <h1>Things I&rsquo;ve built.</h1>
           <p className="lede">
             The four at the top have full case studies, covering what each one had to do, what it cost and
-            what I would do differently. Below them is a group venture written up the same way, then the
-            smaller pieces, with a link to the code wherever there is code worth reading.
+            what I would do differently. Below them are two more written up the same way, then the smaller
+            pieces, with a link to the code wherever there is code worth reading.
           </p>
         </div>
 
@@ -62,7 +62,7 @@ export default function WorkPage() {
         <section className="sec">
           <Reveal className="sec-head">
             <span className="t-section">Also written up</span>
-            <h2>Smaller projects, same treatment.</h2>
+            <h2>Two more, same treatment.</h2>
             <p>Case studies for work that sits outside the four above.</p>
           </Reveal>
 

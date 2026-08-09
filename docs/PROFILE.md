@@ -53,13 +53,26 @@ Top-tier final-year CS+AI student targeting **2026/27 graduate roles**: software
 - **NLP-pipeline** — IMDb sentiment classification: naive Bayes written from scratch, plus three hand-written vectorisers (BoW, TF-IDF, PPMI). Lemmatisation, custom stop words, n-grams and min-df are all CLI flags. **Best config reaches 85.1% accuracy on a held-out test set** (verified in the repo README, 2026-07-21). 2000 pos + 2000 neg, 60/20/20 split.
 - **Space-Invaders-project-** — RL coursework: building + comparing RL methods on Atari Space Invaders; second coursework researching intrinsic RL.
 - **TumorDetection** — YOLOv10 brain-tumour detection + Gradio UI. Arc note: links back to EPQ on computer-aided diagnosis.
-- **NY Racing externship** — card once deliverables complete.
+- **NY Racing externship** — ✅ **complete, verified 2026-08-09** against the now-public repo
+  `Matthew8747/nascar-sponsorship-visibility`. Second-tier case study at `/work/nascar-visibility`.
+  180 rows (5 primary sponsors × 36 races of 2024), 0 nulls, 540 merged values reconciled row by row.
+  Four sources: Kaggle race results, Google News RSS with source-tier weighting, Reddit via PullPush
+  (official API and RSS both failed first), YouTube Data API filtered to a per-race publish window.
+  Composite 0–100 score on **published, unfitted** weights (performance 40 / media 30 / social 20 /
+  events 10) because per-race correlations were too weak for a regression. **Results:** FedEx highest
+  raw visibility 1,211; Busch Light best efficiency 76.9 pts/$M vs FedEx 65.4. Recommendation: FedEx
+  all-round, Busch Light value play. Ranking order held under 4 weightings; efficiency moved ≤1 place
+  across the cost range; season-level directional correlations r = 0.53–0.94. Reddit matched 35% of
+  sponsor-race rows and news 46%, filled with 0 as a measurement.
+  **Bounds that must ship with it:** costs are industry *estimates*, not contracts; visibility is proxies;
+  one season; validation is directional, not causal. ⚠️ The repo README says the "NY Racing" scenario is
+  the externship framing — keep the site's wording no stronger than the README's.
 - **Society Matchmaker** — 8-person team (CM20314 Experimental Systems Project), user research led by Matt, Random Forest recommender. **Verified 2026-07-21 against the group's Deliverable 4 report:** controlled study, n=18 after removing 2 compromised samples, paired single-tailed t-tests at 95% confidence. Our system's engagement ratio **36%** vs the SU site's **15%**. System 2 (three recommendations) beat System 1 (one at a time) p=.008, d=0.77; both beat the plain list p<.001, d=1.29 and 1.48. **The old '150% engagement increase' claim was unsourced** — it was a remembered version of the 36/15 ratio. Use the measured figures.
 - **AI experiments** (grouped single card) — DinoNEAT (NEAT on Chrome dino), GoL forest-fire simulator, boids/migration simulation.
 - **Argonauts** — Unity 2D platformer (dash, wall-jump, enemy AI); Unreal hackathon follow-up (grappling platformer). Optional card.
 
 ### Hidden
-- FootballAnalysis (empty), old portfolio fork (matthew8747.github.io), Kontron code (NDA), `Arcade-Learning-Environment` (a fork, not his work), `art-site` (superseded by the `BarnettArt` build), `nascar-visibility-analysis` (scaffold only — README + empty `code/`, `docs/`, `output/` dirs as of 2026-07-21, so it stays an experience entry and gets no project card until deliverables exist).
+- FootballAnalysis (empty), old portfolio fork (matthew8747.github.io), Kontron code (NDA), `Arcade-Learning-Environment` (a fork, not his work), `art-site` (superseded by the `BarnettArt` build). *(`nascar-visibility-analysis` was listed here as a scaffold on 2026-07-21; it shipped and moved to Cards on 2026-08-09.)*
 
 ### Coursework paragraph material (Phase 8)
 Verified 2026-07-21 by reading the actual coursework in `Desktop/YR3`, `Desktop/YR2`, `Desktop/coursework/YR1`:
