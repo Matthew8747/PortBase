@@ -29,7 +29,7 @@ export default function SiteFooter() {
       </div>
       <div className="foot-base">
         <span>© {new Date().getFullYear()} {site.name}</span>
-        <span>Built with Next.js and deliberately little else.</span>
+        <span>Designed and built with Next.js.</span>
       </div>
     </footer>
   );

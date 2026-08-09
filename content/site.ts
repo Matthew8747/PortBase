@@ -8,7 +8,7 @@ export const site = {
   name: "Matt Pearson",
   formalName: "Matthew Pearson",
   role: "Computer Science & AI, University of Bath",
-  tagline: "Software with judgement.",
+  tagline: "Software engineering and applied AI.",
   status: "Open to 2027 graduate roles",
   location: "Bath, UK",
   relocation: "happy to move for the right team",
@@ -32,8 +32,9 @@ export const site = {
   },
 
   description:
-    "Final-year Computer Science and AI student at the University of Bath. Three first-class years, " +
-    "a placement year shipping enterprise software, and projects built to tell the truth about their own results.",
+    "Final-year Computer Science and AI student at the University of Bath. Three first-class years, a " +
+    "placement year building enterprise software at Kontron, and case studies covering the decisions " +
+    "behind each project.",
 } as const;
 
 export type ExperienceEntry = {
@@ -199,7 +200,7 @@ export const coursework = [
   {
     module: "Entrepreneurship",
     note:
-      "A venture for training people to tell human writing from machine writing, taken from problem " +
-      "through prototypes and user feedback to a pitch.",
+      "OneGuard, a five-person venture selling AI-detection training to financial firms. Problem research, " +
+      "two surveys, paper and Figma prototypes, then an investor-style pitch. Written up as a case study.",
   },
 ];

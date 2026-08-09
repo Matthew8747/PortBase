@@ -829,6 +829,103 @@ p {
 }
 
 /* ============================================================
+   STUDY ROWS
+   The second tier of case study. A work row leads with its image; this leads with a
+   label and carries none, so the ranking is legible from density rather than from size.
+   The 150px/1fr grid is the experience list's rhythm, reused on purpose.
+   ============================================================ */
+.study-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 860px;
+}
+.study-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: var(--s7);
+  padding: var(--s6) 0;
+  border-top: 1px solid var(--hair);
+  text-decoration: none;
+  color: inherit;
+}
+.study-row:last-of-type {
+  border-bottom: 1px solid var(--hair);
+}
+.study-kind {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+}
+.study-kind em {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--rubric);
+}
+.study-kind > span {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.study-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+.study-title {
+  font-family: var(--display);
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s3);
+  transition:
+    color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+.study-title .go {
+  font-size: 0.5em;
+  color: var(--cobalt);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.3s var(--ease);
+}
+.study-row:hover .study-title {
+  color: var(--cobalt);
+}
+.study-row:hover .study-title .go {
+  opacity: 1;
+  transform: none;
+}
+.study-row:active .study-title {
+  transform: translateY(1px);
+  transition-duration: 0.1s;
+}
+.study-row:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 8px;
+}
+.study-desc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--quiet);
+  max-width: 52ch;
+}
+@media (max-width: 700px) {
+  .study-row {
+    grid-template-columns: 1fr;
+    gap: var(--s3);
+  }
+  .study-kind {
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--s2);
+  }
+}
+
+/* ============================================================
    ABOUT BAND
    ============================================================ */
 .sec-about .t-section {
@@ -1112,6 +1209,11 @@ p {
   .prose .fig-wide {
     width: 880px;
   }
+}
+/* A portrait artefact in a column built for landscape ones. Left aligned with the prose and
+   capped, so it reads as a plate on the page rather than a wall down it. */
+.prose .fig-portrait {
+  max-width: 520px;
 }
 @media (max-width: 1080px) {
   .fig-lead {

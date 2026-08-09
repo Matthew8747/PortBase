@@ -3,13 +3,14 @@ import ProjectFigure from "@/components/project-figure";
 import Reveal from "@/components/reveal";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
-import { featured, supporting } from "@/content/projects";
+import { featured, secondary, supporting } from "@/content/projects";
 
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Four case studies: a set-piece simulator, a painter's storefront that takes real payments, a club " +
-    "website built to outlive its committee, and a 51-participant cycling study.",
+    "Case studies: a set-piece simulator, a painter's storefront that takes real payments, a club website " +
+    "built to outlive its committee, a 51-participant cycling study, and a group venture in AI-detection " +
+    "training.",
 };
 
 export default function WorkPage() {
@@ -21,8 +22,9 @@ export default function WorkPage() {
           <span className="t-section">Work</span>
           <h1>Things I&rsquo;ve built.</h1>
           <p className="lede">
-            The first four have proper case studies, because they had real constraints and taught me something.
-            Everything under them is here as evidence, without the story.
+            The four at the top have full case studies, covering what each one had to do, what it cost and
+            what I would do differently. Below them is a group venture written up the same way, then the
+            smaller pieces, with a link to the code wherever there is code worth reading.
           </p>
         </div>
 
@@ -55,6 +57,35 @@ export default function WorkPage() {
               </div>
             </Reveal>
           ))}
+        </section>
+
+        <section className="sec">
+          <Reveal className="sec-head">
+            <span className="t-section">Also written up</span>
+            <h2>Smaller projects, same treatment.</h2>
+            <p>Case studies for work that sits outside the four above.</p>
+          </Reveal>
+
+          <div className="study-list">
+            {secondary.map((project) => (
+              <Reveal className="study-row" href={`/work/${project.slug}`} key={project.slug}>
+                <span className="study-kind">
+                  <em>{project.kind}</em>
+                  <span>{project.kindDetail}</span>
+                </span>
+                <div className="study-body">
+                  <span className="study-title">
+                    {project.title}{" "}
+                    <span className="go" aria-hidden="true">
+                      →
+                    </span>
+                  </span>
+                  <p className="study-desc">{project.summary}</p>
+                  <span className="t-tech">{project.tech.join(" · ")}</span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </section>
 
         <section className="sec">

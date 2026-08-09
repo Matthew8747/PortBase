@@ -9,8 +9,8 @@ import { coursework, education, experience, site, skills } from "@/content/site"
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Final-year Computer Science and AI at Bath, a placement year at Kontron, and rowing at national level. " +
-    "The longer version.",
+    "Final-year Computer Science and AI at Bath, a placement year at Kontron, and the longer version of " +
+    "how I work.",
 };
 
 export default function AboutPage() {
@@ -24,8 +24,10 @@ export default function AboutPage() {
             <h1>The longer story.</h1>
             <p className="lede">
               I&rsquo;m a final-year Computer Science and AI student at the University of Bath, on the integrated
-              masters with a placement year. I like problems where the answer isn&rsquo;t already known, and I care a
-              great deal about not overstating what the answer turned out to be.
+              masters with a placement year, and I&rsquo;m looking for a graduate software role starting in 2027.
+              What I can point to is a year of production work at Kontron, two client sites in live use, and
+              research projects documented well enough for somebody else to check them. I ask a lot of
+              questions early, and I would much rather find out something is wrong now than defend it later.
             </p>
           </div>
           {site.portrait.enabled ? (
@@ -47,56 +49,60 @@ export default function AboutPage() {
             <Reveal as="section">
               <h2>How I got here</h2>
               <p>
-                I took Maths, Computer Science and Physics at A-level and an EPQ asking whether computer-aided
-                diagnosis was ready for large-scale use. That question, a technology that works in a paper but has
-                to survive contact with real clinical practice, is roughly the question I&rsquo;ve kept asking
-                since, in different clothes.
+                I took Maths, Computer Science and Physics at A-level, alongside an EPQ asking whether
+                computer-aided diagnosis was ready to be used at scale. That question, a technology that works in a
+                paper and then has to survive contact with practice, is one I have kept coming back to. The brain
+                tumour detection project on the work page is the same question five years later with better tools.
               </p>
               <p>
-                Bath came next, then a year at Kontron on their device management product, working across
-                development and QA. The most useful thing I built there wasn&rsquo;t a feature: it was a Jenkins
-                test runner that let anyone specify a set of tests and get results back, which finally got the
-                dev-ops and development teams running the same suite instead of two different ones.
-              </p>
-            </Reveal>
-
-            <Reveal as="section">
-              <h2>Rowing, and what it&rsquo;s actually for</h2>
-              <p>
-                I rowed in the British Rowing Performance Development Academy and won medals at the Senior British
-                Championships and at BUCS. This year I switched to sweep for the university squad for the first time
-                and made the first boat. We didn&rsquo;t qualify for Henley, and we were fractions of a second off
-                the A final at BUCS, so by the numbers it wasn&rsquo;t a successful season.
-              </p>
-              <p>
-                I mention it because twelve-plus sessions a week alongside a degree and a full-time placement is the
-                clearest evidence I have about how I work: consistently, early, and without needing to be chased.
-                And because learning a new discipline well enough to make a first boat inside a season is a fair
-                proxy for how quickly I pick things up.
-              </p>
-              <p>
-                This year I was elected Performance Sport Officer on the Students&rsquo; Union Sports Executive,
-                which means representing every performance athlete at the university and not only the rowers. The
-                seat sits on the Blues Committee and works with the sports department on how performance sport is
-                run, so it is a say in the decisions rather than a title.
+                Bath came next: three years of study so far, a placement year in the middle, and a final year to
+                come. The dissertation was a crossover study on professional bike fitting, which is written up on
+                the work page as far as the paper allows.
               </p>
             </Reveal>
 
             <Reveal as="section">
-              <h2>A month in Peru</h2>
+              <h2>The placement year</h2>
               <p>
-                I spent a month travelling Peru alone. It is the single most useful thing I have done for my own
-                judgement. Every day is a series of decisions made on incomplete information in a language you
-                only partly speak, and you find out quite quickly whether you actually solve problems or just
-                prefer the idea of solving them.
+                I spent a year at Kontron, formerly Bsquare, on their device management product, working across
+                development and QA. I started on bug fixes in Angular and TypeScript, moved on to delivering full
+                features, and documented more than fifty defects on the QA side.
+              </p>
+              <p>
+                The part I am most pleased with was not a feature. Development and dev-ops were running different
+                test suites, so the two sets of results disagreed and neither was fully trusted. I built a Jenkins
+                runner that let anyone select a set of tests and get results back in one format, and both teams
+                moved onto it. The code and the screenshots are covered by the agreement I signed, so I can
+                describe that work but not show it.
               </p>
             </Reveal>
 
             <Reveal as="section">
-              <h2>Outside all that</h2>
+              <h2>Rowing</h2>
               <p>
-                Fifteen years of football, including captaining teams and running the social side of the department
-                side. Hiking, guitar, badminton, and slowly improving French and German.
+                I rowed in the British Rowing Performance Development Academy and have medals from the Senior
+                British Championships and from BUCS. This year I moved to sweep for the university squad for the
+                first time and was selected for the first boat. We did not qualify for Henley and we missed the A
+                final at BUCS by a fraction of a second, so by results it was not a successful season.
+              </p>
+              <p>
+                It is on the page for the schedule more than the medals. Twelve or more sessions a week alongside
+                a degree and a full-time placement is a fair record of what I can keep up over a long stretch,
+                and a squad is a good place to learn how to be useful to people who are having a bad week.
+              </p>
+              <p>
+                I was also elected Performance Sport Officer on the Students&rsquo; Union Sports Executive, which
+                means representing performance athletes across the university rather than only the rowers. The seat
+                sits on the Blues Committee and works with the sports department on how performance sport is run.
+              </p>
+            </Reveal>
+
+            <Reveal as="section">
+              <h2>Outside that</h2>
+              <p>
+                Fifteen years of football, including captaining sides and running the social side of the department
+                team. Hiking, guitar, badminton, and French and German that are both improving slowly. I spent a
+                month travelling in Peru on my own, which is the trip I would do again.
               </p>
             </Reveal>
           </div>
@@ -159,7 +165,10 @@ export default function AboutPage() {
           <Reveal className="sec-head">
             <span className="t-section">Tools</span>
             <h2>What I reach for.</h2>
-            <p>Listed because people ask, not because a list proves anything.</p>
+            <p>
+              The list is here because people ask for it. The case studies are the better guide to what I have
+              actually used and why.
+            </p>
           </Reveal>
           <Reveal style={{ display: "flex", flexDirection: "column", gap: "var(--s5)", maxWidth: 780 }}>
             {(
