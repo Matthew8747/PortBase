@@ -72,7 +72,17 @@ export const experience: ExperienceEntry[] = [
     note:
       "Elected to the Students' Union Sports Executive to represent performance athletes. The seat carries " +
       "their case into exec meetings, sits on the Blues Committee, works with the sports department on how " +
-      "performance sport is run, and drives student turnout at BUCS fixtures and showcase events.",
+      "performance sport is run, and drives student turnout at BUCS fixtures and showcase events. Currently " +
+      "setting up a knowledge exchange between the main performance squads.",
+  },
+  {
+    when: "2026 to 2027",
+    role: "SUmmit member",
+    org: "The SU, University of Bath",
+    note:
+      "Elected on a cross-campus ballot to SUmmit, the committee of student leaders that sets the Students' " +
+      "Union's political direction. It votes the Standpoints the SU argues from and holds the full-time " +
+      "Officers to account for what they said they would do.",
   },
   {
     when: "2023 to 2025",
@@ -91,6 +101,100 @@ export const experience: ExperienceEntry[] = [
       "trustworthy started.",
   },
 ];
+
+export type Seat = {
+  org: string;
+  committee: string;
+  role: string;
+  remit: string;
+  /**
+   * The one specific thing that makes each seat worth reading about. `live` draws the
+   * in-progress marker, so it is only ever set on work actually under way.
+   */
+  mark: { label: string; text: string; live?: boolean };
+};
+
+/**
+ * From PROFILE.md, Experience. Both seats are elected, both run 2026/27, and they are
+ * shown as a pair because that is the point: one covers sport, the other SU politics.
+ * Nothing beyond the knowledge exchange is on record for either role. Do not add outcomes.
+ */
+export const seats: Seat[] = [
+  {
+    org: "SU Sport",
+    committee: "Sports Executive Committee",
+    role: "Performance Sport Officer",
+    remit:
+      "One of eight seats on the Sports Exec, and the one that speaks for performance athletes. It sits on " +
+      "the Blues Committee, carries the athletes' case into exec meetings, and works with the sports " +
+      "department on how performance sport is actually run.",
+    mark: {
+      label: "Under way",
+      text:
+        "A knowledge exchange between the main performance squads: somewhere a squad can put down what has " +
+        "been working for them, and a route to reach a club that has already solved it.",
+      live: true,
+    },
+  },
+  {
+    org: "The SU",
+    committee: "SUmmit",
+    role: "Elected member, open place",
+    remit:
+      "SUmmit is the committee of student leaders that sets the Students' Union's political direction. It " +
+      "votes the Standpoints the SU argues from, holds the full-time Officers to account for what they said " +
+      "they would do, and meets about four times a year.",
+    mark: {
+      label: "Mandate",
+      text:
+        "Won on a cross-campus ballot rather than through a club or a faculty, so the seat answers to the " +
+        "whole student body.",
+    },
+  },
+];
+
+/**
+ * The final-year research project, from PROFILE.md.
+ * It is at PROPOSAL STAGE: no data, no ethics approval, no findings. Every word here has to
+ * stay a statement of design or intent. Do not add a result to this object.
+ */
+export const research = {
+  eyebrow: "Final-year research project",
+  weight: "40 credits",
+  question: "Can an ergometer feel a rowing stroke as well as a camera can see it?",
+  lede:
+    "Coaches judge a stroke by eye and the machine's own monitor reports none of what they are looking at. " +
+    "My Master's project puts two ways of measuring it against each other, neither of which asks the rower " +
+    "to wear anything.",
+  strands: [
+    {
+      label: "The machine",
+      text:
+        "Load cells under the seat, force on the left and right foot-stretcher, position on the seat and the " +
+        "handle, every channel on one clock. It feels what a camera cannot see: whether weight comes off the " +
+        "seat, and whether the catch is connected.",
+    },
+    {
+      label: "The camera",
+      text:
+        "Iris, the university's markerless capture system, reading the body straight from video. It separates " +
+        "trunk from arms, which the machine cannot. At the catch the rower is folded over the handle, and " +
+        "that is where I expect it to struggle.",
+    },
+    {
+      label: "The referee",
+      text:
+        "Marker-based motion capture on the same clock, used only to judge the other two. Every event gets an " +
+        "accuracy threshold fixed before a single rower is tested, so nothing can be graded generously after " +
+        "the fact.",
+    },
+  ],
+  close:
+    "Then the half of it the published work mostly leaves alone: sitting down with coaches and rowers to find " +
+    "out which of these measures mean anything, how they square with what a rower feels, and how they should " +
+    "be shown.",
+  status: "Proposal stage. Direction and lab setup still to confirm",
+} as const;
 
 /** From PROFILE.md, Identity and Skills. */
 export const education = {
@@ -181,8 +285,35 @@ export const skills = {
   methods: ["Agile and Scrum", "Test-driven development", "CI/CD"],
 };
 
-/** Coursework, from PROFILE.md. More to be added once Matt uploads the rest. */
+/**
+ * Coursework, from PROFILE.md. Final-year modules first, then third year, because a
+ * recruiter reads the top two and stops.
+ *
+ * Honesty rules for the two final-year entries: Advanced Computer Vision is group
+ * coursework in progress with no grade. Matt confirmed on 2026-11-06 that he is coding
+ * tasks 1, 5 and 7 and that the analysis is shared across the group, so the entry claims
+ * exactly those three and says the analysis is collective. Nothing about tasks 2, 3, 4,
+ * 6 or 8, and no numbers. The HCI entry describes the presentations; tutor feedback
+ * stays off the site entirely.
+ */
 export const coursework = [
+  {
+    module: "Human-Computer Interaction",
+    note:
+      "A reading module: a few papers read properly each week, then five minutes in front of the group " +
+      "making the case for what they add up to. The thread so far is what a wearable can actually detect. " +
+      "The first talk pulled apart whether a watch is reading stress or reading sleep; the second asked " +
+      "whether one could catch a nightmare and do something about it.",
+  },
+  {
+    module: "Advanced Computer Vision",
+    note:
+      "Group coursework, still running. I'm writing three of the eight tasks: the hundred-class classifier, " +
+      "a few-shot version that has to work from one, five or ten examples of a class, and a third that asks " +
+      "how far the classifier's own backbone carries as a plain feature extractor. Most of the effort has " +
+      "gone into the harness rather than the models, so an experiment is one changed setting and two runs " +
+      "are still comparable a week later. The analysis is the whole group's, once the training is done.",
+  },
   {
     module: "Reinforcement Learning",
     note:

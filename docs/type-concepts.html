@@ -1,0 +1,464 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matt Pearson — type &amp; layout directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Archivo:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     Matt Pearson — type and layout directions, 2026-11-06.
+     A judging tool, not a page to ship. It renders the SAME four
+     slices of the real site (hero, a work row, the research band,
+     an elected seat) under four type systems, so the comparison is
+     like for like. "Current" is the control: without it you cannot
+     tell whether a direction is better or merely different.
+
+     Fonts come from Google's CDN because this file never ships.
+     Anything chosen gets self-hosted through next/font in the build.
+     ============================================================ */
+  :root{
+    --ground:#F7F6F2; --white:#FFFFFF; --ink:#1B1913; --band:#17150F; --paper:#EAE7DF; --void:#0A0907;
+    --muted:#6E6A61; --quiet:#57534A; --hair:#E5E2DA;
+    --cobalt:#2A46D4; --cobalt-lift:#8B9CF4;
+    --rubric:#C23A18;
+
+    --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px;
+    --s7:48px; --s8:64px; --s9:96px; --s10:128px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+
+    /* The tool's own chrome. Deliberately not the site's type, so the
+       toolbar can never be mistaken for one of the candidates. */
+    --ui:'IBM Plex Mono',ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#201E18;color:var(--ink);font:400 16px/1.62 var(--body)}
+  h1,h2,h3{margin:0;line-height:1.1;font-weight:400;text-wrap:balance}
+  p{margin:0}
+
+  /* ============================================================
+     TOOLBAR
+     ============================================================ */
+  .bar{position:sticky;top:0;z-index:50;background:#15140F;color:#E9E5DB;
+    border-bottom:1px solid #35322A;padding:14px 20px;display:flex;flex-wrap:wrap;
+    align-items:center;gap:18px}
+  .bar .who{font:500 12px/1 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:#8B8577}
+  .tabs{display:flex;gap:2px}
+  .tab{font:400 12.5px/1 var(--ui);color:#B5AFA1;background:transparent;border:1px solid #35322A;
+    padding:9px 13px;cursor:pointer;transition:color .18s var(--ease),border-color .18s var(--ease),background .18s var(--ease)}
+  .tab:hover{color:#F2EFE7;border-color:#565144}
+  .tab:focus-visible{outline:2px solid var(--cobalt-lift);outline-offset:2px}
+  .tab[aria-pressed="true"]{background:#F2EFE7;color:#15140F;border-color:#F2EFE7}
+  .tab:active{transform:translateY(1px)}
+  .sw{display:flex;align-items:center;gap:9px;font:400 12.5px/1 var(--ui);color:#B5AFA1;cursor:pointer}
+  .sw input{appearance:none;width:34px;height:18px;border:1px solid #565144;background:#23211A;
+    position:relative;cursor:pointer;transition:background .18s var(--ease),border-color .18s var(--ease)}
+  .sw input::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;background:#B5AFA1;
+    transition:transform .18s var(--ease),background .18s var(--ease)}
+  .sw input:checked{background:var(--rubric);border-color:var(--rubric)}
+  .sw input:checked::after{transform:translateX(16px);background:#fff}
+  .sw input:focus-visible{outline:2px solid var(--cobalt-lift);outline-offset:2px}
+  .bar .note{flex:1 1 100%;font:400 12px/1.6 var(--ui);color:#8B8577;max-width:none}
+  .bar .note b{color:#D8D2C5;font-weight:500}
+
+  /* ============================================================
+     STAGE
+     ============================================================ */
+  .stage{display:block}
+  .panel{display:none;background:var(--ground);margin:0 auto;max-width:1440px}
+  .panel.on{display:block}
+  /* Side-by-side: all four at once, scaled so a full slice fits a column.
+     Judgement at this size is about colour, rhythm and weight, not detail. */
+  body[data-view="grid"] .stage{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#35322A}
+  body[data-view="grid"] .panel{display:block;max-width:none}
+  body[data-view="grid"] .panel-in{zoom:.42}
+  body[data-view="grid"] .panel-tag{display:block}
+  .panel-tag{display:none;position:sticky;top:0;z-index:5;background:#15140F;color:#E9E5DB;
+    font:500 11px/1 var(--ui);letter-spacing:.14em;text-transform:uppercase;padding:10px 12px}
+
+  /* ============================================================
+     TYPE SYSTEMS. Only these blocks differ between directions.
+     ============================================================ */
+  /* CURRENT — the control. Delegated to the operating system, which is
+     why the site is a different site on Windows, macOS and Android. */
+  [data-dir="cur"]{
+    --display:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;
+    --body:-apple-system,'Segoe UI Variable Text','Segoe UI',system-ui,sans-serif;
+    --mono:'Cascadia Code','SF Mono',Consolas,monospace;
+    --body-size:16px; --body-lh:1.62; --h-track:-.025em; --eyebrow:var(--body);
+  }
+  /* A — SET IN METAL. One serif with optical sizes does display AND text;
+     the mono does every UI label. Two families, no sans at all. */
+  [data-dir="a"]{
+    --display:'Newsreader',Georgia,serif;
+    --body:'Newsreader',Georgia,serif;
+    --mono:'IBM Plex Mono',monospace;
+    --body-size:17.5px; --body-lh:1.6; --h-track:-.018em; --eyebrow:var(--mono);
+  }
+  [data-dir="a"] .ptxt,[data-dir="a"] .lede,[data-dir="a"] .strand p,[data-dir="a"] .seat-remit{
+    font-variation-settings:'opsz' 16}
+  [data-dir="a"] h1,[data-dir="a"] h2{font-variation-settings:'opsz' 60}
+  [data-dir="a"] .kind em{font-style:italic}
+
+  /* B — LAB NOTEBOOK. Variable grotesque for display, plain sans for text,
+     and the mono promoted: labels, captions, dates, every number. */
+  [data-dir="b"]{
+    --display:'Bricolage Grotesque',system-ui,sans-serif;
+    --body:'Archivo',system-ui,sans-serif;
+    --mono:'Spline Sans Mono',monospace;
+    --body-size:15.5px; --body-lh:1.66; --h-track:-.035em; --eyebrow:var(--mono);
+  }
+  [data-dir="b"] h1,[data-dir="b"] h2,[data-dir="b"] .w-title,[data-dir="b"] .seat-role{
+    font-variation-settings:'opsz' 72,'wght' 500}
+  [data-dir="b"] .strands{border-top-width:2px}
+  /* The thread motif becomes a ruler: ticks on every section rule. */
+  [data-dir="b"] .ruled{position:relative}
+  [data-dir="b"] .ruled::before{content:"";position:absolute;left:0;right:0;top:0;height:7px;
+    background:repeating-linear-gradient(to right,var(--ink) 0 1px,transparent 1px 24px);opacity:.42}
+  [data-dir="b"] .status{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* C — QUIET SWISS. One grotesque, no serif, no mono. The uppercase
+     eyebrow is deleted; a narrow left rail carries the labels instead. */
+  [data-dir="c"]{
+    --display:'Schibsted Grotesk',system-ui,sans-serif;
+    --body:'Schibsted Grotesk',system-ui,sans-serif;
+    --mono:'Schibsted Grotesk',system-ui,sans-serif;
+    --body-size:16px; --body-lh:1.6; --h-track:-.022em; --eyebrow:'Schibsted Grotesk',sans-serif;
+  }
+  [data-dir="c"] h1,[data-dir="c"] h2,[data-dir="c"] .w-title,[data-dir="c"] .seat-role{font-weight:500}
+  /* Headings stop shouting. Hierarchy comes from the rail and the space. */
+  [data-dir="c"] .sec h2{font-size:clamp(23px,2.4vw,30px)}
+  [data-dir="c"] .eyebrow::after{display:none}
+  [data-dir="c"] .eyebrow{text-transform:none;letter-spacing:0;font-size:13px;font-weight:500;color:var(--ink)}
+  /* The rail is absolutely placed rather than a spanning grid cell: a
+     `grid-row: 1 / span N` would invent N implicit rows and leave dead space
+     under the shortest section. The rule belongs to the section, not the label. */
+  [data-dir="c"] .sec{display:block;position:relative;padding-left:232px}
+  [data-dir="c"] .sec::before{content:"";position:absolute;left:200px;top:var(--s9);bottom:var(--s9);
+    width:1px;background:var(--hair)}
+  [data-dir="c"] .sec > .eyebrow{position:absolute;left:var(--s8);top:var(--s9);width:136px;
+    display:block;margin:0;padding-top:4px}
+  [data-dir="c"] .sec-head{margin-bottom:var(--s6)}
+  [data-dir="c"] .t-tech{font-family:var(--body);font-size:12.5px;letter-spacing:.01em}
+  [data-dir="c"] .seat-org{font-family:var(--body);font-size:12.5px;letter-spacing:.01em}
+  [data-dir="c"] .strand-label{font-family:var(--body);text-transform:none;letter-spacing:0;font-size:13.5px;font-weight:500}
+
+  /* ============================================================
+     THE SLICES. Shared markup, built from the real site.
+     ============================================================ */
+  .panel-in{color:var(--ink);font:400 var(--body-size)/var(--body-lh) var(--body)}
+  .sec{padding:var(--s9) var(--s7) var(--s9) var(--s8)}
+  .sec-white{background:var(--white);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+  .sec-paper{background:var(--paper);--hair:#D9D5CA;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+
+  .eyebrow{display:flex;align-items:center;gap:var(--s3);font:500 11px/1 var(--eyebrow);
+    letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--s4)}
+  .eyebrow::after{content:"";height:1px;flex:1;background:var(--hair);max-width:120px}
+  .sec-head{max-width:640px;margin-bottom:var(--s8)}
+  .sec h2{font-family:var(--display);font-size:clamp(30px,3.6vw,42px);letter-spacing:var(--h-track)}
+  .lede{color:var(--quiet);max-width:52ch;margin-top:var(--s4)}
+  .t-tech{font:400 11.5px/1.6 var(--mono);letter-spacing:-.01em;color:var(--muted)}
+
+  /* hero -------------------------------------------------------- */
+  .hero{background:var(--void);color:#F4F1E9;padding:var(--s10) var(--s7) var(--s9) var(--s8);
+    position:relative;min-height:440px;display:flex;flex-direction:column;justify-content:center}
+  .hero h1{font-family:var(--display);font-size:clamp(56px,8.4vw,104px);letter-spacing:-.04em;line-height:.94}
+  [data-dir="a"] .hero h1{letter-spacing:-.025em}
+  [data-dir="c"] .hero h1{font-weight:500;letter-spacing:-.035em}
+  .sweep{position:relative}
+  .sweep::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:3px;background:var(--rubric)}
+  .hero .phrase{margin-top:var(--s5);font-size:19px;color:#C8C2B4;max-width:34ch}
+  .hero-meta{margin-top:var(--s7);display:flex;align-items:center;gap:var(--s6);flex-wrap:wrap}
+  .pill{display:inline-flex;align-items:center;gap:9px;font:500 13px/1 var(--body);color:#F4F1E9;
+    border:1px solid #3A362C;padding:9px 14px}
+  .pill i{width:5px;height:5px;background:var(--rubric);box-shadow:0 0 0 3px rgba(194,58,24,.2)}
+  .ulink{font:500 14px/1 var(--body);color:#F4F1E9;text-decoration:none;border-bottom:1px solid currentColor;
+    padding-bottom:3px}
+  .cue{position:absolute;right:var(--s7);bottom:var(--s7);display:flex;flex-direction:column;
+    align-items:center;gap:10px;font:500 10px/1 var(--mono);letter-spacing:.2em;color:#6F6A5D}
+  .cue i{width:1px;height:38px;background:linear-gradient(#6F6A5D,transparent)}
+
+  /* work row ---------------------------------------------------- */
+  .work-row{display:grid;grid-template-columns:1fr 400px;gap:var(--s8);align-items:center}
+  .kind{font:400 13px/1.5 var(--body);color:var(--muted);margin-bottom:var(--s3)}
+  .kind em{color:var(--rubric);font-style:italic}
+  .w-title{font-family:var(--display);font-size:clamp(30px,3.6vw,44px);letter-spacing:var(--h-track);
+    display:block;margin-bottom:var(--s4)}
+  .w-desc{color:var(--quiet);max-width:46ch;margin-bottom:var(--s4)}
+  .w-vis{aspect-ratio:16/10;background:var(--paper);border:1px solid var(--hair);
+    display:flex;align-items:center;justify-content:center}
+  .w-vis span{font:400 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+  /* research strands -------------------------------------------- */
+  .rq{font-family:var(--display);font-size:clamp(31px,4.4vw,50px);letter-spacing:var(--h-track);
+    line-height:1.08;max-width:24ch}
+  [data-dir="c"] .rq{font-size:clamp(26px,3.2vw,38px);font-weight:500}
+  .strands{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--hair);max-width:1040px;
+    margin-top:var(--s8)}
+  .strand{padding:var(--s5) var(--s6) 0 0}
+  .strand + .strand{padding-left:var(--s6);border-left:1px solid var(--hair)}
+  .strand-label{position:relative;display:block;font:500 11px/1 var(--eyebrow);letter-spacing:.18em;
+    text-transform:uppercase;color:var(--ink);padding-top:var(--s3);margin-bottom:var(--s3)}
+  .strand-label::before{content:"";position:absolute;top:calc(var(--s5) * -1);left:0;width:22px;height:2px;
+    background:var(--rubric)}
+  .strand + .strand .strand-label::before{left:var(--s6)}
+  [data-dir="c"] .strand-label::before{width:16px;background:var(--ink)}
+  .strand p{font-size:14.5px;line-height:1.68;color:var(--quiet)}
+  .status{display:inline-flex;align-items:center;gap:9px;font:500 13px/1 var(--body);color:var(--ink);
+    border:1px solid var(--hair);padding:9px 14px;margin-top:var(--s7)}
+  .status i{width:5px;height:5px;background:var(--rubric);box-shadow:0 0 0 3px rgba(194,58,24,.13)}
+
+  /* elected seat ------------------------------------------------ */
+  .seat{max-width:470px}
+  .seat-org{font:400 11.5px/1.6 var(--mono);color:var(--muted);display:block;margin-bottom:var(--s4)}
+  .seat-org b{color:var(--ink);font-weight:400}
+  .seat-role{font-family:var(--display);font-size:28px;letter-spacing:var(--h-track);display:block;
+    margin-bottom:var(--s4)}
+  .seat-remit{font-size:15.5px;line-height:1.68;color:var(--quiet)}
+  .seat-mark{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--hair)}
+  .seat-mark dt{display:inline-flex;align-items:center;gap:9px;margin:0;font:500 11px/1 var(--eyebrow);
+    letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--s2)}
+  .seat-mark dt i{width:5px;height:5px;background:var(--rubric);box-shadow:0 0 0 3px rgba(194,58,24,.13)}
+  .seat-mark dd{margin:0;font-size:15px;line-height:1.66;color:var(--ink)}
+  [data-dir="c"] .seat-mark dt{text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink)}
+
+  /* ============================================================
+     THE TELLS. Everything here is on by default, because it is what
+     the site does today. The switch turns all of it off at once, so
+     the type directions can be judged apart from the patterns.
+     ============================================================ */
+  body[data-tells="off"] .cue{display:none}
+  body[data-tells="off"] .pill i,
+  body[data-tells="off"] .status i,
+  body[data-tells="off"] .seat-mark dt i{display:none}
+  body[data-tells="off"] .arr{display:none}
+  body[data-tells="on"] .rev{opacity:0;transform:translateY(20px);
+    transition:opacity .75s var(--ease),transform .75s var(--ease)}
+  body[data-tells="on"] .rev.in{opacity:1;transform:none}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    .rev{opacity:1 !important;transform:none !important;transition:none !important}
+    .tab,.sw input,.sw input::after{transition:none}
+  }
+  @media (max-width:1100px){
+    body[data-view="grid"] .stage{grid-template-columns:repeat(2,1fr)}
+    .work-row{grid-template-columns:1fr;gap:var(--s5)}
+  }
+</style>
+
+<body data-dir-active="cur" data-view="flip" data-tells="on">
+
+<div class="bar">
+  <span class="who">Type &amp; layout directions</span>
+  <div class="tabs" role="group" aria-label="Direction">
+    <button class="tab" type="button" data-pick="cur" aria-pressed="true">Current</button>
+    <button class="tab" type="button" data-pick="a" aria-pressed="false">A · Set in metal</button>
+    <button class="tab" type="button" data-pick="b" aria-pressed="false">B · Lab notebook</button>
+    <button class="tab" type="button" data-pick="c" aria-pressed="false">C · Quiet Swiss</button>
+  </div>
+  <label class="sw"><input type="checkbox" id="grid"> Side by side</label>
+  <label class="sw"><input type="checkbox" id="tells" checked> Keep the AI tells</label>
+  <p class="note" id="note"></p>
+</div>
+
+<div class="stage" id="stage"></div>
+
+<template id="tpl">
+  <div class="panel-in">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <h1>Matt<br><span class="sweep">Pearson</span>.</h1>
+        <p class="phrase">Software engineering and applied AI.</p>
+        <div class="hero-meta">
+          <span class="pill"><i></i>Open to 2027 graduate roles</span>
+          <a class="ulink" href="#">See the work <span class="arr">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="cue"><span>SCROLL</span><i></i></div>
+    </section>
+
+    <!-- WORK ROW -->
+    <section class="sec sec-white ruled">
+      <span class="eyebrow">Selected work</span>
+      <div class="sec-head rev">
+        <h2 data-off="The work, in detail">The work, in detail.</h2>
+      </div>
+      <div class="work-row rev">
+        <div>
+          <span class="kind"><em>Client work</em> &middot; University of Bath Boat Club</span>
+          <span class="w-title">BUBC <span class="arr">&rarr;</span></span>
+          <p class="w-desc">A club website rebuilt to outlive the committee that commissioned it. Editors
+            publish a race report in five minutes, it targets 95+ on Lighthouse, and it runs for about ten
+            pounds a year.</p>
+          <span class="t-tech">Astro &middot; Sanity &middot; Tailwind &middot; Vercel</span>
+        </div>
+        <div class="w-vis"><span>figure</span></div>
+      </div>
+    </section>
+
+    <!-- RESEARCH BAND -->
+    <section class="sec sec-paper ruled">
+      <span class="eyebrow">Final-year research project &middot; 40 credits</span>
+      <div class="sec-head rev" style="max-width:760px">
+        <h2 class="rq">Can an ergometer feel a rowing stroke as well as a camera can see it?</h2>
+        <p class="lede">Coaches judge a stroke by eye and the machine&rsquo;s own monitor reports none of what
+          they are looking at. My Master&rsquo;s project puts two ways of measuring it against each other,
+          neither of which asks the rower to wear anything.</p>
+      </div>
+      <div class="strands rev">
+        <div class="strand">
+          <span class="strand-label">The machine</span>
+          <p>Load cells under the seat, force on the left and right foot-stretcher, position on the seat and
+            the handle, every channel on one clock.</p>
+        </div>
+        <div class="strand">
+          <span class="strand-label">The camera</span>
+          <p>Iris, the university&rsquo;s markerless capture system, reading the body straight from video. It
+            separates trunk from arms, which the machine cannot.</p>
+        </div>
+        <div class="strand">
+          <span class="strand-label">The referee</span>
+          <p>Marker-based motion capture on the same clock, used only to judge the other two. Every event gets
+            a threshold fixed before a single rower is tested.</p>
+        </div>
+      </div>
+      <span class="status"><i></i>Proposal stage. Direction and lab setup still to confirm</span>
+    </section>
+
+    <!-- ELECTED SEAT -->
+    <section class="sec ruled">
+      <span class="eyebrow">Elected</span>
+      <div class="sec-head rev">
+        <h2 data-off="Two seats, one term">Two seats, one term.</h2>
+      </div>
+      <div class="seat rev">
+        <span class="seat-org">SU Sport / <b>Sports Executive Committee</b></span>
+        <span class="seat-role">Performance Sport Officer</span>
+        <p class="seat-remit">One of eight seats on the Sports Exec, and the one that speaks for performance
+          athletes. It sits on the Blues Committee, carries the athletes&rsquo; case into exec meetings, and
+          works with the sports department on how performance sport is actually run.</p>
+        <dl class="seat-mark">
+          <dt><i></i>Under way</dt>
+          <dd>A knowledge exchange between the main performance squads: somewhere a squad can put down what has
+            been working for them, and a route to reach a club that has already solved it.</dd>
+        </dl>
+      </div>
+    </section>
+
+  </div>
+</template>
+
+<script>
+(function () {
+  var DIRS = [
+    { id: 'cur', name: 'Current',
+      note: '<b>Control.</b> Nothing is loaded: the display face resolves to Palatino Linotype on Windows, Iowan Old Style on a Mac and Georgia on Android, and the body face is whatever the OS calls its UI font. Costs 0&nbsp;KB and gives the site no voice of its own. Judge the other three against this, not against each other.' },
+    { id: 'a', name: 'A · Set in metal',
+      note: '<b>Newsreader + IBM Plex Mono.</b> One variable serif with an optical-size axis does display and body; the mono carries every label, chip and tech line. No sans anywhere. Reads as a magazine rather than a template, and the optical axis means the 100px name and the 17px paragraph are genuinely different drawings of the same face. ~2 files, ~90&nbsp;KB woff2 subset.' },
+    { id: 'b', name: 'B · Lab notebook',
+      note: '<b>Bricolage Grotesque + Archivo + Spline Sans Mono.</b> Leans into what the work actually is: measurement. The mono is promoted to labels, captions and all numbers with tabular figures, and the thread motif becomes a ruler — tick marks on every section rule. Three families is the cost, and it tips into dev-portfolio cliché if the mono runs any further than this.' },
+    { id: 'c', name: 'C · Quiet Swiss',
+      note: '<b>Schibsted Grotesk alone.</b> Serif deleted, mono deleted, one family at one weight range. The uppercase eyebrow goes with them: a narrow left rail carries the section label instead, and headings drop in size because hierarchy now comes from position and space. Cheapest to load and the hardest to get wrong — but it gives up the warmth the paper and ground surfaces currently buy.' }
+  ];
+
+  var stage = document.getElementById('stage');
+  var tpl = document.getElementById('tpl');
+  var note = document.getElementById('note');
+  var body = document.body;
+
+  DIRS.forEach(function (d) {
+    var panel = document.createElement('article');
+    panel.className = 'panel' + (d.id === 'cur' ? ' on' : '');
+    panel.setAttribute('data-dir', d.id);
+    var tag = document.createElement('div');
+    tag.className = 'panel-tag';
+    tag.textContent = d.name;
+    panel.appendChild(tag);
+    panel.appendChild(tpl.content.cloneNode(true));
+    stage.appendChild(panel);
+  });
+
+  function setNote(id) {
+    var d = DIRS.filter(function (x) { return x.id === id; })[0];
+    note.innerHTML = d.note;
+  }
+
+  function pick(id) {
+    body.setAttribute('data-dir-active', id);
+    [].forEach.call(document.querySelectorAll('.panel'), function (p) {
+      p.classList.toggle('on', p.getAttribute('data-dir') === id);
+    });
+    [].forEach.call(document.querySelectorAll('.tab'), function (t) {
+      t.setAttribute('aria-pressed', String(t.getAttribute('data-pick') === id));
+    });
+    setNote(id);
+    refreshReveals();
+  }
+
+  [].forEach.call(document.querySelectorAll('.tab'), function (t) {
+    t.addEventListener('click', function () { pick(t.getAttribute('data-pick')); });
+  });
+
+  document.getElementById('grid').addEventListener('change', function (e) {
+    body.setAttribute('data-view', e.target.checked ? 'grid' : 'flip');
+    refreshReveals();
+  });
+
+  /* The tells switch. Swapping the heading text is the point of `data-off`:
+     every section heading on the live site is a noun phrase closed with a
+     full stop, which is the strongest copy signature of the lot. */
+  var tells = document.getElementById('tells');
+  tells.addEventListener('change', function (e) {
+    var on = e.target.checked;
+    body.setAttribute('data-tells', on ? 'on' : 'off');
+    [].forEach.call(document.querySelectorAll('[data-off]'), function (h) {
+      if (on) {
+        h.textContent = h.getAttribute('data-full');
+      } else {
+        h.setAttribute('data-full', h.textContent);
+        h.textContent = h.getAttribute('data-off');
+      }
+    });
+    refreshReveals();
+  });
+
+  /* A reveal inside a display:none panel never intersects, so a block that was
+     hidden when the observer first ran stays invisible after you switch to it.
+     Re-evaluating the active panel on every state change is the honest fix:
+     anything already in the viewport is shown outright, the rest goes back to
+     the observer so the animation is still demonstrated on scroll. */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12 });
+
+  function refreshReveals() {
+    var grid = body.getAttribute('data-view') === 'grid';
+    var off = body.getAttribute('data-tells') === 'off';
+    var scope = grid ? document : document.querySelector('.panel.on');
+    if (!scope) return;
+    [].forEach.call(scope.querySelectorAll('.rev'), function (r) {
+      io.unobserve(r);
+      if (off) { r.classList.add('in'); return; }
+      var box = r.getBoundingClientRect();
+      if (box.top < window.innerHeight && box.bottom > 0) {
+        r.classList.add('in');
+      } else {
+        r.classList.remove('in');
+        io.observe(r);
+      }
+    });
+  }
+
+  window.addEventListener('resize', refreshReveals);
+  refreshReveals();
+  setNote('cur');
+})();
+</script>
+</body>

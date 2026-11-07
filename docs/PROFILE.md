@@ -1,14 +1,37 @@
 # PROFILE.md — Source of truth about Matt Pearson
 
 > Every future chat/session should read this before writing site content. Update when facts change.
-> Last updated: 2026-07-20
+> Last updated: 2026-11-06 (research project topic drafted; Performance Sport Officer knowledge exchange; the two final-year taught modules — all Matt's own, 2026-11-06)
 
 ## Identity
 
 - **Display name:** Matt Pearson (formal docs: Matthew Pearson)
 - **Age 22.** Bath, UK. Willing to relocate abroad.
 - **Final-year MComp Computer Science & AI** (integrated masters with placement), University of Bath. Graduating 2027 (switched years 3↔4 after late masters transfer; 3 years study + placement done, 1 year left).
-- **1st class in all 3 years. Dissertation: 82%.**
+- **1st class in all 3 years. Dissertation: 82%.** Third-year dissertation (the bike-fit study). Predicted First Class Honours.
+- **Module marks (Matt, 2026-10-14):** Maths for Computation 90%, Discrete Maths & Databases 82%, Machine Learning 81%, AI 2 79%, Data Structures & Algorithms 79%, Visual Computing 77%.
+- **Final year (2026/27, Master's level):** Research Project (40 credits), Advanced Computer Vision, HCI (reading module).
+- **HCI (reading module) — weekly five-minute presentations** (Matt, 2026-11-06; decks verified against `Desktop/HCI Reading`, 2026-11-06). A few papers read in depth each week, then presented to the reading group. Running theme: what wearables can detect and what can be done with it.
+  - **Presentation 1** — wearable stress versus sleep detection. Deck *"Does your watch read your stress or the…"* (title truncated on disk); figures cite Siepe 2025 and Meegahapola 2022 and 2026.
+  - **Presentation 2** — *"Can a watch stop a nightmare"*: nightmare detection and management from wearable signals, four papers. The recent one Matt referred to.
+  - **Presentation 3** — in preparation (papers, script and slides on disk, no feedback yet).
+  - ⚠️ Tutor feedback on presentation 1 exists on disk (new research topic; the open methodological question is large sample versus small sample with long-term assessment). **Context only — tutor feedback never goes on the site.**
+- **Advanced Computer Vision — group coursework, in progress** (Matt, 2026-11-06; verified against `Desktop/Computer Vision/CW1`, 2026-11-06). PyTorch, 32×32 images, 100 fine classes and 20 coarse classes, 576-dimension backbone embeddings.
+  - **Ownership — CONFIRMED by Matt, 2026-11-06:** he is coding **tasks 1, 5 and 7**, and **the whole group does the analysis and write-up together afterwards**. His words: *"yeah those are the ones i am coding, and we are all doing analysis after"*. ⚠️ **Claim nothing about tasks 2, 3, 4, 6 or 8 as his.**
+  - **Task 1 — the 100-class fine-grained classifier**, and the harness is the part worth describing. Every run writes `config.json`, `history.csv`, `best.pth` and `summary.json` into `runs/task1/<run-name>/`; `sweep.py` runs hyperparameter sweeps, `summarise_runs.py` compares runs, `self_check.py` checks the setup. The point is one config change per experiment and runs that stay comparable.
+  - **Task 5 — few-shot** (verified from the coursework Readme, 2026-11-06): a separate `data/few_shot` split with support sets of size **1, 5 and 10** per class. Graded on the backbone's 576-d embedding, not on a classifier head.
+  - **Task 7 — the task 1 backbone as a plain feature extractor** (verified from `task_7.py`, which imports `task_1` and returns `model.backbone`). Same 576-d embedding interface as task 5, so the two are the comparison: a backbone trained to classify versus one trained for the few-shot setting.
+  - **What the other five tasks cover** (coursework scope, *not* Matt's work): coarse 20-class classification, joint fine-plus-coarse heads, triplet metric learning at several margins, one report figure, accuracy reported to JSON.
+  - ⚠️ As of 2026-11-06 the task files for 2–7 are still starter stubs on disk — **only task 1 is built so far.** Tasks 5 and 7 are his to write, not yet written.
+  - ⚠️ **No grade and no results. Describe the module and the harness, never a number.**
+- **Research project — topic now drafted** (Matt, 2026-11-06, from his own proposal doc *"Project proposal: sensing rowing stroke timing from the erg"*). Supersedes the 2026-10-14 "not confirmed" note.
+  - **The question:** two ways of sensing rowing technique on an ergometer **with nothing worn by the rower** — sensors built into the machine, versus **Iris**, Bath's in-house markerless motion-capture system. Both validated against **marker-based motion capture** recorded on the same clock, which is used only as the reference.
+  - **The machine:** four load cells under the seat (total force = suspension; corner split = centre of pressure / rock-over), left and right foot-stretcher force, seat and handle position sensors. ~8–11 analogue channels, wired into the mocap system's analogue inputs so everything shares one clock.
+  - **Why it is a comparison, not a sensor check:** the machine feels forces a camera cannot see (suspension, connection at the catch); the camera separates trunk from arms, which the machine cannot. Which events each wins, and whether fusing them helps, is the research question.
+  - **Study 1:** can each approach detect stroke events (catch, finish, suspension, rock-over, sequencing) accurately enough for coaching, against thresholds **fixed before data collection**; and can each detect deliberate technique faults coaches look for (rushing the slide, shooting the slide).
+  - **Study 2:** coaches and rowers — which measures mean something to them, how those compare with what rowers feel, and how they should be displayed.
+  - **Stretch:** repeat on an RP3. On-water rowing is written up as future work.
+  - **Status (proposal, 5 Nov 2026):** direction to be confirmed with his supervisor (Eamonn); Iris details and the marker-based reference still to confirm with the technicians. ⚠️ **No data, no ethics approval, no results.** Anything public must say "proposal stage" and claim nothing more.
 - A-levels: Maths, CS, Physics, EPQ — A\*A\*A\* + A\* (Henry Pearson-Gates award for outstanding A-level studies). UKMT gold (all levels), BPhO silver.
 - Languages: English; some French and German.
 - Full driving licence.
@@ -21,21 +44,23 @@ Top-tier final-year CS+AI student targeting **2026/27 graduate roles**: software
 1. Perfect academic record at a top CS course + real industry year (Kontron).
 2. Product sense unusual for a grad — runs real client sites, designs honest analytics tools, does user research.
 3. Elite-athlete discipline: British Championships + BUCS medals, made Bath first boat in first season sweeping, 12+ sessions/week alongside study/work. Left British Rowing Performance Development Academy to row for uni squad.
-4. Self-sufficiency: solo month travelling Peru.
+4. Self-sufficiency: solo month travelling Peru. ⚠️ **Off the public site from 2026-11-06** — Matt flagged it as not worth having there. Still true, still usable in conversation; just not site copy.
+5. Team sport beyond rowing (Matt, 2026-11-06): **football for over fifteen years, captained his local team, social secretary for the computer science team at Bath.** One clause on the site at most — it is a signal, not a hobbies list.
 5. Breadth: embedded (Secure Thingz) → enterprise SaaS (Kontron) → ML/RL research → full-stack client work → sports analytics.
 
-**Tone rule:** confident, natural, evidence-led. No buzzwords, no exaggeration. Rowing/Peru woven in quietly — signals, not a personality section.
+**Tone rule:** confident, natural, evidence-led. No buzzwords, no exaggeration. Sport woven in quietly — signals, not a personality section. **Updated 2026-11-06:** the site's hobbies block (Peru, hiking, guitar, badminton, languages) is deleted and stays deleted. What survives is rowing, and one clause of football.
 
 ## Experience
 
 | Role | Org | When | Notes |
 |---|---|---|---|
-| Software Engineer (placement) | Kontron (formerly Bsquare), Trowbridge | Aug 2024–Aug 2025 | Device Management product: health monitoring, remote access, diagnostics, package deployment. Dev (TypeScript/Angular, bug fixes → full features) + QA lead work (50+ bugs documented). Built Jenkins-driven parameterised test runner bridging dev-ops and dev teams. **Can describe publicly; code + screenshots off limits.** |
+| Software Engineer (placement) | Kontron (formerly Bsquare), Trowbridge | Aug 2024–Aug 2025 | Device Management product: health monitoring, remote access, diagnostics, package deployment. Dev (TypeScript/Angular, bug fixes → full features) + QA lead work (50+ bugs documented). Built Jenkins-driven parameterised test runner bridging dev-ops and dev teams: **tag-based selection of suites and priority tiers**; Matt wrote a few UI and a few API tests on it; the suite kept being developed after he left. QA's manual regression pass took ~two weeks. ⚠️ **Never claim the regression now runs unattended because of him** — "became the base for automating it" is the ceiling (Matt, 2026-10-14). **Can describe publicly; code + screenshots off limits.** |
 | Extern — NY Racing (NASCAR) sponsorship analytics | Extern programme | 2026, in progress | Sponsorship ROI analysis: dataset build from 36 Cup Series races (Kaggle/Racing Reference) + Reddit (PRAW) + YouTube Data API + news tracking → unified dataset → EDA, correlation testing (finish position vs exposure), visibility scoring model, publication-quality viz. Finance-relevant story. |
 | Work experience | Secure Thingz, Cambridge | Jun–Jul 2022 | Embedded systems, microcontrollers, IoT security. |
-| **Performance Sport Officer** | SU Sport, University of Bath | 2026–27 (⚠️ confirm dates with Matt) | **Elected** position on the Students' Union Sports Executive Committee, added 2026-07-21. Official remit (source: thesubath.com/sport/exec): liaises with and represents performance athletes in exec meetings; sits on the **Blues Committee**; promotes performance athletes; encourages student engagement at **BUCS** events; works with the sports department to bring the SU perspective into performance sport; leads club showcase events (e.g. double headers). Exec is 8 roles: Chair, 2× Treasurer, 2× Media & Marketing, Events Coordinator, Welfare & Inclusivity, Performance Sport, Recreational Coordinator. **Nothing about Matt's specific achievements in the role is recorded — do not invent any.** |
+| **Performance Sport Officer** | SU Sport, University of Bath | 2026–27 (confirmed by Matt) | **Elected** position on the Students' Union Sports Executive Committee, added 2026-07-21. Official remit (source: thesubath.com/sport/exec): liaises with and represents performance athletes in exec meetings; sits on the **Blues Committee**; promotes performance athletes; encourages student engagement at **BUCS** events; works with the sports department to bring the SU perspective into performance sport; leads club showcase events (e.g. double headers). Exec is 8 roles: Chair, 2× Treasurer, 2× Media & Marketing, Events Coordinator, Welfare & Inclusivity, Performance Sport, Recreational Coordinator. **In the role (Matt, 2026-11-06):** setting up a **knowledge exchange between the main performance squads** — a place where squads share what has been working for them, and a route to reach out to other clubs. ⚠️ **In progress; no outcomes recorded. Nothing else about Matt's own achievements in the role is on record — do not invent any.** |
+| **SUmmit — elected Open Place** | The SU, University of Bath | 2026–27 | Elected by cross-campus ballot (Matt, 2026-10-14). SUmmit (thesubath.com/voice/summit): "a committee of student leaders brought together to shape the political direction of The SU"; democratically sets SU **Standpoints** and holds the SU Officers to account; meets ~4×/year. Nothing yet recorded about Matt's own contributions — do not invent any. |
 | Student Ambassador + peer mentor | University of Bath | Mar 2023–Feb 2025 | Tours, virtual presentations, mentoring first-years. |
-| Freelance (via "Pearson Digital" LinkedIn shell) | Clients: Barnett Art, BUBC | ongoing | Paid work. See projects. |
+| Freelance (via "Pearson Digital" LinkedIn shell) | Clients: Barnett Art, BUBC | May 2026–present | Paid work. See projects. BUBC: eight committee members with no coding background publish race reports (Matt). Barnett Art: live, checkout built, **no sale processed yet** (Matt, July). Carogail (July 2026): informal web advice only; Matt dropped it from the CV. |
 
 ## Projects — tiers agreed 2026-07-20
 
@@ -48,6 +73,8 @@ Top-tier final-year CS+AI student targeting **2026/27 graduate roles**: software
    - **Honest gaps (from the repo's own "Known limitations"):** no admin UI (artist edits data files + runs 2 scripts), placeholder listing data, local-disk media adapter, flat placeholder shipping (£6.95 / free over £150), storefront is `force-dynamic`, CSP still allows `unsafe-inline` scripts, legal pages are unreviewed drafts, 2 moderate dev-only transitive advisories.
    - **Source cannot be linked** (private client repo). Site says so rather than omitting.
 4. **Bike fit dissertation (82%)** (repo `Bikefit-Data-Pipeline`) — crossover study, ~51 participants × 3 sessions: does professional bike fitting change physiology/biomechanics/comfort, and does it differ by sex. COSMED breath-by-breath, Qualisys + Theia3D markerless mocap, EMG+IMU, Moxy, pressure/strain, 1–2GB session streams. **Role honesty:** platform hardware/software custom-built by Bath Lovelace + IMPACT labs — NOT by Matt. Matt's role: experiment design, running all experiments, data collection, building the entire processing pipeline, analysis. Check ethics constraints before publishing data visuals.
+   - **Findings (Matt, 2026-10-14, from the dissertation conclusion).** 51 cyclists, before/after a standardised IBFI level-4 fit, feature-level fusion pipeline, lag-aware. (1) Small but consistent ventilation-led efficiency signature: **VCO2 and left-calf sEMG survived FDR correction, q<.05**; VO2/kg, tidal volume, energy expenditure, HR, right-calf SmO2 trending the same way. (2) H2 (larger saddle-pressure/gluteal changes in females) **not supported**; clearest sex interaction was perceptual: **end-trial RPE −0.58 in males, +0.5 in females** (significance of the interaction not stated — Matt "thinks" significant; confirm before calling it significant). (3) Sex-specific random forests weighted **neuromuscular features above metabolic, mechanical and subjective** ones: **62.5% (F) / 55.1% (M)** of total importance. (4) Twelve Δ-score correlations |rs| ≥ 0.35; ΔVE tracked ΔRPE at 19 min while neither tracked bike power. Implication: male-calibrated fitting formulae capture only part of the female response. Sensor sampling ranges from <1 Hz to 1259 Hz.
+   - **Publication:** Matt is finishing the paper for journal submission (Oct 2026). Findings now appear on the **private CV**; the website stays method-only until Matt approves them for public use.
 
 ### Cards (one-liner + link)
 - **NLP-pipeline** — IMDb sentiment classification: naive Bayes written from scratch, plus three hand-written vectorisers (BoW, TF-IDF, PPMI). Lemmatisation, custom stop words, n-grams and min-df are all CLI flags. **Best config reaches 85.1% accuracy on a held-out test set** (verified in the repo README, 2026-07-21). 2000 pos + 2000 neg, 60/20/20 split.
@@ -69,7 +96,9 @@ Top-tier final-year CS+AI student targeting **2026/27 graduate roles**: software
   the externship framing — keep the site's wording no stronger than the README's.
 - **Society Matchmaker** — 8-person team (CM20314 Experimental Systems Project), user research led by Matt, Random Forest recommender. **Verified 2026-07-21 against the group's Deliverable 4 report:** controlled study, n=18 after removing 2 compromised samples, paired single-tailed t-tests at 95% confidence. Our system's engagement ratio **36%** vs the SU site's **15%**. System 2 (three recommendations) beat System 1 (one at a time) p=.008, d=0.77; both beat the plain list p<.001, d=1.29 and 1.48. **The old '150% engagement increase' claim was unsourced** — it was a remembered version of the 36/15 ratio. Use the measured figures.
 - **AI experiments** (grouped single card) — DinoNEAT (NEAT on Chrome dino), GoL forest-fire simulator, boids/migration simulation.
-- **Argonauts** — Unity 2D platformer (dash, wall-jump, enemy AI); Unreal hackathon follow-up (grappling platformer). Optional card.
+- **Argonauts** — Unity 2D platformer (dash, wall-jump, enemy AI); Unreal hackathon follow-up (grappling platformer). Optional card. **A-level project, 68/70; C#; playable at matthew8747.github.io/ArgonautsGame/** (Matt, 2026-10-14).
+- **OneGuard** (Entrepreneurship CM32027) — deepfake-awareness training venture, 5 people. Matt led market research: interviews with staff at banks, hedge funds and consultancies, **survey of 35 people**; findings moved the product from consumers to businesses (Matt, 2026-10-14).
+- **Morse code transceiver** (Systems Architecture, group coursework) — two Arduinos over I2C in C++, interrupt-driven input, **10 channels** plus broadcast (Matt, 2026-10-14).
 
 ### Hidden
 - FootballAnalysis (empty), old portfolio fork (matthew8747.github.io), Kontron code (NDA), `Arcade-Learning-Environment` (a fork, not his work), `art-site` (superseded by the `BarnettArt` build). *(`nascar-visibility-analysis` was listed here as a scaffold on 2026-07-21; it shipped and moved to Cards on 2026-08-09.)*
@@ -86,8 +115,8 @@ Years 1 and 2 folders reviewed; nothing beyond the Systems Project worth a site 
 
 ## Skills
 
-- **Languages:** Python, TypeScript/JavaScript, Java, C, SQL, HTML/CSS
-- **Frameworks/tools:** Angular, React/Next.js (this project), Astro, Node.js, PyTorch, scikit-learn, Tailwind, Sanity, Jenkins, Docker, AWS, Cloudflare, Git, Unity, MySQL/MongoDB/SQLite, Jest/Vitest/Selenium
+- **Languages:** Python, TypeScript/JavaScript, Java, C, C++ (Arduino), C# (Unity), SQL, Bash, HTML/CSS
+- **Frameworks/tools:** Angular, React/Next.js (this project), Astro, Node.js, PyTorch, scikit-learn, Tailwind, Sanity, Jenkins, Docker, AWS, Cloudflare, Git, Unity, MySQL/MongoDB/SQLite, Jest/Vitest/Selenium/pytest, GitHub Actions, Linux, Terraform, pandas, NumPy, Numba, SHAP, Stripe
 - **Methods:** Agile/Scrum, TDD, CI/CD, OOP/FP
 - **Certs:** Carbon literacy (MMU), Google Digital Marketing fundamentals, IKEEP Intrapreneurial Training. (Considered cyber-security certs; cost-prohibitive for now.)
 

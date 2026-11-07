@@ -5,7 +5,7 @@ import Reveal from "@/components/reveal";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
 import VolumetricInk from "@/components/volumetric-ink";
-import { experience, site } from "@/content/site";
+import { experience, research, site } from "@/content/site";
 import { featured } from "@/content/projects";
 
 export default function HomePage() {
@@ -91,11 +91,49 @@ export default function HomePage() {
             </div>
           </section>
 
+          {/* ---------------- RESEARCH ----------------
+              The one piece of work with no result yet, so it is written as a question
+              and a design rather than as an outcome. Paper surface, between the white
+              work rows and the ground experience list. */}
+          <section className="sec sec-research" id="research">
+            <Reveal className="rsrch-head">
+              <span className="t-section">
+                {research.eyebrow} · {research.weight}
+              </span>
+              <h2 className="rq">{research.question}</h2>
+              <p className="rsrch-lede">{research.lede}</p>
+            </Reveal>
+
+            <Reveal className="strand-row">
+              {research.strands.map((strand) => (
+                <div className="strand" key={strand.label}>
+                  <span className="strand-label">{strand.label}</span>
+                  <p>{strand.text}</p>
+                </div>
+              ))}
+            </Reveal>
+
+            <Reveal className="rsrch-foot">
+              <p>{research.close}</p>
+              <span className="status">
+                <i aria-hidden="true" />
+                {research.status}
+              </span>
+            </Reveal>
+          </section>
+
           {/* ---------------- EXPERIENCE ---------------- */}
           <section className="sec" id="experience">
             <Reveal className="sec-head">
               <span className="t-section">Experience</span>
               <h2>Where the work has happened.</h2>
+              <p>
+                A placement year, an analytics externship, and two elected seats for 2026/27 that are{" "}
+                <Link className="ulink" href="/about#elected">
+                  written up on the about page
+                </Link>
+                .
+              </p>
             </Reveal>
             <div className="exp-list">
               {experience.slice(0, 3).map((role) => (

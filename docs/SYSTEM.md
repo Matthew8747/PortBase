@@ -31,11 +31,24 @@ Three roles, no more. The v3 failure was a fourth voice (decorative uppercase mo
 
 | Role | Stack | Used for |
 |---|---|---|
-| Display | `'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif` | Name, headings, project titles, pull-quotes, the italic label word |
+| Display | **Bricolage Grotesque** (variable: `opsz`, `wght`) | Name, headings, project titles, pull-quotes. Weight and optical size come from `--display-wght` / `--display-opsz`, never from ad-hoc values |
 | Body | `-apple-system, 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif` | All running text, navigation, buttons, labels |
 | Data | `'Cascadia Code', 'SF Mono', Consolas, monospace` | Tech stacks, dates, the scroll cue. **Only where the content is genuinely code or data** |
 
-**Production faces (decision pending, Phase 7 build):** Fraunces or Newsreader for display, Inter or Geist for body, Geist Mono for data. The current stack is a system-font stand-in that survives the CSP restriction on this board. Specimens to be rendered before the final call.
+**Production faces — DECIDED 2026-11-06, direction B "Lab notebook"** (Matt's pick from `docs/type-concepts.html`):
+
+| Role | Face | Loaded as |
+|---|---|---|
+| Display | Bricolage Grotesque | `next/font/google`, variable, `axes: ["opsz"]` |
+| Body | Archivo | `next/font/google`, weights 400/500/600 |
+| Mono | Spline Sans Mono | `next/font/google`, weights 400/500 |
+
+All three are self-hosted by `next/font` in `app/layout.tsx` — no third-party request at runtime, no layout shift. This replaces the system-font stand-in, which rendered the site in Palatino Linotype on Windows, Iowan Old Style on macOS and Georgia on Android.
+
+Two consequences worth knowing before editing type:
+
+- **The mono does real work.** Every eyebrow, chip, caption, status and date is Spline Sans Mono. Only headings and running prose use the other two. The site is about measurement, so labelling reads as instrument output.
+- **Bricolage ships roman only.** There is no italic. Every `font-style: italic` on the display face was removed on 2026-11-06 because the browser was synthesising a shear. Emphasis now comes from family, colour or weight — never from a fake italic. Do not reintroduce one.
 
 **Scale** (fluid where marked)
 | Step | Size | Use |

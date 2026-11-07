@@ -13,12 +13,15 @@ import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 export default function Reveal({
   as = "div",
   href,
+  id,
   className = "",
   style,
   children,
 }: {
   as?: "div" | "section" | "article" | "li" | "span";
   href?: string;
+  /** Set when the block is a link target, so in-page anchors can land on it. */
+  id?: string;
   className?: string;
   style?: CSSProperties;
   children: ReactNode;
@@ -49,6 +52,7 @@ export default function Reveal({
     return (
       <Link
         href={href}
+        id={id}
         className={cls}
         style={style}
         ref={ref as React.Ref<HTMLAnchorElement>}
@@ -60,7 +64,7 @@ export default function Reveal({
 
   const Tag = as;
   return (
-    <Tag className={cls} style={style} ref={ref as React.Ref<never>}>
+    <Tag className={cls} id={id} style={style} ref={ref as React.Ref<never>}>
       {children}
     </Tag>
   );

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Reveal from "@/components/reveal";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
-import { coursework, education, experience, site, skills } from "@/content/site";
+import { coursework, education, experience, research, seats, site, skills } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -91,20 +91,37 @@ export default function AboutPage() {
                 and a squad is a good place to learn how to be useful to people who are having a bad week.
               </p>
               <p>
-                I was also elected Performance Sport Officer on the Students&rsquo; Union Sports Executive, which
-                means representing performance athletes across the university rather than only the rowers. The seat
-                sits on the Blues Committee and works with the sports department on how performance sport is run.
+                It also set up this year&rsquo;s work. My research project is about measuring a rowing stroke, from
+                the machine and from a camera, and then asking coaches which of those measurements they would
+                actually use. Years on the receiving end of coaching by eye is a fair qualification for the second
+                half of that question.
+              </p>
+              <p>
+                Before any of it there was football, and still is: over fifteen years of it, captain of my local
+                side, and social secretary for the computer science team here.
               </p>
             </Reveal>
 
-            <Reveal as="section">
-              <h2>Outside that</h2>
+            <Reveal as="section" id="research">
+              <h2>This year</h2>
               <p>
-                Fifteen years of football, including captaining sides and running the social side of the department
-                team. Hiking, guitar, badminton, and French and German that are both improving slowly. I spent a
-                month travelling in Peru on my own, which is the trip I would do again.
+                The final year is a forty-credit research project, Advanced Computer Vision and an HCI reading
+                module. {research.lede}
+              </p>
+              <p>
+                Two approaches go head to head. One instruments the ergometer: load cells under the seat, force on
+                each foot-stretcher, position on the seat and the handle, every channel sharing a single clock. The
+                other points the university&rsquo;s markerless capture system at the rower and reads the body
+                straight from video. Marker-based motion capture runs alongside both and settles which was right,
+                against accuracy thresholds I have to fix before testing a single rower. {research.close}
+              </p>
+              <p>
+                It is at proposal stage. The direction still needs signing off with my supervisor and the rig needs
+                confirming with the lab technicians, so there is nothing to report yet beyond the design, and the
+                question of whether the two approaches see different things is still a hypothesis.
               </p>
             </Reveal>
+
           </div>
         </section>
 
@@ -129,7 +146,8 @@ export default function AboutPage() {
           <Reveal className="sec-head">
             <span className="t-section">Coursework</span>
             <h2>What I&rsquo;ve studied recently.</h2>
-            <p>Final-year modules, in brief.</p>
+            {/* "Final-year" was wrong: everything below Advanced Computer Vision is third year. */}
+            <p>Recent modules, in brief.</p>
           </Reveal>
           <div className="card-list">
             {coursework.map((item) => (
@@ -156,6 +174,35 @@ export default function AboutPage() {
                   </span>
                   <p className="exp-note">{role.note}</p>
                 </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        <section className="sec sec-research" id="elected">
+          <Reveal className="sec-head">
+            <span className="t-section">Elected</span>
+            <h2>Two seats, one term.</h2>
+            <p>
+              Both voted in rather than appointed, both running through 2026/27. One covers performance sport
+              across the university, the other the union&rsquo;s political direction.
+            </p>
+          </Reveal>
+          <div className="seat-pair">
+            {seats.map((seat) => (
+              <Reveal className="seat" key={seat.committee}>
+                <span className="seat-org">
+                  {seat.org} / <b>{seat.committee}</b>
+                </span>
+                <h3 className="seat-role">{seat.role}</h3>
+                <p className="seat-remit">{seat.remit}</p>
+                <dl className="seat-mark">
+                  <dt>
+                    {seat.mark.live ? <i aria-hidden="true" /> : null}
+                    {seat.mark.label}
+                  </dt>
+                  <dd>{seat.mark.text}</dd>
+                </dl>
               </Reveal>
             ))}
           </div>
