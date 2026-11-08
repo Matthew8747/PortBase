@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProjectFigure from "@/components/project-figure";
-import Reveal from "@/components/reveal";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
 import { allStudies, projectBySlug, type Figure } from "@/content/projects";
@@ -69,7 +68,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                     <span key={link.href}>
                       {i > 0 ? <br /> : null}
                       <a className="ulink" href={link.href} rel="noreferrer" target="_blank">
-                        {link.label} →
+                        {link.label}
                       </a>
                     </span>
                   ))}
@@ -90,7 +89,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
           <div className="prose">
             {project.sections.map((section) => (
-              <Reveal as="section" key={section.heading}>
+              <section key={section.heading}>
                 <h2>{section.heading}</h2>
                 {section.body.map((paragraph, i) => (
                   <p key={i}>{paragraph}</p>
@@ -110,16 +109,16 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                     {section.figure.caption ? <figcaption>{section.figure.caption}</figcaption> : null}
                   </figure>
                 ) : null}
-              </Reveal>
+              </section>
             ))}
           </div>
 
           <div style={{ marginTop: "var(--s9)", display: "flex", gap: "var(--s6)", flexWrap: "wrap" }}>
             <Link className="ulink" href="/work">
-              ← All work
+              All work
             </Link>
             <Link className="ulink" href="/cv">
-              Request the CV →
+              Request the CV
             </Link>
           </div>
         </section>

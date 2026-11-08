@@ -17,10 +17,7 @@ export default function NotFound() {
         <section className="sec" style={{ paddingTop: 0 }}>
           <div className="cv-row">
             <Link className="btn btn-ink" href="/work">
-              See the work{" "}
-              <span className="arr" aria-hidden="true">
-                →
-              </span>
+              See the work
             </Link>
             <Link className="ulink" href="/">
               Back to the start

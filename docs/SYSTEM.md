@@ -17,7 +17,7 @@ Two accents, each with a job. If a colour appears without a job listed here, it 
 | `--muted` | `#6E6A61` | `#9B968A` | Labels, captions, tech strings |
 | `--hair` | `#E5E2DA` | `#2F2C24` | 1px rules and borders |
 | `--cobalt` | `#2A46D4` | `#8B9CF4` | **Action.** Links, buttons on hover, focus rings, hover reveals |
-| `--rubric` | `#C23A18` | `#E8683F` | **Marks.** Eyebrow ticks, work-kind labels, status dot, key results |
+| `--rubric` | `#C23A18` | `#E8683F` | **Marks.** Eyebrow ticks, work-kind labels, status graduation, the live seat mark, key results |
 
 **Rules**
 - Cobalt never decorates; rubric never becomes interactive.
@@ -33,7 +33,7 @@ Three roles, no more. The v3 failure was a fourth voice (decorative uppercase mo
 |---|---|---|
 | Display | **Bricolage Grotesque** (variable: `opsz`, `wght`) | Name, headings, project titles, pull-quotes. Weight and optical size come from `--display-wght` / `--display-opsz`, never from ad-hoc values |
 | Body | `-apple-system, 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif` | All running text, navigation, buttons, labels |
-| Data | `'Cascadia Code', 'SF Mono', Consolas, monospace` | Tech stacks, dates, the scroll cue. **Only where the content is genuinely code or data** |
+| Data | `'Cascadia Code', 'SF Mono', Consolas, monospace` | Tech stacks, dates, status lines. **Only where the content is genuinely code or data** |
 
 **Production faces — DECIDED 2026-11-06, direction B "Lab notebook"** (Matt's pick from `docs/type-concepts.html`):
 
@@ -99,18 +99,17 @@ An 8px base with a named scale. No arbitrary values.
 |---|---|
 | Easing | `cubic-bezier(.2, .7, .2, 1)` — everywhere, no exceptions |
 | Micro (colour, border) | 150–250ms |
-| Reveal (sections) | 750ms, 20px rise |
 | Hero sequence | 3 elements, 140ms stagger, 700ms each, underline at +700ms. Under 1.5s total, then silence |
 | Press | 100ms, 1px |
 
 **Rules**
 - Motion communicates state or position. Ambient movement is limited to the ink plate and the helix, both of which encode something (identity; scroll position).
-- Scroll reveals fire once and unobserve. Nothing re-animates on scroll-back.
-- `prefers-reduced-motion: reduce` → helix renders complete and static, ink renders a single settled frame, all reveals start visible, the scroll cue stops. Nothing is hidden from a reader who disables motion.
+- **There are no scroll reveals. REMOVED 2026-11-07** — a 20px fade-up on every block is the single clearest tell that a page was generated, it delays the reader for nothing, and it made printing and in-page anchors fight the IntersectionObserver. The hero plays once; after that the page is simply there. Do not reintroduce `components/reveal.tsx` or a `.reveal` class.
+- `prefers-reduced-motion: reduce` → helix renders complete and static, ink renders a single settled frame. Nothing is hidden from a reader who disables motion.
 
 ## 7. Components
 
-**Button — primary (the only filled button on the site).** Rest: ink fill, ground text, 2px radius. Hover: fills cobalt, shadow blooms, arrow translates 4px. Active: 1px press, shadow drops. Focus: 2px cobalt ring at 3px offset. Disabled: desaturated, never hidden.
+**Button — primary (the only filled button on the site).** Rest: ink fill, ground text, 2px radius. Hover: fills cobalt, shadow blooms. Active: 1px press, shadow drops. Focus: 2px cobalt ring at 3px offset. Disabled: desaturated, never hidden. **No arrow glyph** — see §11.
 Rationale: the button *becomes* the action colour on engagement — the colour system doing the work rather than a separate hover style.
 
 **Link — underlined.** Two-layer underline: `currentColor` at 28% at rest, cobalt sweeping left-to-right over it on hover (300ms). Focus ring matches the button.
@@ -119,9 +118,9 @@ Rationale: the button *becomes* the action colour on engagement — the colour s
 
 **Header.** 78px at rest, transparent. Compresses to 60px with a hairline and backdrop blur past 90px of scroll. The wordmark never changes size — the page moves, the identity doesn't.
 
-**Work row.** Full-width, alternating. Hover: title turns cobalt, arrow slides in, image lifts 6px, border deepens. Focusable as a whole with an 8px offset ring.
+**Work row.** Full-width, alternating. Hover: title turns cobalt, image lifts 6px, border deepens. Focusable as a whole with an 8px offset ring. The colour change is the affordance; there is no arrow.
 
-**Status chip.** White surface, hairline border, rubric dot with a soft halo, sentence case. Not a tinted pill.
+**Status chip.** White surface, hairline border, mono, sentence case. Marked with a 10×1px rubric graduation, not a dot — a glowing dot is the stock "live" signal, a graduation belongs to the ruler that runs along the section edges. Not a tinted pill, nothing pulses.
 
 **Project frame.** 4:3, hatched ground at 2.8% opacity so a placeholder reads as a plate awaiting artwork rather than an empty box.
 
@@ -159,3 +158,17 @@ Rendered to an offscreen canvas at 0.5 scale and composited up. Three densities:
 ## 10. Dark mode
 
 Tokens flip; components never change. The band section inverts to the *darkest* value rather than lightening, so the scroll rhythm survives. Both accents lift in lightness (cobalt `#8B9CF4`, rubric `#E8683F`) to hold contrast on ink. Dark mode is designed second and deliberately — it is not an inversion.
+
+## 11. Patterns this site does not use
+
+Culled 2026-11-07, after judging them on their own in `docs/type-concepts.html`. These are not matters of taste that a later session can reopen on a whim: each one is a mark of a page assembled from a template rather than designed, and the site reads as more confident without all of them.
+
+| Culled | Why | What carries the job now |
+|---|---|---|
+| Scroll-reveal on every block | The clearest generated-page tell there is, and it withholds content the reader asked for | Nothing. The page is there when it loads |
+| The `SCROLL` cue under the hero | Tells a reader how to use a web page | The hero's bottom edge and the fold itself |
+| Pulsing status dots | The stock "live!" signal, borrowed from dashboards | A 10×1px rubric graduation off the ruler system |
+| Trailing `→` on links and buttons | Decoration standing in for an affordance | Underline sweep on links; fill and shadow on buttons; colour change on work rows |
+| Noun-phrase headings with a full stop | "The work, in detail." — a tic, not a sentence | The same heading without the stop. Full sentences keep theirs |
+
+The hero sequence stays: it is one deliberate entrance, under 1.5s, and then the page is silent.
