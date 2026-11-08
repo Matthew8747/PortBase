@@ -26,10 +26,7 @@ export default function ThanksPage() {
         <section className="sec" style={{ paddingTop: 0 }}>
           <div className="cv-row">
             <Link className="btn btn-ink" href="/work">
-              Read a case study{" "}
-              <span className="arr" aria-hidden="true">
-                →
-              </span>
+              Read a case study
             </Link>
             <a className="ulink" href={site.links.linkedin} rel="noreferrer" target="_blank">
               LinkedIn

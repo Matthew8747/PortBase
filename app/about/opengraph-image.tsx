@@ -8,6 +8,7 @@ export default async function Image() {
   return renderOgImage({
     title: "The longer story.",
     subtitle:
-      "How I got into computing, a placement year at Kontron, rowing at national level, and a month alone in Peru.",
+      "How I got into computing, a placement year at Kontron, a final year of vision and HCI work, and rowing at " +
+      "national level.",
   });
 }

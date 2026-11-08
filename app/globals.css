@@ -30,9 +30,21 @@
   --s9: 96px;
   --s10: 128px;
 
-  --display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-  --body: -apple-system, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
-  --mono: "Cascadia Code", "SF Mono", Consolas, monospace;
+  /* Direction B, "Lab notebook". Loaded and self-hosted in app/layout.tsx; the
+     fallbacks only cover the moment before swap. See docs/type-concepts.html for
+     the three directions this was chosen from, and docs/DESIGN.md for the roles.
+
+     Archivo runs a touch smaller and looser than the system sans it replaces: it
+     has a taller x-height, so 15.5px here sets the same apparent size as 16px of
+     Segoe UI, and 1.66 keeps the long case-study measures readable. */
+  --display: var(--font-display), "Archivo", system-ui, sans-serif;
+  --body: var(--font-body), system-ui, sans-serif;
+  --mono: var(--font-mono), ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  /* Bricolage at 400 is too light to hold a heading against this much white.
+     Every display element takes this pair, so the weight is set in one place. */
+  --display-wght: 500;
+  --display-opsz: 72;
 
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --gutter: 150px;
@@ -53,7 +65,7 @@ body {
   margin: 0;
   background: var(--ground);
   color: var(--ink);
-  font: 400 16px/1.62 var(--body);
+  font: 400 15.5px/1.66 var(--body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -65,6 +77,35 @@ h4 {
   line-height: 1.1;
   text-wrap: balance;
   font-weight: 400;
+}
+/* Anything set in the display face takes the same pair, so a heading never arrives
+   at a size the optical axis has not been told about. Weight goes through
+   `font-weight` rather than font-variation-settings: the low-level property would
+   silently win over anything next/font or a utility class sets later. */
+h1,
+h2,
+h3,
+h4,
+.w-title,
+.study-title,
+.seat-role,
+.foot-mark,
+.wordmark,
+.about-in blockquote {
+  font-weight: var(--display-wght);
+  font-variation-settings: "opsz" var(--display-opsz);
+}
+/* Numbers the reader compares (dates, counts, the figures in case studies) line
+   up in columns rather than drifting. Spline Sans Mono is already tabular; this
+   is for the numerals that sit inside body text and labels. */
+.exp-when,
+.t-tech,
+.chip,
+.seat-org,
+.status,
+.meta-grid p,
+.fig figcaption {
+  font-variant-numeric: tabular-nums;
 }
 p {
   margin: 0;
@@ -91,6 +132,14 @@ p {
 
 /* ============================================================
    TYPE ROLES
+
+   Direction B promotes the mono: every eyebrow, chip, caption, status and
+   date is set in Spline Sans Mono, and only headings and running prose use
+   the display and body faces. The site's subject is measurement, so the
+   labelling reads as instrument output rather than as decoration.
+
+   Mono runs wider per character, so these sit at 10.5-12.5px where the
+   body face sat at 11-13px, to hold the same apparent size.
    ============================================================ */
 .t-tech {
   font: 400 11.5px/1.6 var(--mono);
@@ -101,7 +150,7 @@ p {
   display: flex;
   align-items: center;
   gap: var(--s3);
-  font: 500 11px/1 var(--body);
+  font: 500 10.5px/1 var(--mono);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -133,9 +182,6 @@ p {
     box-shadow 0.3s var(--ease),
     transform 0.12s var(--ease);
 }
-.btn .arr {
-  transition: transform 0.28s var(--ease);
-}
 .btn-ink {
   background: var(--ink);
   color: var(--ground);
@@ -143,9 +189,6 @@ p {
 .btn-ink:hover {
   background: var(--cobalt);
   box-shadow: 0 6px 20px -6px rgba(42, 70, 212, 0.5);
-}
-.btn-ink:hover .arr {
-  transform: translateX(4px);
 }
 .btn-ink:active {
   transform: translateY(1px);
@@ -431,11 +474,13 @@ p {
   }
 }
 .hero .phrase {
-  font-family: var(--display);
-  font-style: italic;
-  font-size: clamp(20px, 2.4vw, 28px);
-  color: rgba(244, 241, 233, 0.62);
-  letter-spacing: -0.01em;
+  /* Was display italic. Bricolage Grotesque ships roman only, and a synthesised
+     oblique is a shear, not an italic. The contrast now comes from the family:
+     the name is display, the line under it is body. */
+  font-family: var(--body);
+  font-size: clamp(18px, 2.1vw, 24px);
+  color: rgba(244, 241, 233, 0.66);
+  letter-spacing: -0.005em;
 }
 .hero-meta {
   display: flex;
@@ -448,18 +493,26 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font: 500 12.5px/1 var(--body);
+  font: 400 12px/1 var(--mono);
   color: rgba(244, 241, 233, 0.8);
   border: 1px solid rgba(244, 241, 233, 0.18);
   padding: 9px 14px;
 }
-.hero-status i {
-  width: 5px;
-  height: 5px;
+/* The status marker. A pulsing dot is the stock "live" signal of every template,
+   so the mark here is a graduation off the same ruler that runs along the section
+   edges: it belongs to this page rather than to the genre. Colour carries the
+   meaning (see .seat-mark dt.live), nothing animates. */
+.hero-status::before,
+.status::before,
+.seat-mark dt::before {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 1px;
+  background: currentColor;
+}
+.hero-status::before {
   background: var(--rubric-lift);
-  box-shadow:
-    0 0 0 3px rgba(232, 104, 63, 0.16),
-    0 0 12px 2px rgba(232, 104, 63, 0.55);
 }
 .hero .ulink {
   color: rgba(244, 241, 233, 0.88);
@@ -502,52 +555,9 @@ p {
     transform: none;
   }
 }
-.scroll-cue {
-  position: absolute;
-  left: 56px;
-  bottom: var(--s7);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s3);
-  z-index: 2;
-}
-.scroll-cue span {
-  font: 400 9px/1 var(--mono);
-  letter-spacing: 0.3em;
-  color: rgba(244, 241, 233, 0.5);
-  writing-mode: vertical-rl;
-}
-.scroll-cue i {
-  position: relative;
-  display: block;
-  width: 1px;
-  height: 48px;
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--cobalt-lift), var(--rubric-lift));
-}
-.scroll-cue i::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--void);
-  animation: cue 2.6s var(--ease) infinite;
-}
-@keyframes cue {
-  0% {
-    transform: translateY(-100%);
-  }
-  60%,
-  100% {
-    transform: translateY(100%);
-  }
-}
 @media (max-width: 1080px) {
   .hero {
     padding-left: var(--s7);
-  }
-  .scroll-cue {
-    left: var(--s7);
   }
 }
 @media (max-width: 700px) {
@@ -562,9 +572,6 @@ p {
       rgba(10, 9, 7, 0.9) 55%,
       rgba(10, 9, 7, 0.97) 100%
     );
-  }
-  .scroll-cue {
-    left: var(--s5);
   }
 }
 
@@ -587,6 +594,41 @@ p {
 .sec-about {
   background: var(--band);
   color: var(--paper);
+}
+
+/* THE RULER. Direction B's one structural idea: the thread motif that runs down
+   the page becomes a measuring edge. Every section that changes surface hangs a
+   band of ticks off its top rule, 1px every 24px, so the boundaries read as
+   graduations rather than as borders. Decorative only, and it never covers text. */
+.sec-work,
+.sec-research,
+.sec-about {
+  position: relative;
+  --tick: rgba(27, 25, 19, 0.26);
+  --tick-major: rgba(27, 25, 19, 0.46);
+}
+.sec-about {
+  --tick: rgba(234, 231, 223, 0.2);
+  --tick-major: rgba(234, 231, 223, 0.36);
+}
+/* Two graduations, not one: minor every 12px at 5px tall, major every 60px at
+   9px. A single evenly spaced row of ticks reads as a dotted border and gets
+   ignored; the long-short rhythm is what makes it read as a measuring edge. */
+.sec-work::before,
+.sec-research::before,
+.sec-about::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 9px;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(to right, var(--tick-major) 0 1px, transparent 1px 60px),
+    repeating-linear-gradient(to right, var(--tick) 0 1px, transparent 1px 12px);
+  background-size:
+    100% 9px,
+    100% 5px;
+  background-repeat: no-repeat;
 }
 .sec-head {
   display: flex;
@@ -619,18 +661,6 @@ p {
   .sec-head {
     margin-bottom: var(--s6);
   }
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition:
-    opacity 0.75s var(--ease),
-    transform 0.75s var(--ease);
-}
-.reveal.in {
-  opacity: 1;
-  transform: none;
 }
 
 /* ============================================================
@@ -668,35 +698,22 @@ p {
   color: var(--muted);
   letter-spacing: 0.01em;
 }
+/* The classifier on a work row: was display italic, now mono. It is a label
+   rather than a phrase, and the mono is where labels live in this system. */
 .w-kind em {
-  font-family: var(--display);
-  font-style: italic;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
   color: var(--rubric);
 }
 .w-title {
   font-family: var(--display);
   font-size: clamp(28px, 3.6vw, 40px);
   letter-spacing: -0.025em;
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--s3);
   transition: color 0.25s var(--ease);
-}
-.w-title .go {
-  font-size: 0.5em;
-  color: var(--cobalt);
-  opacity: 0;
-  transform: translateX(-8px);
-  transition:
-    opacity 0.3s var(--ease),
-    transform 0.3s var(--ease);
 }
 .work-row:hover .w-title {
   color: var(--cobalt);
-}
-.work-row:hover .w-title .go {
-  opacity: 1;
-  transform: none;
 }
 .work-row:focus-visible {
   outline: 2px solid var(--cobalt);
@@ -857,9 +874,9 @@ p {
   gap: var(--s1);
 }
 .study-kind em {
-  font-family: var(--display);
-  font-style: italic;
-  font-size: 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
   color: var(--rubric);
 }
 .study-kind > span {
@@ -876,28 +893,13 @@ p {
   font-family: var(--display);
   font-size: 26px;
   letter-spacing: -0.02em;
-  display: inline-flex;
-  align-items: baseline;
-  gap: var(--s3);
+  display: inline-block;
   transition:
     color 0.25s var(--ease),
     transform 0.25s var(--ease);
 }
-.study-title .go {
-  font-size: 0.5em;
-  color: var(--cobalt);
-  opacity: 0;
-  transform: translateX(-8px);
-  transition:
-    opacity 0.3s var(--ease),
-    transform 0.3s var(--ease);
-}
 .study-row:hover .study-title {
   color: var(--cobalt);
-}
-.study-row:hover .study-title .go {
-  opacity: 1;
-  transform: none;
 }
 .study-row:active .study-title {
   transform: translateY(1px);
@@ -948,7 +950,9 @@ p {
   letter-spacing: -0.02em;
   color: var(--paper);
 }
+/* Colour carries the emphasis here; the face has no italic to fall back on. */
 .about-in blockquote i {
+  font-style: normal;
   color: #ffffff;
 }
 .sec-about .ulink {
@@ -987,18 +991,15 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font: 500 13px/1 var(--body);
+  font: 400 12.5px/1 var(--mono);
   color: var(--ink);
   border: 1px solid var(--hair);
   background: var(--white);
   padding: 9px 14px;
   width: fit-content;
 }
-.status i {
-  width: 5px;
-  height: 5px;
+.status::before {
   background: var(--rubric);
-  box-shadow: 0 0 0 3px rgba(194, 58, 24, 0.13);
 }
 .cv-row {
   display: flex;
@@ -1404,6 +1405,250 @@ p {
 }
 
 /* ============================================================
+   RESEARCH BAND + ELECTED SEATS
+
+   Surface: --paper is the fourth ground in the system and was previously only used
+   as ink-band text. Using it as a surface adds the missing step to the page rhythm
+   (dark hero -> white work -> paper research -> ground experience -> dark about),
+   so these two blocks do not have to invent a colour to feel separate.
+
+   Treatments considered for the research band: (a) a /work case study, rejected
+   because the template asks what it cost and what I'd change and there is nothing
+   honest to put there yet; (b) prose on /about only, too quiet for 40 credits;
+   (c) this - the question set in the display face, then the three streams it
+   compares as columns, because a three-way comparison is the content's real shape
+   and prose would make the reader rebuild it.
+
+   Treatments considered for the seats: (a) two .card entries, rejected as the card
+   is already the coursework grid and reads as a badge wall; (b) two more .exp-row
+   entries, which buries the pairing that is the whole point; (c) this - a two-up
+   with a centre hairline, which is the thread motif doing the dividing.
+   ============================================================ */
+.sec-research {
+  background: var(--paper);
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  /* --hair is tuned for white and ground; on paper it disappears. Darkening the
+     token here keeps every rule inside the band (section rules, column dividers,
+     the status chip) on one value instead of three one-off overrides. */
+  --hair: #d9d5ca;
+}
+.rsrch-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  max-width: 760px;
+  margin-bottom: var(--s9);
+}
+/* The question carries the section. It is the only h2 on the page allowed to run
+   past the standard 44px, because everything under it is an answer to it. */
+.rq {
+  font-family: var(--display);
+  font-size: clamp(31px, 4.8vw, 52px);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  max-width: 24ch;
+}
+.rsrch-lede {
+  color: var(--quiet);
+  font-size: 16.5px;
+  line-height: 1.68;
+  max-width: 52ch;
+}
+
+.strand-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  max-width: 1040px;
+  border-top: 1px solid var(--hair);
+}
+.strand {
+  padding: var(--s5) var(--s6) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+.strand + .strand {
+  padding-left: var(--s6);
+  border-left: 1px solid var(--hair);
+}
+/* Rubric red is the marker colour in this system, so it ticks each stream rather
+   than numbering it. 22px, sitting on the grid's top rule. */
+.strand-label {
+  position: relative;
+  font: 500 10.5px/1 var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding-top: var(--s3);
+}
+.strand-label::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--s5) * -1);
+  left: 0;
+  width: 22px;
+  height: 2px;
+  background: var(--rubric);
+}
+.strand + .strand .strand-label::before {
+  left: var(--s6);
+}
+.strand p {
+  font-size: 14.5px;
+  line-height: 1.68;
+  color: var(--quiet);
+}
+
+.rsrch-foot {
+  margin-top: var(--s8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+  max-width: 1040px;
+}
+.rsrch-foot p {
+  font-size: 16.5px;
+  line-height: 1.68;
+  color: var(--ink);
+  max-width: 62ch;
+}
+.sec-research .status {
+  background: transparent;
+}
+
+@media (max-width: 900px) {
+  .strand-row {
+    grid-template-columns: 1fr;
+  }
+  .strand {
+    padding: var(--s5) 0 var(--s5) 0;
+  }
+  .strand + .strand {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--hair);
+  }
+  .strand + .strand .strand-label::before {
+    left: 0;
+  }
+}
+@media (max-width: 700px) {
+  .rsrch-head {
+    margin-bottom: var(--s6);
+  }
+  .rq {
+    max-width: none;
+  }
+}
+
+/* --- the two elected seats, read as a pair --- */
+.seat-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s8);
+  max-width: 1040px;
+}
+.seat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+/* Each seat carries four parts: org, role, remit, and the one specific line. With two
+   columns side by side those four rules have to line up across the pair or the whole
+   block reads as an accident. Subgrid does it honestly; without it the mark is simply
+   pushed to the bottom of its own column (see .seat-mark margin-top below). */
+@supports (grid-template-rows: subgrid) {
+  .seat-pair {
+    grid-template-rows: auto auto 1fr auto;
+  }
+  .seat {
+    display: grid;
+    grid-row: 1 / -1;
+    grid-template-rows: subgrid;
+    row-gap: var(--s4);
+  }
+}
+.seat + .seat {
+  padding-left: var(--s8);
+  border-left: 1px solid var(--hair);
+}
+.seat-org {
+  font: 400 11.5px/1.6 var(--mono);
+  letter-spacing: -0.01em;
+  color: var(--muted);
+}
+.seat-org b {
+  color: var(--ink);
+  font-weight: 400;
+}
+.seat-role {
+  font-family: var(--display);
+  font-size: clamp(22px, 2.6vw, 28px);
+  letter-spacing: -0.025em;
+  line-height: 1.16;
+}
+.seat-remit {
+  font-size: 15.5px;
+  line-height: 1.68;
+  color: var(--quiet);
+}
+/* The one specific line per seat. Sits in its own box so a reader skimming for the
+   substance can find it without reading the remit. */
+.seat-mark {
+  margin-top: auto;
+  padding-top: var(--s4);
+  border-top: 1px solid var(--hair);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+.seat-mark dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  font: 500 10.5px/1 var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* The seat whose work is under way. One of the two marks is live and the other is
+   a mandate, and the difference is worth seeing at a glance, so it is carried by
+   colour on the label and its graduation rather than by a blinking light. */
+.seat-mark dt.live {
+  color: var(--rubric);
+}
+.seat-mark dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.66;
+  color: var(--ink);
+}
+
+@media (max-width: 860px) {
+  .seat-pair {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: var(--s7);
+  }
+  .seat {
+    display: flex;
+    grid-row: auto;
+  }
+  .seat + .seat {
+    padding-left: 0;
+    padding-top: var(--s7);
+    border-left: 0;
+    border-top: 1px solid var(--hair);
+  }
+  .seat-mark {
+    margin-top: 0;
+  }
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .site-foot {
@@ -1497,8 +1742,7 @@ p {
   }
   .r1,
   .r2,
-  .r3,
-  .reveal {
+  .r3 {
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;
@@ -1506,9 +1750,6 @@ p {
   .sweep::after {
     transform: scaleX(1) !important;
     animation: none !important;
-  }
-  .scroll-cue i::after {
-    display: none;
   }
   *,
   *::before,
@@ -1531,20 +1772,11 @@ p {
   #helix,
   .site-head,
   .site-foot,
-  .skip-link,
-  .scroll-cue {
+  .skip-link {
     display: none !important;
   }
   .print-only {
     display: block;
-  }
-
-  /* Reveals are driven by IntersectionObserver, which never fires for sections
-     below the fold. Without this the printed page comes out blank. */
-  .reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
   }
 
   html,

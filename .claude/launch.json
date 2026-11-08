@@ -4,8 +4,23 @@
     {
       "name": "portbase",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
       "port": 3000
+    },
+    {
+      "name": "docs",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4100",
+        "--directory",
+        "docs"
+      ],
+      "port": 4100
     }
   ]
 }

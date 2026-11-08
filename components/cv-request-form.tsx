@@ -105,10 +105,7 @@ export default function CvRequestForm() {
 
       <div>
         <button className="btn btn-ink" type="submit" disabled={sending}>
-          {sending ? "Sending" : "Request the CV"}{" "}
-          <span className="arr" aria-hidden="true">
-            →
-          </span>
+          {sending ? "Sending" : "Request the CV"}
         </button>
       </div>
 

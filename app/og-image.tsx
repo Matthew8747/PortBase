@@ -10,8 +10,11 @@ import { site } from "@/content/site";
  * The ground is --void, matching the hero, because a dark card stands out in a feed of
  * white ones. The mark is app/icon.svg inlined; satori cannot read external files.
  *
- * Satori has no access to system fonts, so one serif ships for this purpose only. It does
- * not pre-empt the display-face decision still open in docs/TODO.md.
+ * Satori has no access to system fonts, so the display face ships as a file for this
+ * purpose only. It is a static instance of Bricolage Grotesque at wght 600 / opsz 72,
+ * cut from the upstream variable font with fontTools, because satori's parser cannot
+ * read `fvar`. Keep it in step with --display-wght in globals.css, or a shared link
+ * will stop looking like the page it points at.
  */
 
 export const OG_SIZE = { width: 1200, height: 630 };
@@ -22,7 +25,7 @@ const MARK_URI = `data:image/svg+xml;base64,${Buffer.from(MARK).toString("base64
 
 export async function renderOgImage({ title, subtitle }: { title: string; subtitle: string }) {
   // A static instance, not the variable original: satori's parser cannot read `fvar`.
-  const serif = await readFile(join(process.cwd(), "assets", "newsreader-regular.ttf"));
+  const display = await readFile(join(process.cwd(), "assets", "bricolage-grotesque-semibold.ttf"));
 
   return new ImageResponse(
     (
@@ -47,9 +50,9 @@ export async function renderOgImage({ title, subtitle }: { title: string; subtit
           <div
             style={{
               color: "#F4F1E9",
-              fontFamily: "Newsreader",
-              fontSize: title.length > 26 ? 84 : 104,
-              letterSpacing: -3,
+              fontFamily: "Bricolage Grotesque",
+              fontSize: title.length > 26 ? 80 : 98,
+              letterSpacing: -3.6,
               lineHeight: 1.05,
             }}
           >
@@ -71,7 +74,7 @@ export async function renderOgImage({ title, subtitle }: { title: string; subtit
     ),
     {
       ...OG_SIZE,
-      fonts: [{ name: "Newsreader", data: serif, style: "normal", weight: 400 }],
+      fonts: [{ name: "Bricolage Grotesque", data: display, style: "normal", weight: 600 }],
     },
   );
 }

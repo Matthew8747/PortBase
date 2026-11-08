@@ -96,7 +96,7 @@ Dropping it. `docs/PROFILES.md` has the replacement README with no `mailto:`.
 ## 4. Decisions still open
 
 - **Hero ink density**, currently **Bloom**. The alternatives, Veil and Filament, are in `docs/concepts.html`. One-line change in `app/page.tsx` if you prefer another.
-- **The display typeface.** Everything currently uses a system serif stack (Iowan Old Style → Palatino → Georgia). It looks good, loads instantly, and costs nothing. Switching to Fraunces or Newsreader would be more distinctive but adds a webfont. **Newsreader is already in the repo** at `assets/newsreader-regular.ttf`, shipped for the Open Graph cards — open any OG image (e.g. `mattpearson.dev/opengraph-image`) to see it set large before deciding.
+- ~~**The display typeface.**~~ ✅ **CLOSED 2026-11-06.** Matt picked direction B, "Lab notebook", from `docs/type-concepts.html`: Bricolage Grotesque / Archivo / Spline Sans Mono, self-hosted via `next/font`. The Newsreader TTF is gone from `assets/`; the OG cards now ship a static instance of Bricolage at wght 600 / opsz 72 so a shared link matches the page. Details in `docs/SYSTEM.md`.
 - **Restart Lab's demo speed.** It's slow. Worth an afternoon on the Numba kernel before a recruiter clicks through, or worth leaving and letting the case study's honesty do the work.
 
 ---

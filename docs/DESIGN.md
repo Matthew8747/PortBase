@@ -67,6 +67,7 @@
 - **bruno-simon.com** — 3D driving portfolio; masterpiece for a creative-3D dev, pure gimmick for anyone else.
 - **AI-slop tells (2025–26):** Instrument Serif + gradient mesh blobs + glassmorphism cards + purple/indigo default + emoji section headers + "Crafting digital experiences" hero copy + typing animations + skill bars + particle backgrounds + spinning cube + terminal intro. **All banned.**
 - GitHub-stats-widget walls, contribution-graph flexes, badge soup (current Matthew8747 profile README does this — site must not).
+- **The structural tells, culled from the built site 2026-11-07** (the full table is SYSTEM.md §11): scroll-reveal on every block, a `SCROLL` cue under the hero, pulsing status dots, trailing `→` on links and buttons, and noun-phrase headings that end in a full stop. These survive a change of typeface, which is why they were judged on their own in `docs/type-concepts.html` rather than alongside it. **Do not reintroduce them.**
 
 ## Recommended direction: **"Editorial Precision"**
 

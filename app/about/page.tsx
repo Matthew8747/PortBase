@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import Reveal from "@/components/reveal";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
-import { coursework, education, experience, site, skills } from "@/content/site";
+import { coursework, education, experience, research, seats, site, skills } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -21,7 +20,7 @@ export default function AboutPage() {
         <div className="page-head about-head">
           <div className="about-intro">
             <span className="t-section">About</span>
-            <h1>The longer story.</h1>
+            <h1>The longer story</h1>
             <p className="lede">
               I&rsquo;m a final-year Computer Science and AI student at the University of Bath, on the integrated
               masters with a placement year, and I&rsquo;m looking for a graduate software role starting in 2027.
@@ -46,7 +45,7 @@ export default function AboutPage() {
 
         <section className="sec" style={{ paddingTop: 0 }}>
           <div className="prose">
-            <Reveal as="section">
+            <section>
               <h2>How I got here</h2>
               <p>
                 I took Maths, Computer Science and Physics at A-level, alongside an EPQ asking whether
@@ -59,9 +58,9 @@ export default function AboutPage() {
                 come. The dissertation was a crossover study on professional bike fitting, which is written up on
                 the work page as far as the paper allows.
               </p>
-            </Reveal>
+            </section>
 
-            <Reveal as="section">
+            <section>
               <h2>The placement year</h2>
               <p>
                 I spent a year at Kontron, formerly Bsquare, on their device management product, working across
@@ -75,9 +74,9 @@ export default function AboutPage() {
                 moved onto it. The code and the screenshots are covered by the agreement I signed, so I can
                 describe that work but not show it.
               </p>
-            </Reveal>
+            </section>
 
-            <Reveal as="section">
+            <section>
               <h2>Rowing</h2>
               <p>
                 I rowed in the British Rowing Performance Development Academy and have medals from the Senior
@@ -91,64 +90,82 @@ export default function AboutPage() {
                 and a squad is a good place to learn how to be useful to people who are having a bad week.
               </p>
               <p>
-                I was also elected Performance Sport Officer on the Students&rsquo; Union Sports Executive, which
-                means representing performance athletes across the university rather than only the rowers. The seat
-                sits on the Blues Committee and works with the sports department on how performance sport is run.
+                It also set up this year&rsquo;s work. My research project is about measuring a rowing stroke, from
+                the machine and from a camera, and then asking coaches which of those measurements they would
+                actually use. Years on the receiving end of coaching by eye is a fair qualification for the second
+                half of that question.
               </p>
-            </Reveal>
-
-            <Reveal as="section">
-              <h2>Outside that</h2>
               <p>
-                Fifteen years of football, including captaining sides and running the social side of the department
-                team. Hiking, guitar, badminton, and French and German that are both improving slowly. I spent a
-                month travelling in Peru on my own, which is the trip I would do again.
+                Before any of it there was football, and still is: over fifteen years of it, captain of my local
+                side, and social secretary for the computer science team here.
               </p>
-            </Reveal>
+            </section>
+
+            <section id="research">
+              <h2>This year</h2>
+              <p>
+                The final year is a forty-credit research project, Advanced Computer Vision and an HCI reading
+                module. {research.lede}
+              </p>
+              <p>
+                Two approaches go head to head. One instruments the ergometer: load cells under the seat, force on
+                each foot-stretcher, position on the seat and the handle, every channel sharing a single clock. The
+                other points the university&rsquo;s markerless capture system at the rower and reads the body
+                straight from video. Marker-based motion capture runs alongside both and settles which was right,
+                against accuracy thresholds I have to fix before testing a single rower. {research.close}
+              </p>
+              <p>
+                It is at proposal stage. The direction still needs signing off with my supervisor and the rig needs
+                confirming with the lab technicians, so there is nothing to report yet beyond the design, and the
+                question of whether the two approaches see different things is still a hypothesis.
+              </p>
+            </section>
+
           </div>
         </section>
 
         <section className="sec sec-work">
-          <Reveal className="sec-head">
+          <div className="sec-head">
             <span className="t-section">Education</span>
             <h2>{education.degree}</h2>
             <p>
               {education.institution}. {education.detail}
             </p>
-          </Reveal>
-          <Reveal>
+          </div>
+          <div>
             <ul className="fact-list" style={{ maxWidth: 680 }}>
               {education.results.map((result) => (
                 <li key={result}>{result}</li>
               ))}
             </ul>
-          </Reveal>
+          </div>
         </section>
 
         <section className="sec">
-          <Reveal className="sec-head">
+          <div className="sec-head">
             <span className="t-section">Coursework</span>
-            <h2>What I&rsquo;ve studied recently.</h2>
-            <p>Final-year modules, in brief.</p>
-          </Reveal>
+            <h2>What I&rsquo;ve studied recently</h2>
+            {/* "Final-year" was wrong: everything below Advanced Computer Vision is third year. */}
+            <p>Recent modules, in brief.</p>
+          </div>
           <div className="card-list">
             {coursework.map((item) => (
-              <Reveal className="card" key={item.module}>
+              <div className="card" key={item.module}>
                 <h3>{item.module}</h3>
                 <p>{item.note}</p>
-              </Reveal>
+              </div>
             ))}
           </div>
         </section>
 
         <section className="sec sec-work">
-          <Reveal className="sec-head">
+          <div className="sec-head">
             <span className="t-section">Experience</span>
-            <h2>Where the work has happened.</h2>
-          </Reveal>
+            <h2>Where the work has happened</h2>
+          </div>
           <div className="exp-list">
             {experience.map((role) => (
-              <Reveal className="exp-row" key={`${role.org}-${role.when}`}>
+              <div className="exp-row" key={`${role.org}-${role.when}`}>
                 <span className="exp-when">{role.when}</span>
                 <div className="exp-body">
                   <span className="exp-role">
@@ -156,21 +173,47 @@ export default function AboutPage() {
                   </span>
                   <p className="exp-note">{role.note}</p>
                 </div>
-              </Reveal>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="sec sec-research" id="elected">
+          <div className="sec-head">
+            <span className="t-section">Elected</span>
+            <h2>Two seats, one term</h2>
+            <p>
+              Both voted in rather than appointed, both running through 2026/27. One covers performance sport
+              across the university, the other the union&rsquo;s political direction.
+            </p>
+          </div>
+          <div className="seat-pair">
+            {seats.map((seat) => (
+              <div className="seat" key={seat.committee}>
+                <span className="seat-org">
+                  {seat.org} / <b>{seat.committee}</b>
+                </span>
+                <h3 className="seat-role">{seat.role}</h3>
+                <p className="seat-remit">{seat.remit}</p>
+                <dl className="seat-mark">
+                  <dt className={seat.mark.live ? "live" : undefined}>{seat.mark.label}</dt>
+                  <dd>{seat.mark.text}</dd>
+                </dl>
+              </div>
             ))}
           </div>
         </section>
 
         <section className="sec">
-          <Reveal className="sec-head">
+          <div className="sec-head">
             <span className="t-section">Tools</span>
-            <h2>What I reach for.</h2>
+            <h2>What I reach for</h2>
             <p>
               The list is here because people ask for it. The case studies are the better guide to what I have
               actually used and why.
             </p>
-          </Reveal>
-          <Reveal style={{ display: "flex", flexDirection: "column", gap: "var(--s5)", maxWidth: 780 }}>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--s5)", maxWidth: 780 }}>
             {(
               [
                 ["Languages", skills.languages],
@@ -190,14 +233,11 @@ export default function AboutPage() {
                 </div>
               </div>
             ))}
-          </Reveal>
+          </div>
 
           <div style={{ marginTop: "var(--s9)" }}>
             <Link className="btn btn-ink" href="/cv">
-              Request the CV{" "}
-              <span className="arr" aria-hidden="true">
-                →
-              </span>
+              Request the CV
             </Link>
           </div>
         </section>
